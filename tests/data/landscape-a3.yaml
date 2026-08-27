@@ -1,0 +1,5 @@
+strategy: ecepdi
+section:
+  prefix: [2, 2]
+landscape:
+  paper: a3

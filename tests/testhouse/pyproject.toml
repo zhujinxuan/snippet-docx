@@ -1,0 +1,19 @@
+# Ticket-09 fixture package: registers the testhouse strategy through the
+# snippet_docx.strategies entry-point group and nothing else. Installed as a
+# dev dependency of snippet-docx (see snippet-docx's pyproject [tool.uv.sources])
+# so `uv sync --package snippet-docx` puts it — and its entry point — into the
+# test environment. It imports snippet_docx at load time, which is always
+# present in that environment, so no dependency is declared here (declaring
+# one would make a dev-group cycle).
+[project]
+name = "snippet-docx-testhouse"
+version = "0.1.0"
+description = "Fixture: second house style proving the snippet-docx strategy plugin seam (ticket 09)"
+requires-python = ">=3.13"
+
+[project.entry-points."snippet_docx.strategies"]
+testhouse = "snippet_docx_testhouse:TESTHOUSE"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

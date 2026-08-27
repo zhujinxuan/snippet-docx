@@ -1,0 +1,6 @@
+strategy: ecepdi
+section:
+  prefix: [2, 2]
+numbering:
+  table:  {start: 2}
+  figure: {start: 1}

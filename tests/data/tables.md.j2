@@ -1,0 +1,18 @@
+## 数据驱动表格
+
+本小节为 {{ anchor.inline('section') }} 编号下的数据驱动表格示例。
+
+{% for t in tables %}
+{{ anchor.begin('table') }}
+
+表 {{ t.caption }}
+
+| 项目 | 数值 |
+|------|------|
+{% for row in t.rows %}
+| {{ row[0] }} | {{ row[1] }} |
+{% endfor %}
+
+{{ anchor.end('table') }}
+
+{% endfor %}

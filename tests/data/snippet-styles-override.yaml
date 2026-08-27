@@ -1,0 +1,7 @@
+strategy: ecepdi
+section:
+  prefix: [2]
+styles:
+  style:
+    heading2:
+      font_size_pt: 16

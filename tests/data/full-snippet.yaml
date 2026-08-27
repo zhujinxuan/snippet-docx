@@ -1,0 +1,15 @@
+strategy: ecepdi
+section:
+  prefix: [2, 2]
+numbering:
+  sections:
+    start: {3: 3}
+  table:  {start: 2}
+  figure: {start: 5}
+  caption: {max_depth: 4}
+styles:
+  style:
+    heading1:
+      font_size_pt: 14
+anchors:
+  prefix: "mark:"

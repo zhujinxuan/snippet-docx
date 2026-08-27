@@ -1,0 +1,9 @@
+strategy: ecepdi
+section:
+  prefix: [2, 2]
+numbering:
+  sections:
+    start: {3: 3}
+  table:  {start: 1}
+  figure: {start: 1}
+  caption: {max_depth: 3}

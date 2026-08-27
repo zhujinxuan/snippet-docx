@@ -1,0 +1,171 @@
+# ============================================================================
+# snippet-docx default styles — ecepdi strategy
+#
+# Source: measured style guide from an accepted A03 微观选址踏勘报告
+# (2026-07-10-微观选址踏勘报告和初设修改/style.yaml), values verbatim.
+# Extensions (marked DERIVED) follow ToolSpec Q9:
+#   - heading4: 12 pt, NOT bold (typst_ir polish_styles.py convention)
+#   - heading5: 12 pt, bold
+#   - caption split into table_caption / figure_caption with spacing
+#     asymmetry (typst_ir: table caption 5pt before/0 after, figure caption
+#     0 before/5pt after) — placement is tool-controlled, so spacing differs.
+#
+# Schema per entry:
+#   chinese_font / english_font   east-asian and latin font names
+#   font_size_pt                  pt
+#   bold / italic
+#   alignment                     justify | center | left | right
+#   space_before_pt / space_after_pt
+#   line_spacing                  multiplier (1.5) or exact pt (23)
+#   line_spacing_rule             auto | exact
+#   first_line_indent_pt
+#
+# User snippet.yaml `styles:` deep-merges over this file; only overrides
+# need to be specified.
+# ============================================================================
+
+style:
+  heading1:
+    chinese_font: 宋体
+    english_font: Times New Roman
+    font_size_pt: 12
+    bold: true
+    italic: false
+    alignment: justify
+    space_before_pt: 0
+    space_after_pt: 0
+    line_spacing: 1.5
+    line_spacing_rule: auto
+    first_line_indent_pt: 0
+
+  heading2:
+    chinese_font: 宋体
+    english_font: Times New Roman
+    font_size_pt: 12
+    bold: true
+    italic: false
+    alignment: justify
+    space_before_pt: 0
+    space_after_pt: 0
+    line_spacing: 23
+    line_spacing_rule: exact
+    first_line_indent_pt: 0
+
+  heading3:
+    chinese_font: 宋体
+    english_font: Times New Roman
+    font_size_pt: 12
+    bold: true
+    italic: false
+    alignment: justify
+    space_before_pt: 0
+    space_after_pt: 0
+    line_spacing: 23
+    line_spacing_rule: exact
+    first_line_indent_pt: 0
+
+  # DERIVED (Q9): not present in 踏勘 style.yaml; follows typst_ir H4 (non-bold)
+  heading4:
+    chinese_font: 宋体
+    english_font: Times New Roman
+    font_size_pt: 12
+    bold: false
+    italic: false
+    alignment: justify
+    space_before_pt: 0
+    space_after_pt: 0
+    line_spacing: 23
+    line_spacing_rule: exact
+    first_line_indent_pt: 0
+
+  # DERIVED (Q9): typst_ir H5 is bold
+  heading5:
+    chinese_font: 宋体
+    english_font: Times New Roman
+    font_size_pt: 12
+    bold: true
+    italic: false
+    alignment: justify
+    space_before_pt: 0
+    space_after_pt: 0
+    line_spacing: 23
+    line_spacing_rule: exact
+    first_line_indent_pt: 0
+
+  normal_text:
+    chinese_font: 宋体
+    english_font: Times New Roman
+    font_size_pt: 12
+    bold: false
+    italic: false
+    alignment: justify
+    space_before_pt: 0
+    space_after_pt: 0
+    line_spacing: 23
+    line_spacing_rule: exact
+    first_line_indent_pt: 24        # 2 chars at 12 pt
+
+  # DERIVED (Q9): base values from 踏勘 `caption`; spacing asymmetry from
+  # typst_ir (table caption sits above its table → 5pt before, 0 after)
+  table_caption:
+    chinese_font: 宋体
+    english_font: Times New Roman
+    font_size_pt: 12
+    bold: false
+    italic: false
+    alignment: center
+    space_before_pt: 5
+    space_after_pt: 0
+    line_spacing: 1.5
+    line_spacing_rule: auto
+    first_line_indent_pt: 0
+
+  # DERIVED (Q9): figure caption sits below its image → 0 before, 5pt after
+  figure_caption:
+    chinese_font: 宋体
+    english_font: Times New Roman
+    font_size_pt: 12
+    bold: false
+    italic: false
+    alignment: center
+    space_before_pt: 0
+    space_after_pt: 5
+    line_spacing: 1.5
+    line_spacing_rule: auto
+    first_line_indent_pt: 0
+
+  table:
+    chinese_font: 宋体
+    english_font: Times New Roman
+    font_size_pt: 9
+    bold: false
+    italic: false
+    alignment: center
+    space_before_pt: 0
+    space_after_pt: 0
+    line_spacing: 1.5
+    line_spacing_rule: auto
+    first_line_indent_pt: 0
+
+  list_item:
+    chinese_font: 宋体
+    english_font: Times New Roman
+    font_size_pt: 12
+    bold: false
+    italic: false
+    alignment: justify
+    space_before_pt: 0
+    space_after_pt: 0
+    line_spacing: 23
+    line_spacing_rule: exact
+    first_line_indent_pt: 0         # pandoc list indent controls layout
+
+# ----------------------------------------------------------------------------
+# Table geometry conventions (consumed by FixTable, not paragraph styles):
+#   borders: single, sz=4 (0.5 pt), color 000000, all 6 edges
+#   table alignment: center; tblW pct 5000; tblLayout autofit
+#   tblGrid estimate: CJK 160 twips/char, ASCII 80 twips/char at 9 pt,
+#     +108 cell padding; numeric-col floor 1200, text floor 500
+# Landscape page (InsertSectionBreak):
+#   A4 landscape, next-page breaks both sides, same margins as portrait
+# ----------------------------------------------------------------------------
