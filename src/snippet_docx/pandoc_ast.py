@@ -58,12 +58,20 @@ def ast_to_md(ast: dict) -> str:
     return _run(["-f", "json", "-t", "markdown", "--wrap=none"], json.dumps(ast))
 
 
-def ast_to_docx(ast: dict, out: Path) -> None:
-    """pandoc JSON AST -> .docx file."""
+def ast_to_docx(ast: dict, out: Path, resource_path: Path | None = None) -> None:
+    """pandoc JSON AST -> .docx file.
+
+    ``resource_path`` anchors relative image targets to the source
+    markdown's directory; without it pandoc resolves them against the
+    process cwd and silently replaces unreadable images with alt text.
+    """
     if isinstance(ast, list):
-        ast = {"pandoc-api-version": [1, 23, 1], "meta": {}, "blocks": ast}
+        ast = {"pandoc-api-version": [3, 1, 13], "meta": {}, "blocks": ast}
     out.parent.mkdir(parents=True, exist_ok=True)
-    _run(["-f", "json", "-t", "docx", "-o", str(out)], json.dumps(ast))
+    args = ["-f", "json", "-t", "docx", "-o", str(out)]
+    if resource_path is not None:
+        args += ["--resource-path", str(resource_path)]
+    _run(args, json.dumps(ast))
 
 
 # --------------------------------------------------------------------------

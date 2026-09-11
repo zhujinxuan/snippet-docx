@@ -33,7 +33,8 @@ class Ctx:
     config: Config
     strategy: Strategy
     annotations: list[NodeInfo] | None = None   # built before md_number ops
-    # (walker may not exist yet in ticket 02: leave None then)
+    source_dir: Path | None = None              # md/template dirname: base for
+    # relative image resolution (pandoc --resource-path + NormalizeImages)
 
 
 def run_phase(phase: Phase, ctx: Ctx, proceed: Callable[[Ctx], Ctx]) -> Ctx:
@@ -64,9 +65,15 @@ def _run_md_ops(ops: list[MdOp], ast: dict, findings: list[Finding], c: Ctx) -> 
 
 
 def draft(md_text: str, config: Config, strategy: Strategy,
-          out_docx: Path, emit_md: Path | None) -> list[Finding]:
-    """Command 1. Returns findings; on any error, writes no outputs."""
-    ctx = Ctx(config=config, strategy=strategy)
+          out_docx: Path, emit_md: Path | None,
+          source_dir: Path | None = None) -> list[Finding]:
+    """Command 1. Returns findings; on any error, writes no outputs.
+
+    ``source_dir`` (the input markdown's dirname) anchors relative image
+    targets: pandoc resolves them against the process cwd otherwise, which
+    silently degrades missing images to alt text (2026-09-10 field bug).
+    """
+    ctx = Ctx(config=config, strategy=strategy, source_dir=source_dir)
     ast = md_to_ast(md_text)
     findings: list[Finding] = []
 
@@ -86,7 +93,7 @@ def draft(md_text: str, config: Config, strategy: Strategy,
     if has_errors(findings):
         return findings
 
-    ast_to_docx(ast, out_docx)
+    ast_to_docx(ast, out_docx, resource_path=source_dir)
     if emit_md is not None:
         emit_md.parent.mkdir(parents=True, exist_ok=True)
         emit_md.write_text(ast_to_md(ast), encoding="utf-8")

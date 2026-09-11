@@ -314,7 +314,10 @@ class NormalizeImages:
             if "width" in keys or "height" in keys:
                 continue
             url = image["c"][2][0] if len(image["c"]) > 2 else ""
-            size = _image_size(Path(url))
+            target = Path(url)
+            if not target.is_absolute() and ctx is not None and ctx.source_dir is not None:
+                target = ctx.source_dir / target
+            size = _image_size(target)
             if size is not None:
                 kvs.append(["width", f"{size[0]}px"])
                 kvs.append(["height", f"{size[1]}px"])

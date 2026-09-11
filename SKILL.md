@@ -27,17 +27,22 @@ severities) — read it before extending strategies, ops, or the schema.
 
 ## Invocation
 
-Two equivalent styles ({SKILL} = `~/.agents/skills/snippet-docx`):
+Run from **any** cwd — point uv at the skill's project, never cd into it:
 
 ```bash
-# 1. cd-in (own .venv, own uv.lock):
-cd ~/.agents/skills/snippet-docx && uv run snippet-docx --help
-
-# 2. keep your cwd, use the skill's project:
+# {SKILL} = ~/.agents/skills/snippet-docx
 uv run --project ~/.agents/skills/snippet-docx snippet-docx --help
 ```
 
-(No `-d`/`-p` shorthand exists; the long form is `--project <dir>`.)
+`--project` selects the skill's `.venv`/`uv.lock` but leaves your cwd alone.
+Relative image paths in the md resolve against the **md file's directory**
+(pandoc `--resource-path` + the tool's own image sizing), so outputs are
+identical no matter where you run from. Do **not** `cd` into the skill dir:
+it changes nothing for the tool and only risks confusing path resolution for
+your own inputs.
+
+(The long form `--project <dir>` is required — uv's `-p` means `--python`,
+not `--project`.)
 
 ## Use when / Do NOT use when
 
@@ -75,16 +80,16 @@ numbering:
   table: {start: 1}       # first table caption becomes 表 2.2-1
 ```
 
-Commands (paths outside the skill dir are fine; outputs next to inputs):
+Commands (run from anywhere; paths outside the skill dir are fine; outputs
+next to inputs):
 
 ```bash
-cd ~/.agents/skills/snippet-docx
 P=C:/Users/zhu_j/workspace/<proj>/publish   # wherever your section lives; NOT inside this skill
-uv run snippet-docx draft  "$P/section.md" \
+uv run --project ~/.agents/skills/snippet-docx snippet-docx draft  "$P/section.md" \
   --snippet "$P/snippet.yaml" \
   --out     "$P/draft.docx" \
   --emit-md "$P/anchored.md"
-uv run snippet-docx polish "$P/draft.docx" \
+uv run --project ~/.agents/skills/snippet-docx snippet-docx polish "$P/draft.docx" \
   --snippet "$P/snippet.yaml" --md "$P/anchored.md" \
   --out     "$P/final.docx"
 ```

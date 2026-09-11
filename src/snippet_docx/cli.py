@@ -65,7 +65,8 @@ def _cmd_draft(args: argparse.Namespace) -> int:
     except TemplateRenderError as exc:
         raise _fail(str(exc)) from exc
     try:
-        findings = draft(md_text, config, strategy, args.out, args.emit_md)
+        findings = draft(md_text, config, strategy, args.out, args.emit_md,
+                         source_dir=Path(source).resolve().parent)
     except PandocError as exc:
         raise _fail(str(exc)) from exc
     report_stderr(findings)
