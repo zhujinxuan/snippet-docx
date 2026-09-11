@@ -69,7 +69,9 @@ class EcepdiStrategy:
 
     def format_caption(self, env: EnvSpec, path: tuple[int | str, ...],
                        index: int, text: str) -> str:
-        clamped = self.format_section(path[:env.caption_max_depth])
+        # path arrives pre-clamped by the md op (config.caption_max_depth);
+        # strategies format, the tool owns clamping (contract §5)
+        clamped = self.format_section(path)
         return f"{env.label} {clamped}-{index} {text}"
 
     # op pipelines (L2)

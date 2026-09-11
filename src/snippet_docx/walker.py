@@ -80,7 +80,7 @@ def _caption_scope(spec: EnvSpec, path: tuple[int | str, ...],
         return ()
     if spec.counter_scope == "chapter":
         return path[:1]
-    return path[:min(spec.caption_max_depth, max_depth)]
+    return path[:max_depth]
 
 
 def build_annotations(ast: dict, config: Config, strategy: Strategy) -> list[NodeInfo]:

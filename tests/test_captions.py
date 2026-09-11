@@ -40,9 +40,11 @@ W = "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}"
 
 def _annotations(md: str, prefix: tuple[int | str, ...],
                  env_start: dict[str, int] | None = None,
-                 section_start: dict[int, int] | None = None):
+                 section_start: dict[int, int] | None = None,
+                 caption_max_depth: int = 3):
     config = Config(strategy="ecepdi", prefix=prefix,
-                    section_start=section_start or {}, env_start=env_start or {})
+                    section_start=section_start or {}, env_start=env_start or {},
+                    caption_max_depth=caption_max_depth)
     return build_annotations(md_to_ast(md), config, STRATEGY)
 
 
@@ -52,10 +54,12 @@ def _captions(nodes):
 
 def _run_op(md: str, prefix: tuple[int | str, ...],
             env_start: dict[str, int] | None = None,
-            section_start: dict[int, int] | None = None):
+            section_start: dict[int, int] | None = None,
+            caption_max_depth: int = 3):
     """Walker + NumberCaptions over a fresh AST; returns (ast, annotations)."""
     config = Config(strategy="ecepdi", prefix=prefix,
-                    section_start=section_start or {}, env_start=env_start or {})
+                    section_start=section_start or {}, env_start=env_start or {},
+                    caption_max_depth=caption_max_depth)
     ast = md_to_ast(md)
     nodes = build_annotations(ast, config, STRATEGY)
     ctx = Ctx(config=config, strategy=STRATEGY)
@@ -160,6 +164,18 @@ def test_clamped_scope_continues_displayed_sequence() -> None:
     caps = _captions(nodes)
     assert [n.section_path for n in caps] == [(2, 2, 1), (2, 2, 1, 1)]
     assert [n.caption_index for n in caps] == [1, 2]
+
+
+def test_config_max_depth_4_numbers_at_depth_4() -> None:
+    # numbering.caption.max_depth loosens the clamp (ToolSpec §4): captions
+    # display the depth-4 section and counters scope per depth-4 section
+    md = "## 甲\n\n" + TABLE_ENV + "\n### 乙\n\n" + TABLE_ENV
+    ast, nodes = _run_op(md, (2, 2), caption_max_depth=4)
+    caps = _captions(nodes)
+    assert [n.caption_index for n in caps] == [1, 1]  # scope = depth-4 section
+    out = ast_to_md(ast)
+    assert "表 2.2.1-1 电量表" in out
+    assert "表 2.2.1.1-1 电量表" in out
 
 
 def test_stale_numbered_paragraph_is_still_a_caption() -> None:

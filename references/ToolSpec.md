@@ -303,6 +303,7 @@ All findings collected and reported in one pass, not fail-on-first.
 | Q18 | Verification §8 |
 | Q19 | Strategy contract §5: tool owns syntax/skeleton/executor/counters; strategy owns registries/formats/ops/styles/severities |
 | Q20 | Scoped CPS: `wrap_phase` phase continuations (must-call-`proceed` enforced); per-node CPS rejected; section path elements `int \| str` |
+| Q21 | Clamp ownership: `NumberCaptions` clamps to `config.caption_max_depth` (yaml may loosen past the EnvSpec default 3, e.g. depth-4 report sections); `format_caption` formats the pre-clamped path verbatim — strategies never re-clamp |
 
 ## 11. Provenance
 

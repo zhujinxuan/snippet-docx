@@ -131,7 +131,7 @@ class NumberCaptions:
             if spec is None or block is None or block.get("t") != "Para":
                 continue
             body = _caption_body(plain_text(block.get("c") or []), spec.label)
-            depth = min(spec.caption_max_depth, ctx.config.caption_max_depth)
+            depth = ctx.config.caption_max_depth
             block["c"] = make_para(ctx.strategy.format_caption(
                 spec, node.section_path[:depth], node.caption_index, body))["c"]
         self._move_to_placement(bs, nodes, ctx)

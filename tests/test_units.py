@@ -326,8 +326,10 @@ def test_format_section_and_caption_clamp() -> None:
     assert STRATEGY.format_section(("A", 1)) == "A.1"
     spec = STRATEGY.envs["table"]
     assert STRATEGY.format_caption(spec, (2, 2, 3), 1, "参数表") == "表 2.2.3-1 参数表"
-    # path deeper than caption_max_depth=3 clamps to the first 3 elements
-    assert STRATEGY.format_caption(spec, (2, 2, 3, 1), 2, "参数表") == "表 2.2.3-2 参数表"
+    # format_caption formats the path verbatim — clamping to
+    # config.caption_max_depth is owned by NumberCaptions (ops_md), not the
+    # strategy (contract §5: tool clamps, strategy formats)
+    assert STRATEGY.format_caption(spec, (2, 2, 3, 1), 2, "参数表") == "表 2.2.3.1-2 参数表"
 
 
 def test_global_var_section_uses_state() -> None:
