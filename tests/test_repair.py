@@ -106,6 +106,20 @@ def test_raw_html_table_recovers_to_real_table_ast() -> None:
     assert head == [["机位", "容量"]]
 
 
+def test_html_recovered_table_caption_slot_cleared() -> None:
+    # the HTML reader populates the slot from <caption> — the markdown
+    # reader flag cannot reach this path, so NormalizeTables clears it
+    ast = md_to_ast("<table><caption>电量对比</caption>"
+                    "<tr><td>1</td></tr></table>\n")
+    findings = NormalizeTables()(ast, None)
+    tables = [b for b in ast["blocks"] if b.get("t") == "Table"]
+    assert len(tables) == 1
+    assert tables[0]["c"][1] == [None, []]
+    dropped = [f for f in findings if f.code == "table-caption-slot"]
+    assert len(dropped) == 1
+    assert "电量对比" in dropped[0].message
+
+
 def test_fullwidth_space_simple_table_wreckage_is_rebuilt() -> None:
     # the shape pandoc 3.7 eats: fullwidth-space alignment collapses the
     # whole table into one naked Para (dash row smart-mangled to –/—)

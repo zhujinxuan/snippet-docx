@@ -191,6 +191,10 @@ class NormalizeTables:
     3. Existing ``Table`` nodes are left alone: every shape probed through
        pandoc 3.7 survives both writers, so rewriting them would be
        vandalism, not repair.
+    4. A populated ``Table`` caption slot is cleared with a warn finding:
+       no component reads slots (captions are plain label-prefixed
+       paragraphs, ToolSpec §3), but the docx writer renders one as an
+       unnumbered duplicate caption next to the numbered 表 paragraph.
     """
 
     def __call__(self, ast: dict, ctx: Ctx) -> list[Finding]:
@@ -231,7 +235,27 @@ class NormalizeTables:
             rebuilt = _rebuild_collapsed_table(lines)
             if rebuilt is not None:
                 block_list[index] = rebuilt
-        return []
+        # -- Table caption slots: cleared, never written (nothing reads
+        #    them; the docx writer would render an unnumbered duplicate)
+        findings: list[Finding] = []
+        for block in block_list:
+            if block.get("t") != "Table":
+                continue
+            short, long_blocks = block["c"][1]
+            if short is None and not long_blocks:
+                continue
+            parts = [plain_text(short)] if short else []
+            parts += [plain_text(b.get("c") or []) for b in long_blocks]
+            text = " ".join(p for p in parts if p)
+            block["c"][1] = [None, []]
+            findings.append(Finding(
+                code="table-caption-slot",
+                severity="warn",
+                message=f"dropped Table caption slot {text!r}: captions are "
+                        f"plain 表-prefixed paragraphs (ToolSpec §3); the "
+                        f"slot would render an unnumbered duplicate",
+            ))
+        return findings
 
 
 # --------------------------------------------------------------------------

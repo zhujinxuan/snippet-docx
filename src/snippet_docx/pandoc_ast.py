@@ -44,8 +44,20 @@ def _run(args: list[str], input_text: str | None = None) -> str:
 
 def md_to_ast(text: str) -> dict:
     """markdown text -> pandoc JSON AST (dict with 'blocks'; bare-list output
-    from very old pandoc is wrapped into the dict form)."""
-    data = json.loads(_run(["-f", "markdown", "-t", "json"], text))
+    from very old pandoc is wrapped into the dict form).
+
+    ``-implicit_figures``: a lone ``![alt](img)`` stays a Para of one Image
+    instead of a Figure block whose caption duplicates the alt text as an
+    unnumbered ImageCaption paragraph in the DOCX — captions here are plain
+    paragraphs only (ToolSpec §3), so the Figure caption slot is pure noise.
+    ``-table_captions``: same hole, table side — a ``Table: xxx`` paragraph
+    after a table would fold into the Table's caption slot and render as an
+    unnumbered duplicate; the line degrades to visible stray prose instead
+    (NormalizeTables still strips slots from other readers, e.g. recovered
+    HTML ``<caption>`` elements).
+    """
+    data = json.loads(_run(
+        ["-f", "markdown-implicit_figures-table_captions", "-t", "json"], text))
     if isinstance(data, list):
         return {"pandoc-api-version": [1, 23, 1], "meta": {}, "blocks": data}
     return data

@@ -20,6 +20,7 @@ import pytest
 from snippet_docx.cli import main
 from snippet_docx.config import Config
 from snippet_docx.ops_md import NumberCaptions
+from snippet_docx.ops_md_normalize import NormalizeTables
 from snippet_docx.pandoc_ast import ast_to_md, blocks, md_to_ast, plain_text
 from snippet_docx.pipeline import Ctx
 from snippet_docx.strategies.ecepdi import EcepdiStrategy
@@ -31,6 +32,8 @@ CAPTIONS_MD = DATA / "captions.md"
 CAPTIONS_YAML = DATA / "captions.yaml"
 CAPTIONS_START_MD = DATA / "captions-start.md"
 CAPTIONS_START_YAML = DATA / "captions-start.yaml"
+CAPTIONS_DUP_MD = DATA / "captions-dup.md"
+CAPTIONS_DUP_YAML = DATA / "captions-dup.yaml"
 
 W = "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}"
 
@@ -261,6 +264,40 @@ def test_annotations_parallel_after_move() -> None:
                for node, b in zip(nodes, bs))
 
 
+# ---------------------------------------- caption slots (ticket 01)
+
+def test_table_caption_line_does_not_populate_slot() -> None:
+    # -table_captions: a Table: line after the table must NOT fold into the
+    # caption slot (the docx writer renders a populated slot as an
+    # unnumbered Table Caption duplicate of the numbered 表 paragraph)
+    ast = md_to_ast("| A |\n|---|\n| 1 |\n\nTable: 电量对比\n")
+    tables = [b for b in blocks(ast) if b.get("t") == "Table"]
+    assert len(tables) == 1
+    assert tables[0]["c"][1] == [None, []]
+    assert any(b.get("t") == "Para" and plain_text(b["c"]) == "Table: 电量对比"
+               for b in blocks(ast))
+
+
+def test_table_caption_slot_stripped_with_finding() -> None:
+    # hand-built AST (no pandoc): any surviving slot — a future reader, or
+    # <caption> from recovered HTML — is NormalizeTables' to clear
+    table = {"t": "Table", "c": [
+        ["", [], []],
+        [None, [{"t": "Plain", "c": [{"t": "Str", "c": "电量对比"}]}]],
+        [[{"t": "AlignDefault"}, {"t": "ColWidthDefault"}]],
+        ["", [], []],
+        [["", [], 0, [], []]],
+        ["", [], []],
+    ]}
+    ast = {"pandoc-api-version": [1, 23, 1], "meta": {}, "blocks": [table]}
+    findings = NormalizeTables()(ast, None)
+    assert table["c"][1] == [None, []]
+    dropped = [f for f in findings if f.code == "table-caption-slot"]
+    assert len(dropped) == 1
+    assert dropped[0].severity == "warn"
+    assert "电量对比" in dropped[0].message
+
+
 # ----------------------------------------------------------- CLI seam
 
 
@@ -333,3 +370,36 @@ def test_env_start_offsets_at_cli(tmp_path: Path,
     assert "表 2.2-2 甲表" in emitted
     assert "表 2.2-3 乙表" in emitted
     assert "图 2.2-1 甲图" in emitted
+
+
+def test_no_duplicate_captions_at_cli(
+        tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    # slot captions must not surface next to the numbered 表/图 paragraphs:
+    # the trailing Table: line and the image alt text would come back as
+    # unnumbered TableCaption/ImageCaption paragraphs (ticket 01)
+    monkeypatch.chdir(DATA)  # figure.png resolves relative to the fixture
+    rc, draft_docx, _emit = _draft(CAPTIONS_DUP_MD, CAPTIONS_DUP_YAML, tmp_path)
+    assert rc == 0
+    final = tmp_path / "final.docx"
+    rc2 = main(["polish", str(draft_docx), "--snippet", str(CAPTIONS_DUP_YAML),
+                "--out", str(final)])
+    assert rc2 == 0
+
+    children = _body_children(final)
+    texts = [_p_text(el) for el in children if el.tag == f"{W}p"]
+    # exactly one numbered caption of each kind
+    assert texts.count("表 2.2-1 电量对比") == 1
+    assert texts.count("图 2.2-1 布置图") == 1
+    # 布置图 lives only in the numbered figure caption (no alt-text echo);
+    # 电量对比 only there plus the honest stray `Table:` line — a populated
+    # slot would instead be a bare unnumbered 电量对比 paragraph
+    assert [t for t in texts if "布置图" in t] == ["图 2.2-1 布置图"]
+    assert sorted(t for t in texts if "电量对比" in t) == \
+        ["Table: 电量对比", "表 2.2-1 电量对比"]
+    # no pandoc caption-slot styles survive into the final body
+    pstyles = {
+        el.find(f"{W}pPr/{W}pStyle").get(f"{W}val")
+        for el in children if el.tag == f"{W}p"
+        if el.find(f"{W}pPr/{W}pStyle") is not None
+    }
+    assert not pstyles & {"TableCaption", "ImageCaption"}
