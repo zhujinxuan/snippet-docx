@@ -1,4 +1,4 @@
-"""docx-phase ops: DocxOp = Callable[[Document, Ctx], None].
+"""docx-phase ops may return findings; in-place transforms otherwise return None.
 
 python-docx document transforms. Ticket 02: StripAnchors. Ticket 05:
 CreateStyles + SetParagraphStyle (anchor-delimited range assignment; the
@@ -20,11 +20,13 @@ from docx.oxml.ns import qn
 from lxml import etree
 
 from snippet_docx import styles
+from snippet_docx.captions import NumberCaptions
+from snippet_docx.findings import Finding
 
 if TYPE_CHECKING:
     from snippet_docx.pipeline import Ctx
 
-DocxOp = Callable[[Document, "Ctx"], None]
+DocxOp = Callable[[Document, "Ctx"], list[Finding] | None]
 
 _W_P = qn("w:p")
 _W_R = qn("w:r")
@@ -160,6 +162,9 @@ class SetParagraphStyle:
         envs = ctx.strategy.envs
         prefix = ctx.config.anchor_prefix
         stack: list[str] = []
+        caption_styles = {
+            spec.caption_style if spec.caption_style != "Caption" else f"{env}_caption"
+            for env, spec in envs.items() if spec.numbered}
         for child in doc.element.body:
             if child.tag == _W_TBL:
                 if "table" in known:
@@ -188,6 +193,8 @@ class SetParagraphStyle:
                 if name in known:
                     _set_pstyle(child, name)
                 continue
+            if current in caption_styles:
+                continue  # NumberCaptions assigned the strategy's caption style
             caption = _PANDOC_CAPTION_STYLES.get(current)
             if caption is not None:
                 if caption in known:
@@ -652,5 +659,5 @@ class StripAnchors:
 
 def ecepdi_docx_ops() -> list[DocxOp]:
     """docx_polish phase ops for ecepdi. StripAnchors is ALWAYS LAST."""
-    return [CreateStyles(), SetParagraphStyle(),
+    return [CreateStyles(), NumberCaptions(), SetParagraphStyle(),
             FixTable(), ClampImageWidths(), InsertSectionBreak(), StripAnchors()]

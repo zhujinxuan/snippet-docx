@@ -47,6 +47,9 @@ _SEVERITIES: dict[str, Severity] = {
     "unknown-global-var": "error",
     "reserved-ref": "error",
     "captionless-env": "warn",
+    "caption-conflict": "warn",
+    "caption-context-mismatch": "error",
+    "md-required": "error",
     "cross-subsection": "warn",
     "heading-too-deep": "warn",
     # structural violations checked by validate_anchors (contract §anchors)
@@ -69,7 +72,7 @@ class EcepdiStrategy:
 
     def format_caption(self, env: EnvSpec, path: tuple[int | str, ...],
                        index: int, text: str) -> str:
-        # path arrives pre-clamped by the md op (config.caption_max_depth);
+        # path arrives pre-clamped by the polish caption planner;
         # strategies format, the tool owns clamping (contract §5)
         clamped = self.format_section(path)
         return f"{env.label} {clamped}-{index} {text}"

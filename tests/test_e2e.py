@@ -1,9 +1,9 @@
 """End-to-end smoke test (ticket 10, ToolSpec §8.3): the Q18 fixture.
 
 One snippet exercises the whole pipeline — draft (anchors parsed/validated,
-numbering executed md-side, anchored md emitted) then polish (named styles,
-pandoc-defect repair, landscape section break, anchor strip) — and is
-asserted at the CLI seam, on the emitted markdown, and on the final DOCX
+headings numbered, anchored md emitted) then polish (final captions, named
+styles, pandoc-defect repair, landscape section break, anchor strip) — and
+is asserted at the CLI seam, on the emitted markdown, and on the final DOCX
 XML. The officecli visual pass on the same final DOCX (wide page rendered
 horizontal, table unclipped) is run manually and recorded in the ticket
 report; here the geometry is proven via sectPr + tblGrid.
@@ -17,6 +17,7 @@ from pathlib import Path
 from xml.etree import ElementTree as ET
 
 import pytest
+
 from snippet_docx.cli import main
 
 DATA = Path(__file__).parent / "data"
@@ -84,7 +85,7 @@ def _run(tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
     assert main(argv) == 0
     final = tmp_path / "final.docx"
     assert main(["polish", str(draft_docx), "--snippet", str(E2E_YAML),
-                 "--out", str(final)]) == 0
+                 "--md", str(emit_md), "--out", str(final)]) == 0
     return draft_docx, final, emit_md
 
 
@@ -106,24 +107,21 @@ def test_run_exits_zero_with_both_expected_warnings(
 # --------------------------------------------------------- emitted md
 
 
-def test_anchored_md_numbers_placement_and_substitution(
+def test_anchored_md_defers_captions_but_bakes_headings_and_substitution(
         tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
-    _draft_docx, _final, emit_md = _run(tmp_path, monkeypatch)
+    draft_docx, final, emit_md = _run(tmp_path, monkeypatch)
     assert emit_md is not None
     emitted = emit_md.read_text(encoding="utf-8")
 
-    # captions renumbered: stale 表 9.9-9 replaced, second table follows at -2
-    assert "表 2.2-1 月度发电量对比" in emitted
-    assert "表 2.2-2 常规参数表" in emitted
-    assert "9.9-9" not in emitted
-    # figure numbered below its section, caption placed below the image
-    assert "图 2.2-1 风机布置示意" in emitted
-
-    # placement visible in the md: table captions above their rows, figure
-    # caption below the image (both were typed elsewhere in the fixture)
-    assert emitted.index("表 2.2-1 月度发电量对比") < emitted.index("101")
-    assert emitted.index("表 2.2-2 常规参数表") < emitted.index("T01")
-    assert emitted.index("](e2e-figure.png)") < emitted.index("图 2.2-1 风机布置示意")
+    # Final caption numbering belongs to polish, not emitted markdown or draft.
+    assert "表 2.2-1 月度发电量对比" not in emitted
+    assert "图 2.2-1 风机布置示意" not in emitted
+    assert "表 2.2-1 月度发电量对比" not in _plain_text(draft_docx)
+    final_text = _plain_text(final)
+    assert "表 2.2-1 月度发电量对比" in final_text
+    assert "表 2.2-2 常规参数表" in final_text
+    assert "图 2.2-1 风机布置示意" in final_text
+    assert "9.9-9" not in final_text
 
     # headings baked: root fixed at the prefix, level-3 counter starts at 3
     assert "2.2 风资源分析" in emitted
@@ -157,12 +155,10 @@ def test_final_docx_captions_and_placement(
     figure_cap = next(i for i, el in enumerate(children)
                       if "图 2.2-1 风机布置示意" in _texts(el))
 
-    # table captions immediately above their tables; the figure caption sits
-    # below the image (pandoc emits the alt text as an intervening Image
-    # Caption paragraph, so ordering — not adjacency — is the contract)
+    # One final caption immediately neighbors its content after deduplication.
     assert wide_cap == wide_tbl - 1
     assert normal_cap == normal_tbl - 1
-    assert image < figure_cap
+    assert figure_cap == image + 1
     # the captionless table is still there, unnumbered
     assert "裸表" in _texts(children[bare_tbl])
     assert "9.9-9" not in _document_xml(final)

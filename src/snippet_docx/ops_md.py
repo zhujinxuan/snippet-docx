@@ -1,40 +1,25 @@
-"""md-phase ops: MdOp = Callable[[dict (AST), Ctx], list[Finding]].
+"""Markdown ops: validation, heading numbering and global-var substitution.
 
-Whole-AST transforms, mutating in place. Ticket 02: ValidateAnchors.
-Ticket 03: SetHeadingNumber + SubstituteGlobalVar — numbering executes here,
-pre-pandoc (ToolSpec Q11). Ticket 04: NumberCaptions — strips stale caption
-numbers, renumbers from the walker's counters and moves each caption to its
-EnvSpec placement; registered after SetHeadingNumber (ToolSpec §6 order).
+Caption title selection is shared with polish; caption numbering and placement
+are exclusively DOCX operations.
 """
 
 from __future__ import annotations
 
-import re
+import json
 from collections.abc import Callable
 from typing import TYPE_CHECKING
 
 from snippet_docx.anchors import parse_anchors, validate_anchors
+from snippet_docx.captions import HEADING_CONTEXT
 from snippet_docx.findings import Finding
-from snippet_docx.pandoc_ast import blocks, inline_code_spans, make_para, plain_text
+from snippet_docx.pandoc_ast import blocks, inline_code_spans
 
 if TYPE_CHECKING:
     from snippet_docx.pipeline import Ctx
     from snippet_docx.walker import NodeInfo
 
 MdOp = Callable[[dict, "Ctx"], list[Finding]]
-
-# a stale caption number: `4.3-7`, `2.2.3-12`, `A.2-1` (appendix prefixes)
-_STALE_NUMBER = re.compile(r"[0-9A-Za-z]+(?:\.[0-9A-Za-z]+)*-\d+")
-
-
-def _caption_body(text: str, label: str) -> str:
-    """Caption text with any stale number token dropped (``表 4.3-7 电量表``
-    -> ``电量表``); numberless captions (``表 电量表``) pass through."""
-    rest = text.removeprefix(label)
-    parts = rest.strip().split(None, 1)
-    if parts and _STALE_NUMBER.fullmatch(parts[0]):
-        return parts[1].strip() if len(parts) > 1 else ""
-    return rest.strip()
 
 
 def _by_index(annotations: list[NodeInfo] | None) -> dict[int, NodeInfo]:
@@ -51,7 +36,7 @@ class ValidateAnchors:
 
     def __call__(self, ast: dict, ctx: Ctx) -> list[Finding]:
         anchors = parse_anchors(ast, ctx.config.anchor_prefix)
-        return validate_anchors(anchors, ast, ctx.strategy)
+        return validate_anchors(anchors, ast, ctx.strategy, check_captions=False)
 
 
 class SetHeadingNumber:
@@ -72,6 +57,10 @@ class SetHeadingNumber:
             if node is None or node.kind != "heading":
                 continue
             block["c"][0] = node.doc_level
+            attributes = block["c"][1][2]
+            attributes[:] = [(key, value) for key, value in attributes
+                             if key != HEADING_CONTEXT]
+            attributes.append((HEADING_CONTEXT, json.dumps(node.section_path)))
             number = ctx.strategy.format_section(node.section_path)
             inlines = block["c"][2]
             head: list[dict] = [{"t": "Str", "c": number}]
@@ -108,76 +97,6 @@ class SubstituteGlobalVar:
         return []
 
 
-class NumberCaptions:
-    """Renumber caption paragraphs from the walker's per-(env, section)
-    counters and move each to its EnvSpec placement (ToolSpec §3: captions
-    are plain paragraphs, not anchors).
-
-    Stale numbers (``表 4.3-7 电量表``) are silently replaced — the walker
-    already counted the caption regardless of its old number. Each caption
-    lands immediately above its env's table / below its image no matter
-    where the author typed it inside the env, and ``ctx.annotations`` is
-    re-synced so later ops still see one NodeInfo per block.
-    """
-
-    def __call__(self, ast: dict, ctx: Ctx) -> list[Finding]:
-        bs = blocks(ast)
-        nodes = ctx.annotations or []
-        for node in nodes:
-            if node.kind != "caption" or node.caption_index is None:
-                continue
-            spec = ctx.strategy.envs.get(node.caption_env or "")
-            block = bs[node.index] if 0 <= node.index < len(bs) else None
-            if spec is None or block is None or block.get("t") != "Para":
-                continue
-            body = _caption_body(plain_text(block.get("c") or []), spec.label)
-            depth = ctx.config.caption_max_depth
-            block["c"] = make_para(ctx.strategy.format_caption(
-                spec, node.section_path[:depth], node.caption_index, body))["c"]
-        self._move_to_placement(bs, nodes, ctx)
-        return []
-
-    def _move_to_placement(self, bs: list[dict], nodes: list[NodeInfo],
-                           ctx: Ctx) -> None:
-        spans: list[tuple[str, NodeInfo, NodeInfo]] = []
-        stack: list[tuple[str, NodeInfo]] = []
-        for node in nodes:
-            anchor = node.anchor
-            if anchor is None:
-                continue
-            if anchor.kind == "begin":
-                stack.append((anchor.env or "", node))
-            elif anchor.kind == "end" and stack and stack[-1][0] == anchor.env:
-                # inner envs close first: spans order innermost-before-outer
-                spans.append((*stack.pop(), node))
-        for env, begin, end in spans:
-            spec = ctx.strategy.envs.get(env)
-            if spec is None or not spec.numbered:
-                continue
-            inside = [n for n in nodes if begin.index < n.index < end.index]
-            captions = sorted((n for n in inside
-                               if n.kind == "caption" and n.caption_env == env),
-                              key=lambda n: n.index)
-            if not captions:
-                continue  # captionless-env warning comes from ValidateAnchors
-            content = next((n for n in inside
-                            if n.kind in ("table", "image_para")), None)
-            if content is None:
-                continue  # nothing to place against; leave the caption put
-            idxs = [n.index for n in captions]
-            moved = [(node, bs[i]) for node, i in zip(captions, idxs)]
-            for i in reversed(idxs):
-                bs.pop(i)
-                nodes.pop(i)
-            target = content.index - sum(1 for i in idxs if i < content.index)
-            at = target + 1 if spec.caption_placement == "below" else target
-            for offset, (node, block) in enumerate(moved):
-                bs.insert(at + offset, block)
-                nodes.insert(at + offset, node)
-            for position, node in enumerate(nodes):
-                node.index = position  # keep annotations parallel to blocks
-
-
 def ecepdi_md_ops() -> list[MdOp]:
     """md_number phase ops for ecepdi (ToolSpec §6 order)."""
-    return [ValidateAnchors(), SetHeadingNumber(), NumberCaptions(), SubstituteGlobalVar()]
+    return [ValidateAnchors(), SetHeadingNumber(), SubstituteGlobalVar()]

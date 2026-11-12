@@ -6,9 +6,9 @@ description: Convert a markdown snippet/subsection into a house-standard DOCX (e
 # snippet-docx
 
 Convert one markdown **snippet** (one subsection, or part of one) into a
-house-standard DOCX meeting the **ecepdi** standard. The tool bakes heading,
-table, and figure numbers as literal text pre-pandoc, then polishes the DOCX
-(caption/table styles, three-line tables, A4-landscape pages, anchor stripping).
+house-standard DOCX meeting the **ecepdi** standard. Draft bakes heading
+numbers as literal text; polish numbers and positions table/figure captions,
+applies house styles, inserts A4-landscape pages, and strips anchors.
 
 The code originated from `jz-toolshed tools/snippet-docx`; this skill dir is
 its canonical working home (repo copy left as-is; retiring it is a later
@@ -67,9 +67,9 @@ uv run --project ~/.agents/skills/snippet-docx snippet-docx polish <path>/draft.
     --snippet <path>/snippet.yaml --md <path>/anchored.md --out <path>/final.docx
 ```
 
-Real example (verified end-to-end): `section.md` holds bare heading
-`# 机组选型与微观选址`, prose, a pipe table wrapped in `` `anchor:begin:table`
-`` / `` `anchor:end:table` `` with numberless caption paragraph `表 各月发电量对比`;
+Example: `section.md` holds bare heading `# 机组选型与微观选址`, prose,
+and a pipe table wrapped in `` `anchor:begin:table` `` /
+`` `anchor:end:table` `` with native caption `Table: 各月发电量对比`;
 `snippet.yaml` declares the position:
 
 ```yaml
@@ -101,33 +101,55 @@ tables/figures/landscape regions in anchor envs as **standalone code-span
 paragraphs** (blank lines around them):
 
 ````markdown
-# 机组选型与微观选址           ← bare heading; level = len(prefix)
+# 机组选型与微观选址
 
-本小节给出演区机组布置与风资源特征。   ← prose; `anchor:section` may appear inline
+本小节给出演区机组布置与风资源特征。
 
 `anchor:begin:table`
 
-表 各月发电量对比                ← caption: PLAIN paragraph starting 表␣ ;
-                                   NO number — the tool assigns 表 2.2-1
-                                   (above the table for ecepdi)
+| 月份 | 发电量 |
+|------|--------|
+| 一月 | 101    |
+| 二月 | 202    |
 
-| 一月 | 二月 | 三月 |
-|------|------|------|
-| 101  | 202  | 303  |
+Table: 各月发电量对比
 
 `anchor:end:table`
 
-以上为普通表格段落。
+`anchor:begin:figure`
+
+![机组布置示意](layout.png)
+
+`anchor:end:figure`
 ````
 
-- Table env pattern (verbatim): open/close the table block with
-  `` `anchor:begin:table` `` / `` `anchor:end:table` `` as standalone paragraphs.
-- Figure env likewise; figure caption goes **below** the image.
-- Wide table? Wrap in `` `anchor:begin:landscape` `` ... `` `anchor:end:landscape` ``;
-  A4 next-page section breaks inserted before/after; the region may hold
-  multiple blocks.
-- Numberless OR stale-numbered captions both fine — number stripped, correct
-  one assigned. Captions inside an env without one = warning, not error.
+- **Table title:** use Pandoc Markdown `Table: 标题` or `: 标题` on a
+  separate paragraph adjacent to the table, inside its env. The pipe table's
+  first row (`月份 | 发电量`) is the **column header**, not the table caption.
+- **Figure title:** use the image ALT text, `![标题](image.png)`, with the
+  image alone in its paragraph inside a figure env. ALT is normally fallback/
+  accessibility text in Markdown; this pipeline's Pandoc dialect also uses it
+  as a figure caption. It does not auto-wrap images in anchors.
+- Write titles only: no manually typed `表`/`图` label or number is needed.
+  Optional labels and stale numbers are normalized before final numbering.
+- **Legacy compatibility:** explicit plain `表 标题` / `图 标题` paragraphs
+  still work. In the same env, the explicit paragraph wins over a native/ALT
+  title, even if wording differs; conflicting titles produce a warning.
+  Deduplication is local to the env, never global by title: identical titles
+  in separate envs each receive their own number.
+- Polish positions the single selected caption: ecepdi table **above** the
+  table, figure **below** the image. An env with no usable caption produces
+  a warning and is styled without numbering; an empty native title can fall
+  back to a legacy paragraph.
+- Wide table? Wrap in `` `anchor:begin:landscape` `` ...
+  `` `anchor:end:landscape` ``; A4 next-page section breaks are inserted
+  before/after, and the region may hold multiple blocks.
+
+`polish --md` is required for section context. Prefer the `--emit-md` output:
+it retains anchors and explicit heading context while keeping native/ALT
+captions unexpanded and unnumbered. Raw source Markdown is also supported.
+Heading numbering belongs to draft; caption numbering and placement belong
+to polish. Keep the Markdown paired with its draft DOCX.
 
 ## Numbering semantics (cheat sheet)
 
@@ -143,8 +165,9 @@ paragraphs** (blank lines around them):
 ## Output interpretation & errors
 
 - **draft** prints `draft: <src> -> <out>` plus findings; **polish** prints
-  `polish: <docx> -> <out>` — both exit 0 when clean. Exit 1 when validation
-  errors exist (draft still writes files but you must fix the md).
+  `polish: <docx> -> <out>` plus findings — both exit 0 without validation
+  errors. Exit 1 on validation errors: draft still writes its diagnostic
+  artifacts; polish does not write the final DOCX.
 - Findings go to stderr as `[error]`/`[warning]` lines. Validation severities:
 
 | Finding | Severity |
@@ -153,7 +176,8 @@ paragraphs** (blank lines around them):
 | begin/end not standalone paragraph | error |
 | unknown env/global var | error |
 | `anchor:ref:*` used | error (reserved) |
-| env without caption paragraph | warning (styled, not numbered) |
+| table/figure env without a usable caption | warning (styled, not numbered) |
+| conflicting native/ALT and explicit legacy titles in one env | warning (legacy wins) |
 | second root-level heading (cross-subsection) | warning ("numbering behavior undefined") |
 | heading deeper than level 5 | warning |
 
@@ -167,5 +191,3 @@ paragraphs** (blank lines around them):
 cd ~/.agents/skills/snippet-docx && uv run pytest tests/
 ```
 
-180 tests covering walker/anchors/captions/landscape/e2e pass here (pandoc
-3.7, Python 3.13).

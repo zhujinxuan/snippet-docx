@@ -10,6 +10,7 @@ import zipfile
 from pathlib import Path
 
 import pytest
+
 from snippet_docx.cli import main
 
 DATA = Path(__file__).parent / "data"
@@ -36,7 +37,8 @@ def _draft_and_polish(md: Path, snippet: Path, tmp_path: Path) -> tuple[int, Pat
     rc = main(["draft", str(md), "--snippet", str(snippet), "--out", str(out),
                "--emit-md", str(emit_md)])
     final = tmp_path / "final.docx"
-    rc2 = main(["polish", str(out), "--snippet", str(snippet), "--out", str(final)])
+    rc2 = main(["polish", str(out), "--snippet", str(snippet),
+                "--md", str(emit_md), "--out", str(final)])
     assert rc2 == 0
     return rc, out, emit_md.read_text(encoding="utf-8"), final
 

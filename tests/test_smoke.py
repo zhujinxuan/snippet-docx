@@ -8,6 +8,7 @@ import zipfile
 from pathlib import Path
 
 import pytest
+
 from snippet_docx.cli import main
 
 DATA = Path(__file__).parent / "data"
@@ -78,7 +79,7 @@ def test_anchored_roundtrip_zero_residue(tmp_path: Path, monkeypatch: pytest.Mon
 
     final = tmp_path / "final.docx"
     rc2 = main(["polish", str(draft_docx), "--snippet", str(SNIPPET_YAML),
-                "--out", str(final)])
+                "--md", str(emit), "--out", str(final)])
     assert rc2 == 0
     assert final.is_file()
 
@@ -106,7 +107,7 @@ def test_all_error_classes_fail_in_one_pass(tmp_path: Path, capsys: pytest.Captu
 
 def test_captionless_env_warns_without_failing(tmp_path: Path,
                                                capsys: pytest.CaptureFixture) -> None:
-    rc, out, _ = _draft(WARN_MD, tmp_path)
+    rc, out, emitted = _draft(WARN_MD, tmp_path, emit=True)
     assert rc == 0
     assert out.is_file()
     err = capsys.readouterr().err
@@ -114,7 +115,8 @@ def test_captionless_env_warns_without_failing(tmp_path: Path,
     assert "[ERROR]" not in err
 
     final = tmp_path / "final.docx"
-    rc2 = main(["polish", str(out), "--snippet", str(SNIPPET_YAML), "--out", str(final)])
+    rc2 = main(["polish", str(out), "--snippet", str(SNIPPET_YAML),
+                "--md", str(emitted), "--out", str(final)])
     assert rc2 == 0
     assert "anchor:" not in _document_xml(final)
 
@@ -146,4 +148,29 @@ def test_missing_input_fails(tmp_path: Path) -> None:
 def test_polish_missing_docx_fails(tmp_path: Path) -> None:
     with pytest.raises(SystemExit, match="not found"):
         main(["polish", str(tmp_path / "nope.docx"), "--snippet", str(SNIPPET_YAML),
-              "--out", str(tmp_path / "o.docx")])
+              "--md", str(PLAIN_MD), "--out", str(tmp_path / "o.docx")])
+
+
+def test_polish_requires_markdown_context(
+        tmp_path: Path, capsys: pytest.CaptureFixture) -> None:
+    rc, draft, _ = _draft(PLAIN_MD, tmp_path)
+    assert rc == 0
+    final = tmp_path / "final.docx"
+    with pytest.raises(SystemExit):
+        main(["polish", str(draft), "--snippet", str(SNIPPET_YAML),
+              "--out", str(final)])
+    assert "--md" in capsys.readouterr().err
+    assert not final.exists()
+
+
+def test_pipeline_polish_missing_context_reports_error_without_output(tmp_path: Path) -> None:
+    from snippet_docx.config import load_config
+    from snippet_docx.pipeline import polish
+
+    rc, draft, _ = _draft(PLAIN_MD, tmp_path)
+    assert rc == 0
+    config, strategy = load_config(SNIPPET_YAML, None)
+    final = tmp_path / "final.docx"
+    findings = polish(draft, config, strategy, final, md=None)
+    assert any(f.severity == "error" and "--md" in f.message for f in findings)
+    assert not final.exists()

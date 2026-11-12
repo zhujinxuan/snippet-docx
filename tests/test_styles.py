@@ -13,6 +13,7 @@ import zipfile
 from pathlib import Path
 
 import pytest
+
 from snippet_docx import styles
 from snippet_docx.cli import main
 from snippet_docx.config import Config
@@ -56,10 +57,12 @@ def _polished(md: Path, snippet: Path, tmp_path: Path,
     monkeypatch.chdir(DATA)  # figure.png resolves relative to the fixture
     draft_docx = tmp_path / "draft.docx"
     final = tmp_path / "final.docx"
-    rc = main(["draft", str(md), "--snippet", str(snippet), "--out", str(draft_docx)])
+    emitted = tmp_path / "anchored.md"
+    rc = main(["draft", str(md), "--snippet", str(snippet), "--out", str(draft_docx),
+               "--emit-md", str(emitted)])
     assert rc == 0
     rc2 = main(["polish", str(draft_docx), "--snippet", str(snippet),
-                "--out", str(final)])
+                "--md", str(emitted), "--out", str(final)])
     assert rc2 == 0
     return final
 

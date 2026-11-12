@@ -7,16 +7,10 @@ from dataclasses import replace
 from pathlib import Path
 
 import pytest
+
 from snippet_docx.anchors import parse_anchors, validate_anchors
 from snippet_docx.config import Config, ConfigError, load_config
-from snippet_docx.ops_docx import StripAnchors, ecepdi_docx_ops
-from snippet_docx.ops_md import (
-    NumberCaptions,
-    SetHeadingNumber,
-    SubstituteGlobalVar,
-    ValidateAnchors,
-    ecepdi_md_ops,
-)
+from snippet_docx.ops_md import ValidateAnchors
 from snippet_docx.pandoc_ast import (
     ast_to_md,
     blocks,
@@ -326,9 +320,8 @@ def test_format_section_and_caption_clamp() -> None:
     assert STRATEGY.format_section(("A", 1)) == "A.1"
     spec = STRATEGY.envs["table"]
     assert STRATEGY.format_caption(spec, (2, 2, 3), 1, "参数表") == "表 2.2.3-1 参数表"
-    # format_caption formats the path verbatim — clamping to
-    # config.caption_max_depth is owned by NumberCaptions (ops_md), not the
-    # strategy (contract §5: tool clamps, strategy formats)
+    # format_caption formats the path verbatim; the caption finalizer, not
+    # the strategy, owns the configured display-depth clamp.
     assert STRATEGY.format_caption(spec, (2, 2, 3, 1), 2, "参数表") == "表 2.2.3.1-2 参数表"
 
 
@@ -347,19 +340,6 @@ def test_jinja_anchor_globals_grammar() -> None:
     with pytest.raises(ValueError, match="unknown global var"):
         anchor.inline("nope")
 
-
-def test_op_lists() -> None:
-    md_ops = ecepdi_md_ops()
-    assert len(md_ops) == 4
-    assert isinstance(md_ops[0], ValidateAnchors)      # validate before numbering
-    assert isinstance(md_ops[1], SetHeadingNumber)
-    assert isinstance(md_ops[2], NumberCaptions)       # captions numbered before vars
-    assert isinstance(md_ops[3], SubstituteGlobalVar)
-    docx_ops = ecepdi_docx_ops()
-    assert isinstance(docx_ops[-1], StripAnchors)   # StripAnchors always last
-    normalize_ops = STRATEGY.md_normalize_ops()    # ticket 06 seam: wired
-    assert [type(op).__name__ for op in normalize_ops] == \
-        ["NormalizeTables", "NormalizeImages"]
 
 
 def test_wrap_phase_transparent() -> None:

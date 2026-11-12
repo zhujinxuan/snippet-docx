@@ -235,27 +235,9 @@ class NormalizeTables:
             rebuilt = _rebuild_collapsed_table(lines)
             if rebuilt is not None:
                 block_list[index] = rebuilt
-        # -- Table caption slots: cleared, never written (nothing reads
-        #    them; the docx writer would render an unnumbered duplicate)
-        findings: list[Finding] = []
-        for block in block_list:
-            if block.get("t") != "Table":
-                continue
-            short, long_blocks = block["c"][1]
-            if short is None and not long_blocks:
-                continue
-            parts = [plain_text(short)] if short else []
-            parts += [plain_text(b.get("c") or []) for b in long_blocks]
-            text = " ".join(p for p in parts if p)
-            block["c"][1] = [None, []]
-            findings.append(Finding(
-                code="table-caption-slot",
-                severity="warn",
-                message=f"dropped Table caption slot {text!r}: captions are "
-                        f"plain 表-prefixed paragraphs (ToolSpec §3); the "
-                        f"slot would render an unnumbered duplicate",
-            ))
-        return findings
+        # Retain native/recovered caption slots: polish selects, numbers and
+        # deduplicates them against explicit captions within the same env.
+        return []
 
 
 # --------------------------------------------------------------------------

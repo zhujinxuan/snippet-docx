@@ -1,30 +1,28 @@
-"""Numbering walker (tool-owned, ToolSpec §4): ONE AST traversal that owns
-the section state machine and every counter.
+"""Shared section walker and exactly-once, per-env caption counters.
 
-``build_annotations`` walks the blocks once, advancing the section counters
-exactly once per heading — the root-level counter is fixed at the declared
-prefix, deeper levels count from ``numbering.sections.start`` (default 1) —
-and annotates every block with its enclosing section path. Per-(env,
-section) caption counters advance in this same walk: a caption is a plain
-Para inside an open env whose text starts with the env's label + space
-(ToolSpec §3: captions are NOT anchors — stale numbers are counted here and
-stripped by the NumberCaptions op). The strategy contributes only pure
-formatting (``format_section`` / ``format_caption``); the state machine is
-shared by all strategies.
+Caption source selection lives in captions.py. Draft only bakes headings;
+polish uses these same annotations to format and position the chosen titles.
 """
 
 from __future__ import annotations
 
+import json
 from dataclasses import dataclass, field
 from typing import TYPE_CHECKING, Literal
 
 from snippet_docx.anchors import Anchor, parse_anchors
+from snippet_docx.captions import (
+    HEADING_CONTEXT,
+    caption_scope,
+    discover_captions,
+    has_image,
+)
 from snippet_docx.findings import Finding
-from snippet_docx.pandoc_ast import blocks, plain_text
+from snippet_docx.pandoc_ast import blocks
 
 if TYPE_CHECKING:
     from snippet_docx.config import Config
-    from snippet_docx.strategy import EnvSpec, Strategy
+    from snippet_docx.strategy import Strategy
 
 NodeKind = Literal["heading", "anchor", "caption", "table", "image_para", "block"]
 
@@ -45,42 +43,6 @@ class NodeInfo:
     caption_index: int | None = None              # caption: per-(env, section) ordinal
     env_scope: str | None = None                  # innermost open env at this block
     findings: list[Finding] = field(default_factory=list)
-
-
-def _has_image(inline: dict) -> bool:
-    t = inline.get("t")
-    if t == "Image":
-        return True
-    if t in ("Emph", "Strong", "Underline", "Strikeout", "SmallCaps", "Span"):
-        return any(_has_image(i) for i in inline.get("c") or [])
-    if t in ("Link", "Quoted"):
-        return any(_has_image(i) for i in inline["c"][1])
-    return False
-
-
-def _is_image_block(block: dict) -> bool:
-    """Standalone image content: a pandoc Figure block, or a Para/Plain
-    carrying an Image inline (directly or inside emphasis/link)."""
-    t = block.get("t")
-    if t == "Figure":
-        return True
-    return t in ("Para", "Plain") and any(_has_image(i) for i in block.get("c") or [])
-
-
-def _caption_scope(spec: EnvSpec, path: tuple[int | str, ...],
-                   max_depth: int) -> tuple[int | str, ...]:
-    """Counter scope key for one caption (EnvSpec.counter_scope).
-
-    ``section`` scopes by the DISPLAYED section — the path clamped to the
-    caption depth — so tables under ``2.2.3`` and under ``2.2.3.1`` share the
-    ``表 2.2.3-N`` sequence and caption numbers stay unique per document.
-    ``chapter`` scopes by the first path element, ``continuous`` globally.
-    """
-    if spec.counter_scope == "continuous":
-        return ()
-    if spec.counter_scope == "chapter":
-        return path[:1]
-    return path[:max_depth]
 
 
 def build_annotations(ast: dict, config: Config, strategy: Strategy) -> list[NodeInfo]:
@@ -108,8 +70,11 @@ def build_annotations(ast: dict, config: Config, strategy: Strategy) -> list[Nod
 
     counters: dict[int, int] = {}
     seen_root = False
+    explicit_path: tuple[int | str, ...] | None = None
 
     def current_path() -> tuple[int | str, ...]:
+        if explicit_path is not None:
+            return explicit_path
         return prefix + tuple(counters[level] for level in sorted(counters))
 
     caption_counters: dict[tuple[str, tuple[int | str, ...]], int] = {}
@@ -118,20 +83,24 @@ def build_annotations(ast: dict, config: Config, strategy: Strategy) -> list[Nod
     # per-block env_scope.
     env_stack: list[str] = []
 
-    def match_caption(text: str) -> tuple[str, EnvSpec] | None:
-        """Innermost numbered env whose label prefixes ``text``, if any."""
-        for env in reversed(env_stack):
-            spec = strategy.envs.get(env)
-            if spec is None or not spec.numbered:
-                continue
-            if text.startswith(f"{spec.label} "):
-                return spec.name, spec
-        return None
+    sources = {source.source_index: source
+               for source in discover_captions(ast, strategy, config.anchor_prefix)
+               if source.source_index is not None}
 
     annotations: list[NodeInfo] = []
     for index, block in enumerate(blocks(ast)):
         node = NodeInfo(index=index)
         if block.get("t") == "Header":
+            marker = dict(block["c"][1][2]).get(HEADING_CONTEXT)
+            if marker is not None:
+                explicit_path = tuple(json.loads(marker))
+                node.kind = "heading"
+                node.doc_level = block["c"][0]
+                node.section_path = explicit_path
+                node.env_scope = env_stack[-1] if env_stack else None
+                annotations.append(node)
+                continue
+            explicit_path = None
             doc_level = root + block["c"][0] - 1
             node.kind = "heading"
             node.doc_level = doc_level
@@ -185,24 +154,24 @@ def build_annotations(ast: dict, config: Config, strategy: Strategy) -> list[Nod
                             scope = anchor.env  # stray end; ValidateAnchors errors
                 node.env_scope = scope
             else:
-                if env_stack and block.get("t") == "Para":
-                    matched = match_caption(plain_text(block.get("c") or []))
-                    if matched is not None:
-                        name, spec = matched
-                        node.kind = "caption"
-                        node.caption_env = name
-                        key = (name, _caption_scope(spec, current_path(),
-                                                    config.caption_max_depth))
-                        start = config.env_start.get(name, 1)
-                        caption_counters[key] = caption_counters.get(key, start - 1) + 1
-                        node.caption_index = caption_counters[key]
-                    elif _is_image_block(block):
-                        node.kind = "image_para"
-                elif block.get("t") == "Table":
+                if block.get("t") == "Table":
                     node.kind = "table"
-                elif _is_image_block(block):
+                elif has_image(block):
                     node.kind = "image_para"
                 node.env_scope = env_stack[-1] if env_stack else None
+            # An inline global anchor does not stop its enclosing paragraph
+            # from being the selected explicit caption.
+            source = sources.get(index)
+            if source is not None:
+                name = source.env
+                spec = strategy.envs[name]
+                node.kind = "caption"
+                node.caption_env = name
+                key = (name, caption_scope(spec, current_path(),
+                                           config.caption_max_depth))
+                start = config.env_start.get(name, 1)
+                caption_counters[key] = caption_counters.get(key, start - 1) + 1
+                node.caption_index = caption_counters[key]
             node.section_path = current_path()
         annotations.append(node)
 

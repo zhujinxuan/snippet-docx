@@ -16,18 +16,19 @@ import subprocess
 import sys
 import xml.etree.ElementTree as ET
 import zipfile
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from importlib.metadata import entry_points
 from pathlib import Path
 
 import pytest
+from snippet_docx_testhouse import TESTHOUSE
+from snippet_docx_testhouse import TesthouseStrategy as _TesthouseStrategy
+
 from snippet_docx import styles
 from snippet_docx.cli import main
 from snippet_docx.config import ConfigError, load_config
-from snippet_docx.pipeline import Ctx, run_phase
+from snippet_docx.pipeline import Ctx, draft, polish, run_phase
 from snippet_docx.strategy import EnvSpec, get_strategy, registered_strategies
-from snippet_docx_testhouse import TESTHOUSE
-from snippet_docx_testhouse import TesthouseStrategy as _TesthouseStrategy
 
 DATA = Path(__file__).parent / "data"
 SNIPPET = DATA / "snippet.yaml"            # strategy: ecepdi
@@ -257,6 +258,46 @@ def test_wrap_phase_wrong_proceed_count_raises(calls: int) -> None:
         run_phase("md_number", ctx, lambda c: c)
 
 
+@dataclass(frozen=True)
+class _ContinuingReportStrategy(_TesthouseStrategy):
+    """A report assembler supplies the next table index only at finalization."""
+
+    def wrap_phase(self, phase, ctx, proceed):  # type: ignore[override]
+        if phase == "docx_polish":
+            ctx.config = replace(
+                ctx.config, env_start={**ctx.config.env_start, "table": 7})
+        return proceed(ctx)
+
+
+def test_polish_wrapper_can_continue_report_caption_numbering(tmp_path: Path) -> None:
+    strategy = _ContinuingReportStrategy()
+    config = strategy.parse_config({
+        "section": {"prefix": [2, 2]},
+        "numbering": {"table": {"start": 2}},
+    })
+    md = (
+        "# Overview\n\n"
+        "`anchor:begin:table`\n\n"
+        "| Turbine |\n|---------|\n| T01 |\n\nTable: First table\n\n"
+        "`anchor:end:table`\n\n"
+        "## Wind data\n\n"
+        "`anchor:begin:table`\n\n"
+        "| Item |\n|------|\n| Wind |\n\nTable: Second table\n\n"
+        "`anchor:end:table`\n")
+    draft_docx = tmp_path / "draft.docx"
+    emitted = tmp_path / "anchored.md"
+    assert draft(md, config, strategy, draft_docx, emitted) == []
+    final = tmp_path / "final.docx"
+    assert polish(draft_docx, config, strategy, final, md=emitted) == []
+    children = _body_children(final)
+    captions = [(i, _p_text(el)) for i, el in enumerate(children)
+                if _pstyle(el) == "table_caption"]
+    assert [text for _, text in captions] == [
+        "Table 2-7: First table", "Table 2-8: Second table"]
+    for index, _ in captions:
+        assert children[index - 1].tag == f"{W}tbl"
+
+
 # ------------------------------------------------------ unknown strategy
 
 
@@ -283,7 +324,8 @@ def test_cli_draft_unknown_strategy_flag_fails(tmp_path: Path) -> None:
 def test_cli_polish_unknown_strategy_flag_fails(tmp_path: Path) -> None:
     with pytest.raises(SystemExit, match=r"unknown strategy: 'no-such-style'"):
         main(["polish", str(tmp_path / "nope.docx"), "--snippet", str(SNIPPET),
-              "--strategy", "no-such-style", "--out", str(tmp_path / "o.docx")])
+              "--strategy", "no-such-style", "--md", str(TESTHOUSE_MD),
+              "--out", str(tmp_path / "o.docx")])
 
 
 def test_cli_draft_unknown_strategy_yaml_key_fails(tmp_path: Path) -> None:
@@ -354,7 +396,7 @@ def _draft_and_polish(tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
                "--out", str(draft_docx), "--emit-md", str(emit_md)])
     assert rc == 0
     rc = main(["polish", str(draft_docx), "--snippet", str(snippet), *flag,
-               "--out", str(final_docx)])
+               "--md", str(emit_md), "--out", str(final_docx)])
     assert rc == 0
     assert final_docx.is_file()
     return emit_md, final_docx
@@ -366,22 +408,18 @@ def test_yaml_key_produces_testhouse_style_through_same_pipeline(
                                             TESTHOUSE_SNIPPET, None)
     md = emit_md.read_text(encoding="utf-8")
 
-    # captions: chapter-scope numbering, stale number stripped, own labels
-    assert "Table 2-1: Stale chapter-scope first table" in md
-    assert "Table 2-2: Second table typed above" in md   # 2-2-1 did NOT reset
-    assert "Figure 2-1: Layout sketch" in md
-    assert "4.3-7" not in md
+    # Captions are finalized only by polish, using plugin labels and scope.
+    assert "Table 2-1: Stale chapter-scope first table" not in md
+    final_text = "".join(_p_text(el) for el in _body_children(final_docx))
+    assert "Table 2-1: Stale chapter-scope first table" in final_text
+    assert "Table 2-2: Second table typed above" in final_text
+    assert "Figure 2-1: Layout sketch" in final_text
+    assert "4.3-7" not in final_text
 
     # section format: dash-joined, headings baked, inline section substituted
     assert "## 2-2 Overview" in md
     assert "### 2-2-1 Wind data" in md
     assert "This snippet lives in section 2-2." in md
-
-    # placement from EnvSpec data: table captions BELOW, figure caption ABOVE
-    assert md.index("Turbine") < md.index("Table 2-1:")
-    assert md.index("Figure 2-1:") < md.index("![Layout]")
-    assert md.index("Item") < md.index("Table 2-2:")
-
 
     # final DOCX: same order, named styles, house fonts, zero anchor residue
     children = _body_children(final_docx)
@@ -423,11 +461,11 @@ def test_yaml_key_produces_testhouse_style_through_same_pipeline(
 def test_flag_overrides_yaml_and_selects_plugin(
         tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     # snippet.yaml says ecepdi; the --strategy flag wins
-    emit_md, final_docx = _draft_and_polish(tmp_path, monkeypatch,
+    _emit_md, final_docx = _draft_and_polish(tmp_path, monkeypatch,
                                             SNIPPET, "testhouse")
-    md = emit_md.read_text(encoding="utf-8")
-    assert "Table 2-1: Stale chapter-scope first table" in md
-    assert "Table 2-2: Second table typed above" in md
+    text = "".join(_p_text(el) for el in _body_children(final_docx))
+    assert "Table 2-1: Stale chapter-scope first table" in text
+    assert "Table 2-2: Second table typed above" in text
     assert final_docx.is_file()
 
 
@@ -450,11 +488,19 @@ def test_subprocess_unknown_strategy_lists_registered(
     assert "ecepdi, testhouse" in result.stderr
 
 
-def test_subprocess_draft_with_plugin_strategy(tmp_path: Path) -> None:
+def test_subprocess_pipeline_with_plugin_strategy(tmp_path: Path) -> None:
     emit_md = tmp_path / "anchored.md"
+    draft = tmp_path / "d.docx"
+    final = tmp_path / "final.docx"
     result = _run_cli(["draft", str(TESTHOUSE_MD), "--snippet", str(SNIPPET),
-                       "--strategy", "testhouse", "--out", str(tmp_path / "d.docx"),
+                       "--strategy", "testhouse", "--out", str(draft),
                        "--emit-md", str(emit_md)])
     assert result.returncode == 0, result.stderr
-    assert "Table 2-1: Stale chapter-scope first table" in emit_md.read_text(
+    assert "Table 2-1: Stale chapter-scope first table" not in emit_md.read_text(
         encoding="utf-8")
+    result = _run_cli(["polish", str(draft), "--snippet", str(SNIPPET),
+                       "--strategy", "testhouse", "--md", str(emit_md),
+                       "--out", str(final)])
+    assert result.returncode == 0, result.stderr
+    assert "Table 2-1: Stale chapter-scope first table" in "".join(
+        _p_text(el) for el in _body_children(final))

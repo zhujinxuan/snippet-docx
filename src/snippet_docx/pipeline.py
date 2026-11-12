@@ -1,10 +1,4 @@
-"""Pipeline skeleton (tool-owned, fixed): draft and polish commands.
-
-draft: md text -> pandoc JSON AST -> md_number phase -> md_normalize phase
-       -> pandoc JSON->docx (+ optional anchored md emission).
-polish: python-docx open draft.docx -> docx_polish phase -> save final.docx.
-The docx phase never numbers anything (ToolSpec Q11/Q12).
-"""
+"""Fixed draft/polish pipeline: headings in draft, captions in final DOCX."""
 
 from __future__ import annotations
 
@@ -15,6 +9,8 @@ from typing import TYPE_CHECKING
 
 from docx import Document
 
+from snippet_docx.anchors import parse_anchors, validate_anchors
+from snippet_docx.captions import CaptionPlan, build_caption_plans, discover_captions
 from snippet_docx.findings import Finding, has_errors
 from snippet_docx.pandoc_ast import ast_to_docx, ast_to_md, md_to_ast
 from snippet_docx.walker import build_annotations
@@ -32,9 +28,10 @@ if TYPE_CHECKING:
 class Ctx:
     config: Config
     strategy: Strategy
-    annotations: list[NodeInfo] | None = None   # built before md_number ops
+    annotations: list[NodeInfo] | None = None   # shared Markdown section/caption context
     source_dir: Path | None = None              # md/template dirname: base for
     # relative image resolution (pandoc --resource-path + NormalizeImages)
+    caption_plans: list[CaptionPlan] | None = None
 
 
 def run_phase(phase: Phase, ctx: Ctx, proceed: Callable[[Ctx], Ctx]) -> Ctx:
@@ -90,6 +87,8 @@ def draft(md_text: str, config: Config, strategy: Strategy,
         return findings
     run_phase("md_normalize", ctx,
               lambda c: _run_md_ops(strategy.md_normalize_ops(), ast, findings, c))
+    findings.extend(finding for source in discover_captions(
+        ast, strategy, config.anchor_prefix) for finding in source.findings)
     if has_errors(findings):
         return findings
 
@@ -102,19 +101,52 @@ def draft(md_text: str, config: Config, strategy: Strategy,
 
 def polish(docx_in: Path, config: Config, strategy: Strategy,
            out_docx: Path, md: Path | None) -> list[Finding]:
-    """Command 2: style/repair/strip the draft DOCX into the final DOCX."""
+    """Style/repair a draft, using required Markdown for caption context.
+
+    Errors are returned as findings and no final DOCX is written.
+    """
+    if md is None:
+        return [Finding("md-required", "error",
+                        "polish requires --md (prefer draft --emit-md) for caption "
+                        "titles and section numbering context")]
+    if not md.is_file():
+        return [Finding("md-required", "error", f"polish Markdown not found: {md}")]
     if not docx_in.is_file():
         raise FileNotFoundError(f"draft DOCX not found: {docx_in}")
+    from snippet_docx.ops_md import SubstituteGlobalVar
+    from snippet_docx.ops_md_normalize import NormalizeTables
+
+    ctx = Ctx(config=config, strategy=strategy, source_dir=md.resolve().parent)
+    ast = md_to_ast(md.read_text(encoding="utf-8"))
+    findings: list[Finding] = []
     doc = Document(str(docx_in))
-    ctx = Ctx(config=config, strategy=strategy)
 
     def proceed(c: Ctx) -> Ctx:
-        ops: list[DocxOp] = strategy.docx_ops()
+        findings.extend(NormalizeTables()(ast, c))
+        findings.extend(validate_anchors(
+            parse_anchors(ast, c.config.anchor_prefix), ast, c.strategy,
+            check_captions=False))
+        c.annotations = build_annotations(ast, c.config, c.strategy)
+        findings.extend(SubstituteGlobalVar()(ast, c))
+        # Substitution can change title emptiness/selection; number the
+        # resolved sources, not the provisional section-context walk.
+        c.annotations = build_annotations(ast, c.config, c.strategy)
+        findings.extend(finding for node in c.annotations for finding in node.findings)
+        c.caption_plans, caption_findings = build_caption_plans(
+            ast, c.annotations, c.config, c.strategy)
+        findings.extend(caption_findings)
+        if has_errors(findings):
+            return c
+        ops: list[DocxOp] = c.strategy.docx_ops()
         for op in ops:
-            op(doc, c)
+            findings.extend(op(doc, c) or [])
+            if has_errors(findings):
+                break
         return c
 
     run_phase("docx_polish", ctx, proceed)
+    if has_errors(findings):
+        return findings
     out_docx.parent.mkdir(parents=True, exist_ok=True)
     doc.save(str(out_docx))
-    return []
+    return findings

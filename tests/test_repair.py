@@ -16,6 +16,7 @@ from pathlib import Path
 from xml.etree import ElementTree as ET
 
 import pytest
+
 from snippet_docx.cli import main
 from snippet_docx.ops_docx import ClampImageWidths, ecepdi_docx_ops
 from snippet_docx.ops_md_normalize import NormalizeImages, NormalizeTables
@@ -51,9 +52,12 @@ def _polished(md: Path, snippet: Path, tmp_path: Path,
     monkeypatch.chdir(chdir if chdir is not None else DATA)
     draft = tmp_path / "draft.docx"
     final = tmp_path / "final.docx"
-    rc = main(["draft", str(md), "--snippet", str(snippet), "--out", str(draft)])
+    emitted = tmp_path / "anchored.md"
+    rc = main(["draft", str(md), "--snippet", str(snippet), "--out", str(draft),
+               "--emit-md", str(emitted)])
     assert rc == 0
-    rc = main(["polish", str(draft), "--snippet", str(snippet), "--out", str(final)])
+    rc = main(["polish", str(draft), "--snippet", str(snippet),
+               "--md", str(emitted), "--out", str(final)])
     assert rc == 0
     return final
 
@@ -106,18 +110,20 @@ def test_raw_html_table_recovers_to_real_table_ast() -> None:
     assert head == [["机位", "容量"]]
 
 
-def test_html_recovered_table_caption_slot_cleared() -> None:
-    # the HTML reader populates the slot from <caption> — the markdown
-    # reader flag cannot reach this path, so NormalizeTables clears it
-    ast = md_to_ast("<table><caption>电量对比</caption>"
-                    "<tr><td>1</td></tr></table>\n")
-    findings = NormalizeTables()(ast, None)
-    tables = [b for b in ast["blocks"] if b.get("t") == "Table"]
-    assert len(tables) == 1
-    assert tables[0]["c"][1] == [None, []]
-    dropped = [f for f in findings if f.code == "table-caption-slot"]
-    assert len(dropped) == 1
-    assert "电量对比" in dropped[0].message
+def test_html_recovered_table_caption_is_finalized(
+        tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    source = tmp_path / "html.md"
+    source.write_text(
+        "`anchor:begin:table`\n\n"
+        "<table><caption>电量对比</caption><tr><td>1</td></tr></table>\n\n"
+        "`anchor:end:table`\n", encoding="utf-8")
+    final = _polished(source, SNIPPET, tmp_path, monkeypatch)
+    children = list(_xml(final).find(f"{W}body"))
+    table_at = next(i for i, el in enumerate(children) if el.tag == f"{W}tbl")
+    assert "".join(_texts(children[table_at - 1])) == "表 2.2-1 电量对比"
+    assert ["".join(_texts(el)) for el in children
+            if el.tag == f"{W}p" and "电量对比" in "".join(_texts(el))] == [
+                "表 2.2-1 电量对比"]
 
 
 def test_fullwidth_space_simple_table_wreckage_is_rebuilt() -> None:
@@ -308,7 +314,8 @@ def test_oversized_image_clamped_to_text_width(
     emitted_md = emitted.read_text(encoding="utf-8")
     assert "width=" in emitted_md and "2400px" in emitted_md
     assert "height=" in emitted_md and "600px" in emitted_md
-    rc = main(["polish", str(draft), "--snippet", str(SNIPPET), "--out", str(final)])
+    rc = main(["polish", str(draft), "--snippet", str(SNIPPET),
+               "--md", str(emitted), "--out", str(final)])
     assert rc == 0
     root = _xml(final)
     for extent in root.iter(f"{WP}extent"):

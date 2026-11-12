@@ -15,7 +15,7 @@
 
 `anchor:begin:figure`
 
-![机位布置示意图](figure.png)
+![机位布置示意](figure.png)
 
 图 机位布置示意
 

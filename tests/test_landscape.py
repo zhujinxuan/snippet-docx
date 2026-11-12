@@ -16,6 +16,7 @@ from pathlib import Path
 from xml.etree import ElementTree as ET
 
 import pytest
+
 from snippet_docx.anchors import parse_anchors, validate_anchors
 from snippet_docx.cli import main
 from snippet_docx.config import ConfigError, load_config
@@ -68,9 +69,12 @@ def _polished(md: Path | str, snippet: Path, tmp_path: Path,
                       encoding="utf-8")
     draft = tmp_path / "draft.docx"
     final = tmp_path / "final.docx"
-    rc = main(["draft", str(source), "--snippet", str(snippet), "--out", str(draft)])
+    emitted = tmp_path / "anchored.md"
+    rc = main(["draft", str(source), "--snippet", str(snippet), "--out", str(draft),
+               "--emit-md", str(emitted)])
     assert rc == 0
-    rc = main(["polish", str(draft), "--snippet", str(snippet), "--out", str(final)])
+    rc = main(["polish", str(draft), "--snippet", str(snippet),
+               "--md", str(emitted), "--out", str(final)])
     assert rc == 0
     return final
 
@@ -138,15 +142,10 @@ def _walker_config(prefix: tuple = (2, 2)):
     return Config(strategy="ecepdi", prefix=prefix)
 
 
-def test_walker_scopes_landscape_and_keeps_caption_numbering() -> None:
+def test_walker_scopes_landscape_content() -> None:
     md = ("## 数据节\n\n`anchor:begin:landscape`\n\n" + TABLE_ENV +
           "\n\n中间文字。\n\n" + TABLE_ENV + "\n\n`anchor:end:landscape`\n")
     nodes = build_annotations(md_to_ast(md), _walker_config(), STRATEGY)
-
-    captions = [n for n in nodes if n.kind == "caption"]
-    assert [n.caption_env for n in captions] == ["table", "table"]
-    assert [n.caption_index for n in captions] == [1, 2]      # current section
-    assert all(n.section_path == (2, 2, 1) for n in captions)
 
     prose = [n for n in nodes if n.kind == "block" and n.env_scope == "landscape"]
     assert _node_text(md, nodes, prose[0]) == "中间文字。"      # innermost scope

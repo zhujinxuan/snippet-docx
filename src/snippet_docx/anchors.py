@@ -17,7 +17,6 @@ from snippet_docx.pandoc_ast import (
     code_paragraph_payload,
     inline_code_spans,
     paragraph_starts_with_code,
-    plain_text,
 )
 
 if TYPE_CHECKING:
@@ -87,7 +86,8 @@ def parse_anchors(ast: dict, prefix: str = "anchor:") -> list[Anchor]:
     return result
 
 
-def validate_anchors(anchors: list[Anchor], ast: dict, strategy: Strategy) -> list[Finding]:
+def validate_anchors(anchors: list[Anchor], ast: dict, strategy: Strategy,
+                     *, check_captions: bool = True) -> list[Finding]:
     """One pass, every finding collected.
 
     Errors (severity per strategy.severities()): unpaired begin/end (stack
@@ -164,28 +164,15 @@ def validate_anchors(anchors: list[Anchor], ast: dict, strategy: Strategy) -> li
                 f"{text} at {where}: does not match open begin {stack[-1].text()} "
                 f"(block {stack[-1].block_index})")
             continue
-        begin = stack.pop()
-        spec = envs[anchor.env]
-        if not spec.numbered:
-            continue  # unnumbered layout envs (landscape) take no caption
-        has_caption = any(
-            blk.get("t") == "Para"
-            and plain_text(blk.get("c") or []).startswith(f"{spec.label} ")
-            for blk in block_list[begin.block_index + 1:anchor.block_index]
-        )
-        if not has_caption:
-            severity: Literal["error", "warn"] = (
-                "error" if spec.caption_required else sev("captionless-env", "warn"))
-            findings.append(Finding(
-                code="captionless-env",
-                severity=severity,
-                message=f"{anchor.env} env (blocks {begin.block_index}..{anchor.block_index}) "
-                        f"has no caption paragraph starting with {spec.label!r} "
-                        "(styled but not numbered)",
-            ))
+        stack.pop()
 
     for begin in stack:
         add("unpaired-anchor",
             f"{begin.text()} at block {begin.block_index}: begin without a matching end")
+    if check_captions:
+        from snippet_docx.captions import discover_captions
+
+        findings.extend(finding for source in discover_captions(ast, strategy, anchors=anchors)
+                        for finding in source.findings)
 
     return findings

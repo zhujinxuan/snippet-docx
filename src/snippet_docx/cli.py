@@ -85,6 +85,8 @@ def _cmd_polish(args: argparse.Namespace) -> int:
     except PandocError as exc:
         raise _fail(str(exc)) from exc
     report_stderr(findings)
+    if has_errors(findings):
+        return 1
     print(f"polish: {args.docx} -> {args.out}")
     return 0
 
@@ -116,7 +118,9 @@ def _build_parser() -> argparse.ArgumentParser:
     polish_parser.add_argument("docx", type=Path, help="draft DOCX from the draft command")
     polish_parser.add_argument("--snippet", type=Path, required=True, help="snippet.yaml config")
     polish_parser.add_argument("--strategy", default=None, help="strategy override (default: ecepdi)")
-    polish_parser.add_argument("--md", type=Path, default=None, help="anchored markdown (optional strategy input)")
+    polish_parser.add_argument(
+        "--md", type=Path, required=True,
+        help="source or draft --emit-md Markdown for caption titles and section context")
     polish_parser.add_argument("--out", type=Path, required=True, help="output final DOCX")
     polish_parser.set_defaults(func=_cmd_polish)
 

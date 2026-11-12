@@ -14,6 +14,7 @@ from pathlib import Path
 from typing import ClassVar
 
 import pytest
+
 from snippet_docx.cli import main
 from snippet_docx.jinja_render import (
     TemplateRenderError,
@@ -47,12 +48,12 @@ def _draft(tmp_path: Path, emit: bool = True) -> tuple[int, Path, Path | None]:
 
 def test_template_data_renders_end_to_end(tmp_path: Path,
                                           capsys: pytest.CaptureFixture) -> None:
-    rc, out, _emit = _draft(tmp_path)
+    rc, out, emitted = _draft(tmp_path)
     assert rc == 0
     assert out.is_file()
     assert "[ERROR]" not in capsys.readouterr().err
     rc = main(["polish", str(out), "--snippet", str(SNIPPET_YAML),
-               "--out", str(tmp_path / "final.docx")])
+               "--md", str(emitted), "--out", str(tmp_path / "final.docx")])
     assert rc == 0
     text = _document_text(tmp_path / "final.docx")
     assert "数据驱动表格" in text          # data-driven heading
