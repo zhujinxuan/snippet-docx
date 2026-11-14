@@ -141,6 +141,11 @@ Table: 各月发电量对比
   table, figure **below** the image. An env with no usable caption produces
   a warning and is styled without numbering; an empty native title can fall
   back to a legacy paragraph.
+- A selected native caption retains rich DOCX content (including native
+  equations and hyperlinks) when numbered/moved; an explicit legacy winner
+  still replaces a losing native title. Strategy formatting controls the
+  label/number envelope. A custom formatter that rewrites or duplicates a
+  rich title fails explicitly rather than flattening its content.
 - Wide table? Wrap in `` `anchor:begin:landscape` `` ...
   `` `anchor:end:landscape` ``; A4 next-page section breaks are inserted
   before/after, and the region may hold multiple blocks.
@@ -162,6 +167,40 @@ to polish. Keep the Markdown paired with its draft DOCX.
 | `prefix [2,2,3]`, no headings | pure-prose snippet; prefix alone drives caption numbers |
 | One subsection per snippet | second heading at root level = cross-subsection warning |
 
+## Image and native-equation layout
+
+Polish keeps images inline and equations native/editable OMML. Image-only
+paragraphs use `figure_image`, independently of `figure_caption`; native
+display-equation paragraphs use `display_equation`. The defaults center
+these object roles with zero indentation: image before 6 pt / after 5 pt,
+auto 1.5-line leading; display equation before/after 6 pt, at-least 23 pt.
+These separation values are not a guarantee of Word non-overlap.
+
+Inline math keeps its prose/list/table/heading/caption role and typography.
+Every image- or native-math-containing paragraph gets an effective-leading
+guard: exact leading (including direct overrides) becomes at-least at the
+same point floor; auto/at-least remains unchanged. Ordinary non-math/non-image
+typography, including exact 23 pt body leading, is unchanged.
+
+Override through `snippet.yaml`'s existing `styles.style` merge, for example:
+
+```yaml
+styles:
+  style:
+    figure_image:
+      space_before_pt: 8
+      space_after_pt: 5
+    display_equation:
+      line_spacing: 25
+      line_spacing_rule: atLeast
+```
+
+`auto` uses a line multiplier; `exact` and `atLeast` use points. The object
+roles default to `reset_indentation: true`; `left_indent_pt` /
+`right_indent_pt` configure their point-based side indents. See
+[the layout contract](references/ToolSpec.md#paragraph-allocation-and-style-overrides)
+before changing roles, inheritance or direct paragraph properties.
+
 ## Output interpretation & errors
 
 - **draft** prints `draft: <src> -> <out>` plus findings; **polish** prints
@@ -176,14 +215,19 @@ to polish. Keep the Markdown paired with its draft DOCX.
 | begin/end not standalone paragraph | error |
 | unknown env/global var | error |
 | `anchor:ref:*` used | error (reserved) |
+| selected rich caption has no matching native DOCX slot (`caption-context-mismatch`) | error (keep paired draft/Markdown) |
+| strategy rewrites/duplicates a rich title (`caption-format-unsupported`) | error (retain the title in the format) |
 | table/figure env without a usable caption | warning (styled, not numbered) |
 | conflicting native/ALT and explicit legacy titles in one env | warning (legacy wins) |
 | second root-level heading (cross-subsection) | warning ("numbering behavior undefined") |
 | heading deeper than level 5 | warning |
 
 - pandoc missing → `error: pandoc not found on PATH`.
-- After fixing findings, re-run draft then polish. Always eyeball final.docx;
-  officecli can assert contents programmatically if needed.
+- After fixing findings, re-run draft then polish. Inspect final.docx
+  manually in the intended viewer. XML/content checks do not certify Word
+  line/page layout or non-overlap; HTML is an approximation. Keep Word as
+  the user's manual review surface—no Word COM, `officecli refresh` or
+  unverified Word-backed exports.
 
 ## Testing the skill itself
 

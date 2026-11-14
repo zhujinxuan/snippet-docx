@@ -1,0 +1,318 @@
+{
+  "images": {
+    "native_math_before": 0,
+    "native_math_after": 0,
+    "native_math_semantics_equal": true,
+    "drawing_payload_equal": true,
+    "image_count": 3,
+    "math_allocation": [],
+    "image_layout": [
+      {
+        "role": "figure_image",
+        "spacing": {
+          "after": "100",
+          "before": "120",
+          "line": "360",
+          "lineRule": "auto"
+        },
+        "indent": {
+          "left": "0",
+          "right": "0",
+          "start": "0",
+          "end": "0",
+          "leftChars": "0",
+          "rightChars": "0",
+          "startChars": "0",
+          "endChars": "0",
+          "firstLine": "0",
+          "firstLineChars": "0",
+          "hanging": "0",
+          "hangingChars": "0"
+        }
+      },
+      {
+        "role": "figure_image",
+        "spacing": {
+          "after": "100",
+          "before": "120",
+          "line": "360",
+          "lineRule": "auto"
+        },
+        "indent": {
+          "left": "0",
+          "right": "0",
+          "start": "0",
+          "end": "0",
+          "leftChars": "0",
+          "rightChars": "0",
+          "startChars": "0",
+          "endChars": "0",
+          "firstLine": "0",
+          "firstLineChars": "0",
+          "hanging": "0",
+          "hangingChars": "0"
+        }
+      },
+      {
+        "role": "figure_image",
+        "spacing": {
+          "after": "100",
+          "before": "120",
+          "line": "360",
+          "lineRule": "auto"
+        },
+        "indent": {
+          "left": "0",
+          "right": "0",
+          "start": "0",
+          "end": "0",
+          "leftChars": "0",
+          "rightChars": "0",
+          "startChars": "0",
+          "endChars": "0",
+          "firstLine": "0",
+          "firstLineChars": "0",
+          "hanging": "0",
+          "hangingChars": "0"
+        }
+      }
+    ],
+    "sections": 3
+  },
+  "math": {
+    "native_math_before": 9,
+    "native_math_after": 9,
+    "native_math_semantics_equal": true,
+    "drawing_payload_equal": true,
+    "image_count": 1,
+    "math_allocation": [
+      {
+        "role": "heading2",
+        "line": "460",
+        "rule": "atLeast"
+      },
+      {
+        "role": "normal_text",
+        "line": "460",
+        "rule": "atLeast"
+      },
+      {
+        "role": "normal_text",
+        "line": "460",
+        "rule": "atLeast"
+      },
+      {
+        "role": "display_equation",
+        "line": "460",
+        "rule": "atLeast"
+      },
+      {
+        "role": "display_equation",
+        "line": "460",
+        "rule": "atLeast"
+      },
+      {
+        "role": "display_equation",
+        "line": "460",
+        "rule": "atLeast"
+      },
+      {
+        "role": "list_item",
+        "line": "460",
+        "rule": "atLeast"
+      },
+      {
+        "role": "table_caption",
+        "line": "360",
+        "rule": "auto"
+      },
+      {
+        "role": "table",
+        "line": "360",
+        "rule": "auto"
+      }
+    ],
+    "image_layout": [
+      {
+        "role": "figure_image",
+        "spacing": {
+          "after": "100",
+          "before": "120",
+          "line": "360",
+          "lineRule": "auto"
+        },
+        "indent": {
+          "left": "0",
+          "right": "0",
+          "start": "0",
+          "end": "0",
+          "leftChars": "0",
+          "rightChars": "0",
+          "startChars": "0",
+          "endChars": "0",
+          "firstLine": "0",
+          "firstLineChars": "0",
+          "hanging": "0",
+          "hangingChars": "0"
+        }
+      }
+    ],
+    "sections": 1
+  },
+  "figure_caption_math": {
+    "native_math_before": 1,
+    "native_math_after": 1,
+    "native_math_semantics_equal": true,
+    "drawing_payload_equal": true,
+    "image_count": 1,
+    "math_allocation": [
+      {
+        "role": "figure_caption",
+        "line": "360",
+        "rule": "auto"
+      }
+    ],
+    "image_layout": [
+      {
+        "role": "figure_image",
+        "spacing": {
+          "after": "100",
+          "before": "120",
+          "line": "360",
+          "lineRule": "auto"
+        },
+        "indent": {
+          "left": "0",
+          "right": "0",
+          "start": "0",
+          "end": "0",
+          "leftChars": "0",
+          "rightChars": "0",
+          "startChars": "0",
+          "endChars": "0",
+          "firstLine": "0",
+          "firstLineChars": "0",
+          "hanging": "0",
+          "hangingChars": "0"
+        }
+      }
+    ],
+    "sections": 1
+  },
+  "direct_exact_math": {
+    "native_math_before": 9,
+    "native_math_after": 9,
+    "native_math_semantics_equal": true,
+    "drawing_payload_equal": true,
+    "image_count": 1,
+    "math_allocation": [
+      {
+        "role": "heading2",
+        "line": "200",
+        "rule": "atLeast"
+      },
+      {
+        "role": "normal_text",
+        "line": "200",
+        "rule": "atLeast"
+      },
+      {
+        "role": "normal_text",
+        "line": "200",
+        "rule": "atLeast"
+      },
+      {
+        "role": "display_equation",
+        "line": "200",
+        "rule": "atLeast"
+      },
+      {
+        "role": "display_equation",
+        "line": "200",
+        "rule": "atLeast"
+      },
+      {
+        "role": "display_equation",
+        "line": "200",
+        "rule": "atLeast"
+      },
+      {
+        "role": "list_item",
+        "line": "200",
+        "rule": "atLeast"
+      },
+      {
+        "role": "table_caption",
+        "line": "200",
+        "rule": "atLeast"
+      },
+      {
+        "role": "table",
+        "line": "200",
+        "rule": "atLeast"
+      }
+    ],
+    "image_layout": [
+      {
+        "role": "figure_image",
+        "spacing": {
+          "after": "100",
+          "before": "120",
+          "line": "360",
+          "lineRule": "auto"
+        },
+        "indent": {
+          "left": "0",
+          "right": "0",
+          "start": "0",
+          "end": "0",
+          "leftChars": "0",
+          "rightChars": "0",
+          "startChars": "0",
+          "endChars": "0",
+          "firstLine": "0",
+          "firstLineChars": "0",
+          "hanging": "0",
+          "hangingChars": "0"
+        }
+      }
+    ],
+    "sections": 1
+  },
+  "image_boundaries": {
+    "captions_once": [
+      "表 2.2-2 月度统计",
+      "表 2.2-3 兼容旧表题",
+      "表 2.2-4 重复标题",
+      "表 2.2-5 重复标题",
+      "表 2.2.3-2 分节统计",
+      "表 2.2.3-3 深层统计",
+      "表 2.2.3-4 横向表",
+      "图 2.2-4 场区布置",
+      "图 2.2-5 兼容旧图题",
+      "图 2.2.3-4 横向图"
+    ],
+    "no_nonstructural_blank_paragraphs": true,
+    "section_orientations": [
+      "PORTRAIT",
+      "LANDSCAPE",
+      "PORTRAIT"
+    ]
+  },
+  "plain_controls": {
+    "unchanged_exact_23pt": [
+      "CONTROL-BEFORE",
+      "CONTROL-BETWEEN",
+      "CONTROL-AFTER"
+    ]
+  },
+  "verification_limit": "Structural/package checks only. Original equation failing artifact unavailable; no target-viewer Word layout inspection or rendered non-overlap verified. No Word automation used.",
+  "repository_gates": {
+    "command": "uv run pytest tests/ && uv run ruff check src tests",
+    "cwd": "C:/Users/zhu_j/worktrees/snippet-docx-inline-object-layout",
+    "exit_code": 0,
+    "pytest_passed": 268,
+    "pytest_seconds": 121.0,
+    "ruff": "All checks passed!"
+  }
+}

@@ -40,6 +40,8 @@ _W_VAL = qn("w:val")
 _W_TBL = qn("w:tbl")
 _W_DRAWING = qn("w:drawing")
 _W_PICT = qn("w:pict")
+_M_OMATH = qn("m:oMath")
+_M_OMATHPARA = qn("m:oMathPara")
 _W_TR = qn("w:tr")
 _W_TC = qn("w:tc")
 _W_TCPR = qn("w:tcPr")
@@ -130,12 +132,73 @@ def _current_pstyle(para: etree._Element) -> str:
     return pstyle.get(_W_VAL) or ""
 
 
+def _effective_line_allocation(
+        para: etree._Element, by_id: dict[str, etree._Element],
+        defaults: etree._Element | None, default_style: str,
+        ) -> tuple[str | None, str]:
+    """Resolve line and rule independently through the paragraph cascade."""
+    line = None
+    rule = None
+
+    def inherit(ppr: etree._Element | None) -> None:
+        nonlocal line, rule
+        spacing = ppr.find(qn("w:spacing")) if ppr is not None else None
+        if spacing is not None:
+            if line is None:
+                line = spacing.get(qn("w:line"))
+            if rule is None:
+                rule = spacing.get(qn("w:lineRule"))
+
+    inherit(para.find(_W_PPR))
+    style_id = _current_pstyle(para) or default_style
+    seen = set()
+    while style_id and style_id not in seen:
+        seen.add(style_id)
+        style = by_id.get(style_id)
+        if style is None:
+            break
+        inherit(style.find(_W_PPR))
+        based_on = style.find(qn("w:basedOn"))
+        style_id = based_on.get(_W_VAL, "") if based_on is not None else ""
+    inherit(defaults)
+    return line, rule or "auto"
+
+
+def _allow_object_growth(
+        para: etree._Element, by_id: dict[str, etree._Element],
+        defaults: etree._Element | None, default_style: str) -> None:
+    """Replace only a winning exact constraint, retaining its point floor."""
+    line, rule = _effective_line_allocation(para, by_id, defaults, default_style)
+    if rule == "exact":
+        spacing = para.get_or_add_pPr().get_or_add_spacing()
+        if line is not None:
+            spacing.set(qn("w:line"), line)
+        spacing.set(qn("w:lineRule"), "atLeast")
+
+
+def _apply_object_layout(
+        para: etree._Element, style: etree._Element) -> None:
+    """Apply role indents/alignment despite conflicting direct formatting."""
+    role_ppr = style.find(_W_PPR)
+    if role_ppr is None:
+        return
+    ppr = para.get_or_add_pPr()
+    for tag in ("ind", "jc"):
+        configured = role_ppr.find(qn(f"w:{tag}"))
+        if configured is None:
+            continue
+        direct = getattr(ppr, f"get_or_add_{tag}")()
+        # Drop competing aliases, not unrelated paragraph properties.
+        direct.attrib.clear()
+        direct.attrib.update(configured.attrib)
+
+
 class CreateStyles:
     """Define the named DOCX paragraph styles from the merged style config.
 
-    One style per merged entry (heading1..5, normal_text, table_caption,
-    figure_caption, table, list_item): fonts, size, emphasis, alignment,
-    spacing, leading, first-line indent. Runs once, before assignment.
+    One style per merged entry, including independent image and display-math
+    roles: fonts, size, emphasis, alignment, spacing, leading and indentation.
+    Runs once, before assignment.
     """
 
     def __call__(self, doc: Document, ctx: Ctx) -> None:
@@ -151,10 +214,11 @@ class SetParagraphStyle:
     StripAnchors runs after this op). Ranges: pandoc Heading N -> headingN,
     env captions (label-prefixed text) -> {env}_caption, pandoc caption
     styles -> our caption styles, numbered list paragraphs -> list_item,
-    image-only paragraphs -> centered style with no first-line indent
-    (figure_caption values: centered, indent-free, auto leading so tall
-    images are never clipped by an exact line height), everything else ->
-    normal_text. Table cell paragraphs get the table content style.
+    image-only paragraphs -> figure_image, native display OMML without prose
+    -> display_equation, everything else -> normal_text. Table, list, heading
+    and caption roles take precedence over display classification. A final
+    pass makes effective exact leading grow for every native math or image
+    paragraph, including those assigned through an early branch.
     """
 
     def __call__(self, doc: Document, ctx: Ctx) -> None:
@@ -210,9 +274,11 @@ class SetParagraphStyle:
             text = "".join(t.text or "" for t in child.iter(_W_T))
             has_image = (child.find(f".//{_W_DRAWING}") is not None
                          or child.find(f".//{_W_PICT}") is not None)
-            if has_image and not text.strip():
-                if "figure_caption" in known:
-                    _set_pstyle(child, "figure_caption")
+            if (has_image and not text.strip()
+                    and child.find(f".//{_M_OMATH}") is None
+                    and child.find(f".//{_M_OMATHPARA}") is None):
+                if "figure_image" in known:
+                    _set_pstyle(child, "figure_image")
                 continue
 
             env = stack[-1] if stack else None
@@ -223,8 +289,33 @@ class SetParagraphStyle:
                 _set_pstyle(child, caption_name)
                 continue
 
+            if (child.find(f".//{_M_OMATHPARA}") is not None
+                    and not text.strip()):
+                if "display_equation" in known:
+                    _set_pstyle(child, "display_equation")
+                continue
+
             if "normal_text" in known:
                 _set_pstyle(child, "normal_text")
+
+        styles_el = doc.styles.element
+        by_id = {style.get(qn("w:styleId")): style
+                 for style in styles_el.findall(qn("w:style"))}
+        default_style = next((
+            name for name, style in by_id.items()
+            if style.get(qn("w:type")) == "paragraph"
+            and style.get(qn("w:default")) in {"1", "true", "on"}), "Normal")
+        defaults = styles_el.find(
+            f"{qn('w:docDefaults')}/{qn('w:pPrDefault')}/{_W_PPR}")
+        for para in doc.element.body.iter(_W_P):
+            current = _current_pstyle(para)
+            if current in {"figure_image", "display_equation"} and current in by_id:
+                _apply_object_layout(para, by_id[current])
+            if (para.find(f".//{_M_OMATH}") is not None
+                    or para.find(f".//{_M_OMATHPARA}") is not None
+                    or para.find(f".//{_W_DRAWING}") is not None
+                    or para.find(f".//{_W_PICT}") is not None):
+                _allow_object_growth(para, by_id, defaults, default_style)
 
 
 # --------------------------------------------------------------------------
@@ -513,8 +604,8 @@ class InsertSectionBreak:
       from the portrait body section. A sectPr needs a paragraph to live
       on, so an empty one is inserted when the env ends on a table (or
       on nothing but anchors);
-    - an empty paragraph after the end anchor opens the following
-      portrait section.
+    - following portrait content is governed by the next portrait
+      sectPr (ultimately the body's); no empty opening paragraph is needed.
 
     No ``w:type`` child means next-page breaks (the Word default). The
     copied portrait sectPr never rides on an anchor paragraph: those are
@@ -535,7 +626,6 @@ class InsertSectionBreak:
             self._close_section(portrait_close, deepcopy(body_sect))
             last = self._env_last_paragraph(begin_para, end_para, prefix)
             self._close_section(last, self._landscape_sectpr(body_sect))
-            end_para.addnext(etree.Element(_W_P))  # opens portrait again
 
     # -- env location
 

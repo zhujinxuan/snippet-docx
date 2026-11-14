@@ -16,9 +16,10 @@
 #   bold / italic
 #   alignment                     justify | center | left | right
 #   space_before_pt / space_after_pt
-#   line_spacing                  multiplier (1.5) or exact pt (23)
-#   line_spacing_rule             auto | exact
-#   first_line_indent_pt
+#   line_spacing                  multiplier (auto) or pt (exact/atLeast)
+#   line_spacing_rule             auto | exact | atLeast
+#   first_line_indent_pt / left_indent_pt / right_indent_pt
+#   reset_indentation             clear inherited/direct indent aliases
 #
 # User snippet.yaml `styles:` deep-merges over this file; only overrides
 # need to be specified.
@@ -133,6 +134,41 @@ style:
     line_spacing: 1.5
     line_spacing_rule: auto
     first_line_indent_pt: 0
+
+  # DERIVED: object allocation policy, independent of caption typography.
+  # These initial gaps are not a target-viewer-validated layout measurement.
+  figure_image:
+    chinese_font: 宋体
+    english_font: Times New Roman
+    font_size_pt: 12
+    bold: false
+    italic: false
+    alignment: center
+    space_before_pt: 6
+    space_after_pt: 5
+    line_spacing: 1.5
+    line_spacing_rule: auto
+    reset_indentation: true
+    first_line_indent_pt: 0
+    left_indent_pt: 0
+    right_indent_pt: 0
+
+  # Native display OMML; mixed prose math retains its paragraph role.
+  display_equation:
+    chinese_font: 宋体
+    english_font: Times New Roman
+    font_size_pt: 12
+    bold: false
+    italic: false
+    alignment: center
+    space_before_pt: 6
+    space_after_pt: 6
+    line_spacing: 23
+    line_spacing_rule: atLeast
+    reset_indentation: true
+    first_line_indent_pt: 0
+    left_indent_pt: 0
+    right_indent_pt: 0
 
   table:
     chinese_font: 宋体

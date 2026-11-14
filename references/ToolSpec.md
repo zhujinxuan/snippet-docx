@@ -1,6 +1,6 @@
 # ToolSpec: snippet-docx
 
-**Status**: settled design (Decisions register). Canonical home is the `snippet-docx` agent skill (`~/.agents/skills/snippet-docx/`); the jz-toolshed origin remains frozen. Native-caption decisions and implementation status are tracked in [the feature spec](../.scratch/native-captions/spec.md).
+**Status**: settled design (Decisions register). Canonical home is the `snippet-docx` agent skill (`~/.agents/skills/snippet-docx/`); the jz-toolshed origin remains frozen. Native-caption decisions and implementation status are tracked in [the feature spec](../.scratch/native-captions/spec.md). The [inline-object layout record](../.scratch/inline-object-layout/spec.md) separates implementation/structural evidence from pending manual Word layout verification.
 **CLI name**: `snippet-docx`
 **Purpose**: convert a markdown *snippet* (one subsection or part of one
 subsection, optionally jinja2-templated with data) into a DOCX meeting a
@@ -120,6 +120,27 @@ representations without destroying image drawings or XML. Linked/formatted
 images, including ALT starting `图`, must retain their image content. No
 implicit anchor insertion or new caption-mode configuration is introduced.
 
+For a selected rich DOCX caption, preserve/move its existing paragraph
+instead of rebuilding it from flattened Markdown title text. Caption
+selection provenance identifies the native or explicit legacy winner;
+native reuse is tied to the selected table/drawing ordinal, counting
+captionless and inline objects too. The native slot must be immediately
+before its table or after its drawing; an ordinary ALT-only image cannot
+borrow a later caption. A losing native caption is still removed when a
+legacy caption wins. Remove optional leading labels/stale numbers only from
+text runs, not native OMML; retain hyperlinks, fields, run formatting and
+paragraph properties. The actual `Strategy.format_caption` output for the
+real normalized title remains authoritative. It is a pure formatter; call
+counts are not part of the contract. An internal unique-token probe may
+disambiguate a title colliding with numeric labels, but its prefix/suffix
+must reconstruct the real formatter output exactly.
+
+Rich formatting must retain the title exactly once; unsupported title
+rewriting/duplication produces `caption-format-unsupported` rather than
+flattening. A missing selected rich native slot produces
+`caption-context-mismatch`, not reuse of another object's caption. Ordinary
+text-only captions retain existing formatter behavior.
+
 ## 4. snippet.yaml schema
 
 ```yaml
@@ -158,6 +179,72 @@ anchors:
   under `2.2.3` → `表 2.2.3-1`; under `2.2.3.1` → `表 2.2.3-N` (clamped).
 - A snippet that is pure prose+table under `2.2.3` contains no headings;
   `prefix: [2,2,3]` alone drives caption numbering.
+
+### Paragraph allocation and style overrides
+
+The existing `styles` deep merge accepts named paragraph-role overrides
+under `styles.style.<role>`; layout does not add a parallel configuration:
+
+```yaml
+styles:
+  style:
+    figure_image:
+      space_before_pt: 8
+      space_after_pt: 5
+      line_spacing: 1.5
+      line_spacing_rule: auto
+      reset_indentation: true
+      left_indent_pt: 0
+      right_indent_pt: 0
+    display_equation:
+      space_before_pt: 6
+      space_after_pt: 6
+      line_spacing: 25
+      line_spacing_rule: atLeast
+```
+
+The shipped `figure_image` role is centered, before 6 pt / after 5 pt,
+automatic 1.5-line leading. `figure_caption` remains separate (before 0 pt /
+after 5 pt, automatic 1.5 lines); caption overrides do not configure image
+allocation. The shipped `display_equation` role is centered, before/after
+6 pt, at-least 23 pt leading. Both object roles default to
+`reset_indentation: true`, zero first-line and zero side indentation.
+
+`line_spacing_rule` accepts `auto`, `exact`, `atLeast`. `line_spacing` is a
+multiplier for `auto` (`1.5` → `w:line=360`), but points for `exact` and
+`atLeast` (`23` → `w:line=460`). `atLeast` is OOXML's case-sensitive rule
+name, not a guessed equation height.
+
+`reset_indentation: true` opts into explicit indentation resets for twip and
+character measures, including first-line/hanging and legacy left/right or
+logical start/end aliases. `left_indent_pt` and `right_indent_pt` then supply
+configured side values. Existing styles that merely specify a zero
+first-line indent do not acquire this reset behavior. For image/display
+roles, polish writes the configured alignment/indentation directly to
+override conflicting direct properties; it does not hardcode a different
+alignment than the resolved role configuration.
+
+Classify native `m:oMathPara` as display math; do not infer a display formula
+from absence of `w:t`. Inline `m:oMath` retains its prose/list/table/heading/
+caption role, numbering and fonts. After paragraph classification, a
+role-independent pass considers every image- or native-math-containing
+paragraph, including table cells and early branches. Resolve `line` and
+`lineRule` independently through direct `w:pPr`, assigned style / `basedOn`
+chain and `w:docDefaults`. A winning exact rule becomes direct `atLeast`
+with the same resolved point floor; existing `auto` or `atLeast` is retained.
+This also handles direct exact spacing that would defeat an automatic style.
+Preserve unrelated direct properties, before/after spacing and role-specific
+indentation/typography. Configured before/after lives in the role style;
+existing direct before/after still wins normally.
+
+Non-math/non-image paragraphs retain their ordinary house typography,
+including exact 23 pt body leading. Keep native OMML and math settings,
+image runs, `wp:inline`, extents/aspect ratio, ALT/accessibility text,
+relationships and hyperlink/run content; allocate paragraph space rather
+than reconstructing objects. No blank spacers, rasterized equations,
+equation metrics engine or inflated/shrunken drawing extents are introduced.
+The trial paragraph-separation defaults and structural rules do not certify
+Word line/page layout or rendered non-overlap.
 
 ## 5. Strategy contract (pluggability)
 
@@ -254,15 +341,18 @@ swap + a styles dict. No pipeline, validator, or anchor-parser edits.
 - `NormalizeImages` — inject missing `{width=… height=…}` attrs (giant-image
   defect from the 踏勘 pipeline)
 
-**docx phase** (python-docx/XML, command 2):
+**docx phase** (python-docx/XML, command 2; ecepdi order below):
+- `CreateStyles` — named styles from merged styles.yaml (once), including
+  separate `figure_image`, `figure_caption` and `display_equation` roles
 - `NumberCaptions` — shared `captions.py` source discovery, normalization and
   per-env plans; required Markdown section context drives counters and
   `Strategy.format_caption`. Realize exactly one caption per env, preserving
-  image XML; runs before `SetParagraphStyle` and landscape section breaks.
-  There is no Markdown-side `NumberCaptions` op.
-- `CreateStyles` — named styles from merged styles.yaml (once)
-- `SetParagraphStyle` — anchor-delimited ranges: captions → caption style,
-  table cells → content style, image paragraphs → centered
+  selected rich caption/object XML; runs before `SetParagraphStyle` and
+  landscape section breaks. There is no Markdown-side `NumberCaptions` op.
+- `SetParagraphStyle` — retain table/caption/prose/list/heading roles; assign
+  image-only paragraphs and native display equations their distinct roles;
+  post-classification effective-leading correction covers images/native math
+  in every role (see [allocation contract](#paragraph-allocation-and-style-overrides))
 - `FixTable` — borders single sz=4 on all 6 edges, table centered, tblGrid
   recompute (CJK 160 twips/char, ASCII 80 twips/char at 9pt, +108 cell
   padding; numeric floor 1200, text floor 500), cell fonts per styles.yaml —
@@ -270,7 +360,10 @@ swap + a styles dict. No pipeline, validator, or anchor-parser edits.
 - `ClampImageWidths` — images wider than text width clamped
 - `InsertSectionBreak` — `landscape` env → next-page section break before
   (A4, orient=landscape, w/h swapped, same margins) and portrait break after;
-  env = arbitrary block sequence (multiple tables + prose allowed)
+  env = arbitrary block sequence (multiple tables + prose allowed). Section
+  properties close the preceding section; retain required section carriers
+  (including table-only landscape closure) without adding a redundant bare
+  paragraph after the landscape end anchor as a portrait "opener".
 - `StripAnchors` — remove all anchor paragraphs/runs at XML level
 
 ## 7. Validation policy (Q14)
@@ -281,6 +374,8 @@ swap + a styles dict. No pipeline, validator, or anchor-parser edits.
 | begin/end not a standalone paragraph | error |
 | unknown env name / unknown global var | error |
 | `anchor:ref:*` used | error (reserved) |
+| selected rich caption cannot match its native DOCX slot (`caption-context-mismatch`) | error |
+| unsupported rich-title formatter rewrite/duplication (`caption-format-unsupported`) | error |
 | table/figure env without a usable caption | warning (style it, don't number) |
 | conflicting native/ALT and explicit legacy titles in one env | warning (legacy wins) |
 | second heading at root level (cross-subsection) | warning ("numbering behavior undefined") |
@@ -307,7 +402,17 @@ dropping them and checks errors before saving.
    captions, unchanged landscape/heading behavior, and surfaced findings.
    Exercise both emitted Markdown context and raw source Markdown; verify
    missing context and validation errors prevent final output.
-4. **Repo gates** — run the project's configured checks and `uv run pytest tests/`.
+4. **Inline-object layout** — assert independent image/caption overrides,
+   centered/effectively indent-free object roles, inherited/direct exact
+   leading correction and unchanged auto/at-least rules; retain inline math
+   roles, native OMML semantics and non-math typography. Cover tall inline/
+   display fixtures, table/list/heading/caption branches, linked/formatted
+   images, rich caption winners/losers and custom strategy formatting.
+   Exercise real draft → emitted Markdown → polish with native math and the
+   preserved table/image/landscape sample. XML checks establish structure,
+   not rendered non-overlap: manual target-viewer comparison remains a
+   separate criterion. HTML is an approximation, not Word pagination proof.
+5. **Repo gates** — run the project's configured checks and `uv run pytest tests/`.
 
 These are acceptance criteria, not a record of checks performed. Prototype
 evidence and implementation verification belong in the feature records.
@@ -352,6 +457,8 @@ evidence and implementation verification belong in the feature records.
 | Q22 | User-approved native captions: Pandoc `Table:` / `:` and standalone image ALT; retain slots/ALT in draft, number/place in polish with required Markdown section context; emitted Markdown carries explicit heading context, not expanded caption paragraphs |
 | Q23 | Legacy explicit caption wins within the same env even when wording differs; warn on conflict; normalize optional labels/stale numbers from both sources; dedup per env only and advance once per logical caption |
 | Q24 | Preserve anchors, offsets, scope, clamp and strategy formatting; no implicit anchors or caption modes; prototype pointer `prototype/native-captions`, evidence/status in the feature records |
+| Q25 | Allocate inline objects in polish: distinct `figure_image`/native `display_equation` roles; exact winning image/math leading becomes at-least at the same point floor; ordinary typography unchanged; structural verification is separate from manual Word layout evidence |
+| Q26 | Preserve/move the selected rich caption paragraph, including native math; strategy formatter controls its label/number envelope and must retain the rich title exactly once; unsupported rich-title rewrites fail explicitly |
 
 ## 11. Provenance
 

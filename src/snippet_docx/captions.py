@@ -82,6 +82,27 @@ def _native_title(block: dict, env: str) -> str:
                  if plain_text(image["c"][1]).strip()), "")
 
 
+def _rich_title(block: dict, source_kind: str | None) -> bool:
+    """Inspect only the selected title, not table cells or image objects."""
+    if source_kind == "legacy":
+        content = block.get("c") or []
+    elif block.get("t") in {"Table", "Figure"} and _slot_text(block["c"][1]):
+        content = block["c"][1]
+    else:
+        content = next((image["c"][1] for image in _images(block)
+                        if plain_text(image["c"][1]).strip()), [])
+
+    def rich(value):
+        if isinstance(value, dict):
+            return (value.get("t") in {"Math", "Emph", "Strong", "Underline", "Strikeout",
+                                      "SmallCaps", "Span", "Code", "Link", "Quoted",
+                                      "Note", "RawInline"} or
+                    any(rich(child) for child in value.values()))
+        return isinstance(value, list) and any(rich(child) for child in value)
+
+    return rich(content)
+
+
 @dataclass
 class CaptionSource:
     env: str
@@ -89,6 +110,7 @@ class CaptionSource:
     end: int
     body: str = ""
     source_index: int | None = None
+    source_kind: str | None = None
     findings: list[Finding] = field(default_factory=list)
 
 
@@ -136,6 +158,7 @@ def discover_captions(ast: dict, strategy: Strategy,
         candidates = legacy or native
         if candidates:
             source.source_index, source.body = candidates[0]
+            source.source_kind = "legacy" if legacy else "native"
             alternatives = [body for _, body in legacy[1:] + native
                             if body != source.body]
             if alternatives:
@@ -170,6 +193,38 @@ def caption_scope(spec: EnvSpec, path: tuple[int | str, ...],
 class CaptionPlan:
     env: str
     text: str | None
+    source_kind: str | None
+    envelope: tuple[str, str] | None
+    rich: bool
+    source_object: tuple[str, int] | None
+
+
+def _selected_native_object(ast: dict, source: CaptionSource) -> tuple[str, int] | None:
+    """Identify the selected table/image, including objects without captions."""
+    if source.source_kind != "native" or source.source_index is None:
+        return None
+    bs = blocks(ast)
+    selected = bs[source.source_index]
+    preceding = bs[source.begin + 1:source.source_index]
+    if selected.get("t") == "Table":
+        return ("table", sum(block.get("t") == "Table" for block in preceding))
+    if selected.get("t") != "Figure" or not _slot_text(selected["c"][1]):
+        # ALT fallback in an ordinary paragraph has no native caption
+        # paragraph to preserve, even when another image later has one.
+        return None
+
+    def image_count(block):
+        if block.get("t") == "Table":
+            return 0
+        content = block["c"][2] if block.get("t") == "Figure" else block
+        return sum(1 for _ in _images(content))
+
+    count = image_count(selected)
+    if not count:
+        return None
+    offset = sum(image_count(block) for block in preceding)
+    # Pandoc places a Figure's caption after its image content.
+    return ("figure", offset + count - 1)
 
 
 def build_caption_plans(ast: dict, annotations: list[NodeInfo], config: Config,
@@ -181,6 +236,7 @@ def build_caption_plans(ast: dict, annotations: list[NodeInfo], config: Config,
     for source in sources:
         findings.extend(source.findings)
         text = None
+        rich = False
         if source.source_index is not None:
             node = nodes[source.source_index]
             if node.caption_index is None:
@@ -188,16 +244,90 @@ def build_caption_plans(ast: dict, annotations: list[NodeInfo], config: Config,
             text = strategy.format_caption(
                 strategy.envs[source.env], node.section_path[:config.caption_max_depth],
                 node.caption_index, source.body)
-        plans.append(CaptionPlan(source.env, text))
+            rich = _rich_title(blocks(ast)[source.source_index], source.source_kind)
+        envelope = None
+        if text is not None and text.count(source.body) == 1:
+            prefix, suffix = text.split(source.body)
+            envelope = (prefix, suffix)
+        elif text is not None and source.source_index is not None:
+            # A short title can also occur in the section number or label.
+            # Probe only to locate its envelope, never to replace the real
+            # formatter's authoritative (possibly title-dependent) output.
+            token = "__snippet_docx_caption_title__"
+            while token in text or token in source.body:
+                token += "_"
+            probe = strategy.format_caption(
+                strategy.envs[source.env], node.section_path[:config.caption_max_depth],
+                node.caption_index, token)
+            if probe.count(token) == 1:
+                prefix, suffix = probe.split(token)
+                if prefix + source.body + suffix == text:
+                    envelope = (prefix, suffix)
+        plans.append(CaptionPlan(source.env, text, source.source_kind, envelope, rich,
+                                 _selected_native_object(ast, source)))
     return plans, findings
+
+
+def _caption_has_content(paragraph, label: str) -> bool:
+    text = "".join(t.text or "" for t in paragraph.iter(qn("w:t")))
+    return bool(normalize_caption(text, label) or
+                paragraph.find(f".//{qn('m:oMath')}") is not None)
+
+
+def _leading_caption_text(paragraph):
+    leading = []
+    for node in paragraph.iter():
+        if node.tag in {qn("m:oMath"), qn("w:tab"), qn("w:br"), qn("w:fldChar")}:
+            # A non-whitespace sentinel represents the protected object only
+            # for normalization; it is never written into the document.
+            return leading, "".join(node.text or "" for node in leading) + "\0"
+        if node.tag == qn("w:t"):
+            leading.append(node)
+    return leading, "".join(node.text or "" for node in leading)
+
+
+def _trim_caption_prefix(paragraph, label: str) -> None:
+    """Remove only leading text, including a stale prefix split over rich runs.
+
+    OMML and other non-text objects end the leading-text region: their text
+    must neither participate in normalization nor be rewritten as prose.
+    """
+    leading, text = _leading_caption_text(paragraph)
+    normalized = normalize_caption(text, label)
+    # Unlike normalize_caption, do not trim the trailing gap before math.
+    remove = len(text) - len(text.lstrip())
+    if normalized:
+        remove = text.rfind(normalized, remove)
+    else:
+        remove = len(text)
+    for node in leading:
+        value = node.text or ""
+        cut = min(remove, len(value))
+        node.text = value[cut:]
+        remove -= cut
+
+
+def _caption_text_run(text: str):
+    run = etree.Element(qn("w:r"))
+    node = etree.SubElement(run, qn("w:t"))
+    node.set(qn("xml:space"), "preserve")
+    node.text = text
+    return run
+
+
+def _has_rich_content(paragraph) -> bool:
+    return any(node.tag not in {qn("w:p"), qn("w:pPr"), qn("w:pStyle"),
+                               qn("w:r"), qn("w:t")}
+               for child in paragraph if child.tag != qn("w:pPr")
+               for node in child.iter())
 
 
 class NumberCaptions:
     """Realize the shared caption plans before styling and landscape sectioning.
 
-    Paragraphs containing drawings are never rewritten or deleted. Pandoc
-    native caption paragraphs and legacy caption paragraphs are removed only
-    within the corresponding explicit env, then one caption is inserted.
+    Paragraphs containing drawings are never rewritten or deleted. The selected
+    caption paragraph is moved intact, with only its text prefix normalized;
+    redundant native/legacy representations are removed within the same env.
     """
 
     def __call__(self, doc, ctx: Ctx) -> list[Finding]:
@@ -231,6 +361,7 @@ class NumberCaptions:
             return [Finding("caption-context-mismatch", "error",
                             "DOCX numbered anchor envs do not match --md; use the Markdown "
                             "that produced this draft (prefer draft --emit-md)")]
+        findings = []
         for (env, begin, end), plan in zip(spans, plans):
             spec = ctx.strategy.envs[env]
             inside = []
@@ -242,6 +373,19 @@ class NumberCaptions:
             native_styles = ({"TableCaption"} if env == "table" else
                              {"ImageCaption"} if env == "figure" else
                              {"TableCaption", "ImageCaption"})
+            candidates = {"native": [], "legacy": []}
+            removable = []
+            objects = {}
+            table_index = figure_index = 0
+            for child in inside:
+                if child.tag == table_tag:
+                    objects[("table", table_index)] = child
+                    table_index += 1
+                elif child.tag == p_tag:
+                    for node in child.iter():
+                        if node.tag in {qn("w:drawing"), qn("w:pict")}:
+                            objects[("figure", figure_index)] = child
+                            figure_index += 1
             for child in inside:
                 drawing = (child.find(f".//{qn('w:drawing')}") is not None or
                            child.find(f".//{qn('w:pict')}") is not None)
@@ -252,16 +396,63 @@ class NumberCaptions:
                     continue
                 if child.tag != p_tag or _anchor_marker(child, ctx.config.anchor_prefix) is not None:
                     continue
-                text = "".join(t.text or "" for t in child.iter(qn("w:t")))
-                if (_current_pstyle(child) in native_styles | {f"{env}_caption"}
-                        or is_legacy_caption(text, spec.label)):
-                    body.remove(child)
+                _, text = _leading_caption_text(child)
+                style = _current_pstyle(child)
+                kind = ("native" if style in native_styles else
+                        "legacy" if is_legacy_caption(text, spec.label) else None)
+                if kind is not None or style == f"{env}_caption":
+                    removable.append(child)
+                    if kind is not None and _caption_has_content(child, spec.label):
+                        candidates[kind].append(child)
             if plan.text is None:
+                for child in removable:
+                    body.remove(child)
                 continue
-            caption = etree.Element(p_tag)
-            run = etree.SubElement(caption, qn("w:r"))
-            text_node = etree.SubElement(run, qn("w:t"))
-            text_node.text = plan.text
+            if plan.source_kind == "native":
+                source_object = plan.source_object
+                selected_object = objects.get(source_object)
+                caption = None
+                if selected_object is not None and source_object is not None:
+                    is_table = source_object[0] == "table"
+                    caption = (selected_object.getprevious() if is_table
+                               else selected_object.getnext())
+                    native_style = "TableCaption" if is_table else "ImageCaption"
+                    if (caption not in candidates["native"] or
+                            _current_pstyle(caption) != native_style):
+                        caption = None
+            else:
+                selected = candidates.get(plan.source_kind, [])
+                caption = selected[0] if selected else None
+            if caption is None and plan.rich:
+                findings.append(Finding(
+                    "caption-context-mismatch", "error",
+                    f"{env} selected rich caption has no matching DOCX paragraph; "
+                    "refusing to replace it with plain text"))
+                continue
+            if caption is not None and plan.envelope is None and _has_rich_content(caption):
+                findings.append(Finding(
+                    "caption-format-unsupported", "error",
+                    f"{env} caption formatter must retain its rich title exactly once; "
+                    "refusing to flatten native caption content"))
+                continue
+            for child in removable:
+                body.remove(child)
+            if caption is None:
+                caption = etree.Element(p_tag)
+                caption.append(_caption_text_run(plan.text))
+            elif plan.envelope is None:
+                for child in list(caption):
+                    if child.tag != qn("w:pPr"):
+                        caption.remove(child)
+                caption.append(_caption_text_run(plan.text))
+            else:
+                _trim_caption_prefix(caption, spec.label)
+                prefix, suffix = plan.envelope
+                if prefix:
+                    ppr = caption.find(qn("w:pPr"))
+                    caption.insert(1 if ppr is not None else 0, _caption_text_run(prefix))
+                if suffix:
+                    caption.append(_caption_text_run(suffix))
             caption_style = (spec.caption_style if spec.caption_style != "Caption"
                              else f"{env}_caption")
             _set_pstyle(caption, caption_style)
@@ -272,4 +463,4 @@ class NumberCaptions:
                     content[-1].addnext(caption)
             else:
                 end.addprevious(caption)
-        return []
+        return findings

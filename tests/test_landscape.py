@@ -208,9 +208,9 @@ def test_env_region_holds_multiple_tables_and_prose(
     assert portrait_close < tables[0] < prose[0] < tables[1] < landscape_close
     assert landscape_close < after[0]
     assert _texts(children[landscape_close]) == "横向段落收尾。"
-    # an empty paragraph right after the env opens the following portrait page
-    opener = children[landscape_close + 1]
-    assert opener.tag == f"{W}p" and _texts(opener) == ""
+    # Bookmark markers may precede the heading; no layout block is needed.
+    assert not any(el.tag in {f"{W}p", f"{W}tbl"}
+                   for el in children[landscape_close + 1:after[0]])
     # the portrait break rides an inserted empty paragraph, not content
     assert _texts(children[portrait_close]) == ""
     assert "anchor:" not in _texts(root)                       # zero anchor residue

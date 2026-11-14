@@ -1,0 +1,246 @@
+{
+  "pandoc-api-version": [
+    1,
+    23,
+    1
+  ],
+  "meta": {},
+  "blocks": [
+    {
+      "t": "Header",
+      "c": [
+        2,
+        [
+          "figure-math-caption-preservation",
+          [],
+          [
+            [
+              "snippet-docx-section",
+              "[2, 2]"
+            ]
+          ]
+        ],
+        [
+          {
+            "t": "Str",
+            "c": "2.2"
+          },
+          {
+            "t": "Space"
+          },
+          {
+            "t": "Str",
+            "c": "Figure"
+          },
+          {
+            "t": "Space"
+          },
+          {
+            "t": "Str",
+            "c": "math"
+          },
+          {
+            "t": "Space"
+          },
+          {
+            "t": "Str",
+            "c": "caption"
+          },
+          {
+            "t": "Space"
+          },
+          {
+            "t": "Str",
+            "c": "preservation"
+          }
+        ]
+      ]
+    },
+    {
+      "t": "Para",
+      "c": [
+        {
+          "t": "Str",
+          "c": "FIGURE-CAPTION-CONTROL-BEFORE"
+        },
+        {
+          "t": "Space"
+        },
+        {
+          "t": "Str",
+          "c": "ordinary"
+        },
+        {
+          "t": "Space"
+        },
+        {
+          "t": "Str",
+          "c": "non-math"
+        },
+        {
+          "t": "Space"
+        },
+        {
+          "t": "Str",
+          "c": "paragraph."
+        }
+      ]
+    },
+    {
+      "t": "Para",
+      "c": [
+        {
+          "t": "Code",
+          "c": [
+            [
+              "",
+              [],
+              []
+            ],
+            "anchor:begin:figure"
+          ]
+        }
+      ]
+    },
+    {
+      "t": "Figure",
+      "c": [
+        [
+          "",
+          [],
+          []
+        ],
+        [
+          null,
+          [
+            {
+              "t": "Plain",
+              "c": [
+                {
+                  "t": "Str",
+                  "c": "FIGURE-CAPTION-MATH"
+                },
+                {
+                  "t": "Space"
+                },
+                {
+                  "t": "Str",
+                  "c": "inline"
+                },
+                {
+                  "t": "Space"
+                },
+                {
+                  "t": "Math",
+                  "c": [
+                    {
+                      "t": "InlineMath"
+                    },
+                    "\\frac{a+b}{c+d}"
+                  ]
+                }
+              ]
+            }
+          ]
+        ],
+        [
+          {
+            "t": "Plain",
+            "c": [
+              {
+                "t": "Image",
+                "c": [
+                  [
+                    "",
+                    [],
+                    [
+                      [
+                        "width",
+                        "10cm"
+                      ]
+                    ]
+                  ],
+                  [
+                    {
+                      "t": "Str",
+                      "c": "FIGURE-CAPTION-MATH"
+                    },
+                    {
+                      "t": "Space"
+                    },
+                    {
+                      "t": "Str",
+                      "c": "inline"
+                    },
+                    {
+                      "t": "Space"
+                    },
+                    {
+                      "t": "Math",
+                      "c": [
+                        {
+                          "t": "InlineMath"
+                        },
+                        "\\frac{a+b}{c+d}"
+                      ]
+                    }
+                  ],
+                  [
+                    "../layout.png",
+                    ""
+                  ]
+                ]
+              }
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "t": "Para",
+      "c": [
+        {
+          "t": "Code",
+          "c": [
+            [
+              "",
+              [],
+              []
+            ],
+            "anchor:end:figure"
+          ]
+        }
+      ]
+    },
+    {
+      "t": "Para",
+      "c": [
+        {
+          "t": "Str",
+          "c": "FIGURE-CAPTION-CONTROL-AFTER"
+        },
+        {
+          "t": "Space"
+        },
+        {
+          "t": "Str",
+          "c": "ordinary"
+        },
+        {
+          "t": "Space"
+        },
+        {
+          "t": "Str",
+          "c": "non-math"
+        },
+        {
+          "t": "Space"
+        },
+        {
+          "t": "Str",
+          "c": "paragraph."
+        }
+      ]
+    }
+  ]
+}

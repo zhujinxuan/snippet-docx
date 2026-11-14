@@ -1,0 +1,16 @@
+{
+  "source": "draft.docx",
+  "diagnostic_only": true,
+  "change": "Inject direct w:spacing line=200 lineRule=exact (10 pt) on each math paragraph; preserves all other package bytes except document.xml serialization. This is not a naturally emitted Pandoc property.",
+  "paths": [
+    "/w:document/w:body/w:p[1]",
+    "/w:document/w:body/w:p[3]",
+    "/w:document/w:body/w:p[5]",
+    "/w:document/w:body/w:p[7]",
+    "/w:document/w:body/w:p[10]",
+    "/w:document/w:body/w:p[13]",
+    "/w:document/w:body/w:p[15]",
+    "/w:document/w:body/w:p[18]",
+    "/w:document/w:body/w:tbl/w:tr[2]/w:tc[2]/w:p"
+  ]
+}

@@ -7,10 +7,10 @@ with the settled OOXML conventions:
 
 - ``w:rFonts`` ascii=hAnsi=english_font, eastAsia=chinese_font
 - ``w:sz`` = pt * 2 (half-points)
-- exact leading: ``w:spacing w:line=pt*20 w:lineRule="exact"``; auto rule:
-  ``w:line=multiplier*240``
-- first-line indent via ``w:ind w:firstLineChars`` (hundredths of a char,
-  scales with font size: 24pt indent at 12pt font -> 200 = 2 chars)
+- exact/at-least leading: ``w:line=pt*20`` with ``exact`` / ``atLeast``;
+  auto leading: ``w:line=multiplier*240``
+- first-line indent via ``w:ind w:firstLineChars``; object roles may opt
+  into a full indentation reset, including inherited character indents
 """
 
 from __future__ import annotations
@@ -88,12 +88,13 @@ def alignment_val(alignment: str) -> str:
 
 
 def line_spacing_attrs(rule: str, value: float) -> tuple[int, str]:
-    """(w:line, w:lineRule) from the schema's rule + value pair."""
-    if rule == "exact":
-        return pt_to_twips(float(value)), "exact"
+    """(w:line, w:lineRule); exact/atLeast use points, auto a multiplier."""
+    if rule in {"exact", "atLeast"}:
+        return pt_to_twips(float(value)), rule
     if rule == "auto":
         return round(float(value) * _AUTO_LINE_UNITS), "auto"
-    raise ValueError(f"unknown line_spacing_rule {rule!r}; expected auto|exact")
+    raise ValueError(f"unknown line_spacing_rule {rule!r}; "
+                     "expected auto|exact|atLeast")
 
 
 def first_line_chars(spec: dict) -> int:
@@ -116,6 +117,42 @@ def _sub(parent: etree._Element, tag: str, **attrs: str) -> etree._Element:
     return child
 
 
+def _indent_attrs(spec: dict) -> dict[str, str]:
+    """Build configured indentation without altering existing zero-indent roles.
+
+    Object roles explicitly reset both twip and character representations so
+    inherited hanging/side indents cannot defeat their configured layout.
+    """
+    attrs = {}
+    if spec.get("reset_indentation"):
+        attrs = dict.fromkeys((
+            "left", "right", "start", "end", "leftChars", "rightChars",
+            "startChars", "endChars", "firstLine", "firstLineChars",
+            "hanging", "hangingChars"), "0")
+    for key, names in (
+            ("left_indent_pt", ("left", "start")),
+            ("right_indent_pt", ("right", "end"))):
+        if spec.get(key) is not None:
+            points = float(spec[key])
+            size = float(spec.get("font_size_pt") or 0)
+            for name in names:
+                attrs[name] = str(pt_to_twips(points))
+                if size > 0:
+                    attrs[f"{name}Chars"] = str(round(
+                        points / size * _HUNDREDTHS_PER_CHAR))
+                elif points == 0:
+                    attrs[f"{name}Chars"] = "0"
+                else:
+                    attrs.pop(f"{name}Chars", None)
+    chars = first_line_chars(spec)
+    if chars > 0:
+        # Hanging indentation wins over firstLineChars, even when set to zero.
+        attrs.pop("hanging", None)
+        attrs.pop("hangingChars", None)
+        attrs["firstLineChars"] = str(chars)
+    return attrs
+
+
 def _build_ppr(name: str, spec: dict) -> etree._Element:
     """Paragraph properties; child order per the CT_PPrBase sequence."""
     ppr = etree.Element(qn("w:pPr"))
@@ -133,9 +170,9 @@ def _build_ppr(name: str, spec: dict) -> etree._Element:
         spacing_attrs["lineRule"] = line_rule
     if spacing_attrs:
         _sub(ppr, "w:spacing", **spacing_attrs)
-    chars = first_line_chars(spec)
-    if chars > 0:
-        _sub(ppr, "w:ind", firstLineChars=chars)
+    indent_attrs = _indent_attrs(spec)
+    if indent_attrs:
+        _sub(ppr, "w:ind", **indent_attrs)
     _sub(ppr, "w:jc", val=alignment_val(str(spec.get("alignment", "left"))))
     heading = _HEADING_RE.match(name)
     if heading:

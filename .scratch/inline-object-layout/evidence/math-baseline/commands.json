@@ -1,0 +1,190 @@
+[
+  {
+    "argv": [
+      "pandoc",
+      "--version"
+    ],
+    "cwd": "C:\\Users\\zhu_j\\worktrees\\snippet-docx-inline-object-layout",
+    "returncode": 0,
+    "stdout": "pandoc.exe 3.7.0.2\nFeatures: +server +lua\nScripting engine: Lua 5.4\nUser data directory: C:\\Users\\zhu_j\\AppData\\Roaming\\pandoc\nCopyright (C) 2006-2024 John MacFarlane. Web: https://pandoc.org\nThis is free software; see the source for copying conditions. There is no\nwarranty, not even for merchantability or fitness for a particular purpose.\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "uv",
+      "run",
+      "--project",
+      "C:\\Users\\zhu_j\\worktrees\\snippet-docx-inline-object-layout",
+      "snippet-docx",
+      "draft",
+      "C:\\Users\\zhu_j\\worktrees\\snippet-docx-inline-object-layout\\.scratch\\inline-object-layout\\evidence\\math-baseline\\source.md",
+      "--snippet",
+      "C:\\Users\\zhu_j\\worktrees\\snippet-docx-inline-object-layout\\.scratch\\inline-object-layout\\evidence\\math-baseline\\snippet.yaml",
+      "--out",
+      "C:\\Users\\zhu_j\\worktrees\\snippet-docx-inline-object-layout\\.scratch\\inline-object-layout\\evidence\\math-baseline\\draft.docx",
+      "--emit-md",
+      "C:\\Users\\zhu_j\\worktrees\\snippet-docx-inline-object-layout\\.scratch\\inline-object-layout\\evidence\\math-baseline\\emitted.md"
+    ],
+    "cwd": "C:\\Users\\zhu_j\\worktrees\\snippet-docx-inline-object-layout",
+    "returncode": 0,
+    "stdout": "draft: C:\\Users\\zhu_j\\worktrees\\snippet-docx-inline-object-layout\\.scratch\\inline-object-layout\\evidence\\math-baseline\\source.md -> C:\\Users\\zhu_j\\worktrees\\snippet-docx-inline-object-layout\\.scratch\\inline-object-layout\\evidence\\math-baseline\\draft.docx\n",
+    "stderr": "warning: `VIRTUAL_ENV=C:\\Users\\zhu_j\\.agents\\skills\\snippet-docx\\.venv` does not match the project environment path `.venv` and will be ignored; use `--active` to target the active environment instead\n"
+  },
+  {
+    "argv": [
+      "uv",
+      "run",
+      "--project",
+      "C:\\Users\\zhu_j\\worktrees\\snippet-docx-inline-object-layout",
+      "snippet-docx",
+      "polish",
+      "C:\\Users\\zhu_j\\worktrees\\snippet-docx-inline-object-layout\\.scratch\\inline-object-layout\\evidence\\math-baseline\\draft.docx",
+      "--snippet",
+      "C:\\Users\\zhu_j\\worktrees\\snippet-docx-inline-object-layout\\.scratch\\inline-object-layout\\evidence\\math-baseline\\snippet.yaml",
+      "--md",
+      "C:\\Users\\zhu_j\\worktrees\\snippet-docx-inline-object-layout\\.scratch\\inline-object-layout\\evidence\\math-baseline\\emitted.md",
+      "--out",
+      "C:\\Users\\zhu_j\\worktrees\\snippet-docx-inline-object-layout\\.scratch\\inline-object-layout\\evidence\\math-baseline\\final.docx"
+    ],
+    "cwd": "C:\\Users\\zhu_j\\worktrees\\snippet-docx-inline-object-layout",
+    "returncode": 0,
+    "stdout": "polish: C:\\Users\\zhu_j\\worktrees\\snippet-docx-inline-object-layout\\.scratch\\inline-object-layout\\evidence\\math-baseline\\draft.docx -> C:\\Users\\zhu_j\\worktrees\\snippet-docx-inline-object-layout\\.scratch\\inline-object-layout\\evidence\\math-baseline\\final.docx\n",
+    "stderr": "warning: `VIRTUAL_ENV=C:\\Users\\zhu_j\\.agents\\skills\\snippet-docx\\.venv` does not match the project environment path `.venv` and will be ignored; use `--active` to target the active environment instead\n"
+  },
+  {
+    "argv": [
+      "pandoc",
+      "-f",
+      "markdown+implicit_figures+table_captions",
+      "-t",
+      "json",
+      "C:\\Users\\zhu_j\\worktrees\\snippet-docx-inline-object-layout\\.scratch\\inline-object-layout\\evidence\\math-baseline\\source.md"
+    ],
+    "cwd": "C:\\Users\\zhu_j\\worktrees\\snippet-docx-inline-object-layout",
+    "returncode": 0,
+    "stdout": "{\"pandoc-api-version\":[1,23,1],\"meta\":{},\"blocks\":[{\"t\":\"Header\",\"c\":[1,[\"math-heading-inline-fracabcd-allocation\",[],[]],[{\"t\":\"Str\",\"c\":\"MATH-HEADING\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"inline\"},{\"t\":\"Space\"},{\"t\":\"Math\",\"c\":[{\"t\":\"InlineMath\"},\"\\\\frac{a+b}{c+d}\"]},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"allocation\"}]]},{\"t\":\"Para\",\"c\":[{\"t\":\"Str\",\"c\":\"CONTROL-BEFORE\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"ordinary\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"non-math\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"paragraph.\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"This\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"text\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"must\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"retain\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"the\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"house\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"body\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"leading\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"and\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"must\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"not\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"be\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"reclassified\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"as\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"an\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"equation.\"}]},{\"t\":\"Para\",\"c\":[{\"t\":\"Str\",\"c\":\"INLINE-FRACTION\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"正文前\"},{\"t\":\"Space\"},{\"t\":\"Math\",\"c\":[{\"t\":\"InlineMath\"},\"\\\\frac{\\\\frac{a+b}{c+d}+e}{\\\\frac{f+g}{h+i}+j}\"]},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"正文后。This\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"tall\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"nested\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"inline\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"fraction\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"shares\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"its\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"paragraph\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"with\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"ordinary\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"text.\"}]},{\"t\":\"Para\",\"c\":[{\"t\":\"Str\",\"c\":\"CONTROL-BETWEEN\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"ordinary\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"prose\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"follows\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"the\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"inline\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"fraction\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"without\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"an\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"empty\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"spacer\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"paragraph\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"in\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"the\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"document.\"}]},{\"t\":\"Para\",\"c\":[{\"t\":\"Str\",\"c\":\"INLINE-SUPERSCRIPT-WRAPPED\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"正文前\"},{\"t\":\"Space\"},{\"t\":\"Math\",\"c\":[{\"t\":\"InlineMath\"},\"x^{n+1}+y^{2}+z^{k^{2}+1}\"]},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"正文后。This\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"deliberately\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"long\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"prose\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"paragraph\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"provides\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"enough\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"natural\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"text\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"for\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"line\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"wrapping\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"at\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"normal\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"report\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"page\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"widths.\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"Its\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"equation\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"stays\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"inline,\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"and\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"its\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"paragraph\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"stays\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"ordinary\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"prose\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"rather\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"than\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"becoming\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"a\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"display\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"equation.\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"Additional\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"surrounding\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"Chinese\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"prose\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"keeps\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"the\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"line\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"allocation\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"diagnostic\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"independent\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"of\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"one\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"short\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"formula:\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"本段用于检查自然换行后的行距，公式前后均保留普通文字，连续多行仍属于同一正文段落。\"}]},{\"t\":\"Para\",\"c\":[{\"t\":\"Str\",\"c\":\"DISPLAY-FRACTION-BEFORE\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"ordinary\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"neighboring\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"prose.\"}]},{\"t\":\"Para\",\"c\":[{\"t\":\"Math\",\"c\":[{\"t\":\"DisplayMath\"},\"\\\\frac{\\\\frac{a+b}{c+d}+e}{\\\\frac{f+g}{h+i}+j}\"]}]},{\"t\":\"Para\",\"c\":[{\"t\":\"Str\",\"c\":\"DISPLAY-FRACTION-AFTER\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"ordinary\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"neighboring\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"prose.\"}]},{\"t\":\"Para\",\"c\":[{\"t\":\"Str\",\"c\":\"DISPLAY-MATRIX-BEFORE\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"ordinary\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"neighboring\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"prose.\"}]},{\"t\":\"Para\",\"c\":[{\"t\":\"Math\",\"c\":[{\"t\":\"DisplayMath\"},\"\\\\begin{pmatrix}a & b \\\\\\\\ c & d \\\\\\\\ e & f\\\\end{pmatrix}\"]}]},{\"t\":\"Para\",\"c\":[{\"t\":\"Str\",\"c\":\"DISPLAY-MATRIX-AFTER\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"ordinary\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"neighboring\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"prose.\"}]},{\"t\":\"Para\",\"c\":[{\"t\":\"Str\",\"c\":\"DISPLAY-OPERATORS-BEFORE\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"ordinary\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"neighboring\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"prose.\"}]},{\"t\":\"Para\",\"c\":[{\"t\":\"Math\",\"c\":[{\"t\":\"DisplayMath\"},\"\\\\sum_{i=1}^{n} x_i + \\\\int_{0}^{1} f(x)\\\\,dx + \\\\prod_{j=1}^{m} y_j\"]}]},{\"t\":\"Para\",\"c\":[{\"t\":\"Str\",\"c\":\"DISPLAY-OPERATORS-AFTER\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"ordinary\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"neighboring\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"prose.\"}]},{\"t\":\"OrderedList\",\"c\":[[1,{\"t\":\"Decimal\"},{\"t\":\"Period\"}],[[{\"t\":\"Plain\",\"c\":[{\"t\":\"Str\",\"c\":\"LIST-MATH\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"inline\"},{\"t\":\"Space\"},{\"t\":\"Math\",\"c\":[{\"t\":\"InlineMath\"},\"\\\\frac{a+b}{c+d}\"]},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"retains\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"ordered\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"list\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"numbering.\"}]}],[{\"t\":\"Plain\",\"c\":[{\"t\":\"Str\",\"c\":\"LIST-CONTROL\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"plain\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"non-math\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"list\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"item.\"}]}]]]},{\"t\":\"Para\",\"c\":[{\"t\":\"Code\",\"c\":[[\"\",[],[]],\"anchor:begin:table\"]}]},{\"t\":\"Table\",\"c\":[[\"\",[],[]],[null,[{\"t\":\"Plain\",\"c\":[{\"t\":\"Str\",\"c\":\"TABLE-CAPTION-MATH\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"inline\"},{\"t\":\"Space\"},{\"t\":\"Math\",\"c\":[{\"t\":\"InlineMath\"},\"\\\\frac{a+b}{c+d}\"]}]}]],[[{\"t\":\"AlignDefault\"},{\"t\":\"ColWidthDefault\"}],[{\"t\":\"AlignDefault\"},{\"t\":\"ColWidthDefault\"}]],[[\"\",[],[]],[[[\"\",[],[]],[[[\"\",[],[]],{\"t\":\"AlignDefault\"},1,1,[{\"t\":\"Plain\",\"c\":[{\"t\":\"Str\",\"c\":\"Case\"}]}]],[[\"\",[],[]],{\"t\":\"AlignDefault\"},1,1,[{\"t\":\"Plain\",\"c\":[{\"t\":\"Str\",\"c\":\"Value\"}]}]]]]]],[[[\"\",[],[]],0,[],[[[\"\",[],[]],[[[\"\",[],[]],{\"t\":\"AlignDefault\"},1,1,[{\"t\":\"Plain\",\"c\":[{\"t\":\"Str\",\"c\":\"TABLE-MATH\"}]}]],[[\"\",[],[]],{\"t\":\"AlignDefault\"},1,1,[{\"t\":\"Plain\",\"c\":[{\"t\":\"Math\",\"c\":[{\"t\":\"InlineMath\"},\"\\\\frac{a+b}{c+d}\"]}]}]]]],[[\"\",[],[]],[[[\"\",[],[]],{\"t\":\"AlignDefault\"},1,1,[{\"t\":\"Plain\",\"c\":[{\"t\":\"Str\",\"c\":\"TABLE-CONTROL\"}]}]],[[\"\",[],[]],{\"t\":\"AlignDefault\"},1,1,[{\"t\":\"Plain\",\"c\":[{\"t\":\"Str\",\"c\":\"ordinary\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"cell\"}]}]]]]]]],[[\"\",[],[]],[]]]},{\"t\":\"Para\",\"c\":[{\"t\":\"Code\",\"c\":[[\"\",[],[]],\"anchor:end:table\"]}]},{\"t\":\"Para\",\"c\":[{\"t\":\"Code\",\"c\":[[\"\",[],[]],\"anchor:begin:figure\"]}]},{\"t\":\"Figure\",\"c\":[[\"\",[],[]],[null,[{\"t\":\"Plain\",\"c\":[{\"t\":\"Str\",\"c\":\"IMAGE-CAPTION-CONTROL\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"preserved\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"nearby\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"image\"}]}]],[{\"t\":\"Plain\",\"c\":[{\"t\":\"Image\",\"c\":[[\"\",[],[[\"width\",\"10cm\"]]],[{\"t\":\"Str\",\"c\":\"IMAGE-CAPTION-CONTROL\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"preserved\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"nearby\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"image\"}],[\"../layout.png\",\"\"]]}]}]]},{\"t\":\"Para\",\"c\":[{\"t\":\"Code\",\"c\":[[\"\",[],[]],\"anchor:end:figure\"]}]},{\"t\":\"Para\",\"c\":[{\"t\":\"Str\",\"c\":\"CONTROL-AFTER\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"ordinary\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"non-math\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"paragraph\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"after\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"the\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"neighboring\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"image\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"and\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"caption.\"}]}]}\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "pandoc",
+      "-f",
+      "markdown+implicit_figures+table_captions",
+      "-t",
+      "json",
+      "C:\\Users\\zhu_j\\worktrees\\snippet-docx-inline-object-layout\\.scratch\\inline-object-layout\\evidence\\math-baseline\\emitted.md"
+    ],
+    "cwd": "C:\\Users\\zhu_j\\worktrees\\snippet-docx-inline-object-layout",
+    "returncode": 0,
+    "stdout": "{\"pandoc-api-version\":[1,23,1],\"meta\":{},\"blocks\":[{\"t\":\"Header\",\"c\":[2,[\"math-heading-inline-fracabcd-allocation\",[],[[\"snippet-docx-section\",\"[2, 2]\"]]],[{\"t\":\"Str\",\"c\":\"2.2\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"MATH-HEADING\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"inline\"},{\"t\":\"Space\"},{\"t\":\"Math\",\"c\":[{\"t\":\"InlineMath\"},\"\\\\frac{a+b}{c+d}\"]},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"allocation\"}]]},{\"t\":\"Para\",\"c\":[{\"t\":\"Str\",\"c\":\"CONTROL-BEFORE\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"ordinary\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"non-math\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"paragraph.\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"This\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"text\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"must\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"retain\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"the\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"house\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"body\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"leading\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"and\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"must\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"not\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"be\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"reclassified\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"as\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"an\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"equation.\"}]},{\"t\":\"Para\",\"c\":[{\"t\":\"Str\",\"c\":\"INLINE-FRACTION\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"正文前\"},{\"t\":\"Space\"},{\"t\":\"Math\",\"c\":[{\"t\":\"InlineMath\"},\"\\\\frac{\\\\frac{a+b}{c+d}+e}{\\\\frac{f+g}{h+i}+j}\"]},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"正文后。This\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"tall\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"nested\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"inline\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"fraction\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"shares\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"its\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"paragraph\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"with\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"ordinary\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"text.\"}]},{\"t\":\"Para\",\"c\":[{\"t\":\"Str\",\"c\":\"CONTROL-BETWEEN\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"ordinary\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"prose\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"follows\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"the\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"inline\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"fraction\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"without\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"an\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"empty\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"spacer\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"paragraph\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"in\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"the\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"document.\"}]},{\"t\":\"Para\",\"c\":[{\"t\":\"Str\",\"c\":\"INLINE-SUPERSCRIPT-WRAPPED\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"正文前\"},{\"t\":\"Space\"},{\"t\":\"Math\",\"c\":[{\"t\":\"InlineMath\"},\"x^{n+1}+y^{2}+z^{k^{2}+1}\"]},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"正文后。This\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"deliberately\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"long\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"prose\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"paragraph\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"provides\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"enough\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"natural\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"text\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"for\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"line\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"wrapping\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"at\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"normal\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"report\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"page\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"widths.\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"Its\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"equation\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"stays\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"inline,\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"and\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"its\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"paragraph\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"stays\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"ordinary\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"prose\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"rather\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"than\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"becoming\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"a\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"display\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"equation.\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"Additional\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"surrounding\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"Chinese\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"prose\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"keeps\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"the\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"line\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"allocation\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"diagnostic\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"independent\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"of\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"one\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"short\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"formula:\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"本段用于检查自然换行后的行距，公式前后均保留普通文字，连续多行仍属于同一正文段落。\"}]},{\"t\":\"Para\",\"c\":[{\"t\":\"Str\",\"c\":\"DISPLAY-FRACTION-BEFORE\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"ordinary\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"neighboring\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"prose.\"}]},{\"t\":\"Para\",\"c\":[{\"t\":\"Math\",\"c\":[{\"t\":\"DisplayMath\"},\"\\\\frac{\\\\frac{a+b}{c+d}+e}{\\\\frac{f+g}{h+i}+j}\"]}]},{\"t\":\"Para\",\"c\":[{\"t\":\"Str\",\"c\":\"DISPLAY-FRACTION-AFTER\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"ordinary\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"neighboring\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"prose.\"}]},{\"t\":\"Para\",\"c\":[{\"t\":\"Str\",\"c\":\"DISPLAY-MATRIX-BEFORE\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"ordinary\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"neighboring\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"prose.\"}]},{\"t\":\"Para\",\"c\":[{\"t\":\"Math\",\"c\":[{\"t\":\"DisplayMath\"},\"\\\\begin{pmatrix}a & b \\\\\\\\ c & d \\\\\\\\ e & f\\\\end{pmatrix}\"]}]},{\"t\":\"Para\",\"c\":[{\"t\":\"Str\",\"c\":\"DISPLAY-MATRIX-AFTER\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"ordinary\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"neighboring\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"prose.\"}]},{\"t\":\"Para\",\"c\":[{\"t\":\"Str\",\"c\":\"DISPLAY-OPERATORS-BEFORE\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"ordinary\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"neighboring\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"prose.\"}]},{\"t\":\"Para\",\"c\":[{\"t\":\"Math\",\"c\":[{\"t\":\"DisplayMath\"},\"\\\\sum_{i=1}^{n} x_i + \\\\int_{0}^{1} f(x)\\\\,dx + \\\\prod_{j=1}^{m} y_j\"]}]},{\"t\":\"Para\",\"c\":[{\"t\":\"Str\",\"c\":\"DISPLAY-OPERATORS-AFTER\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"ordinary\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"neighboring\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"prose.\"}]},{\"t\":\"OrderedList\",\"c\":[[1,{\"t\":\"Decimal\"},{\"t\":\"Period\"}],[[{\"t\":\"Plain\",\"c\":[{\"t\":\"Str\",\"c\":\"LIST-MATH\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"inline\"},{\"t\":\"Space\"},{\"t\":\"Math\",\"c\":[{\"t\":\"InlineMath\"},\"\\\\frac{a+b}{c+d}\"]},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"retains\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"ordered\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"list\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"numbering.\"}]}],[{\"t\":\"Plain\",\"c\":[{\"t\":\"Str\",\"c\":\"LIST-CONTROL\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"plain\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"non-math\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"list\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"item.\"}]}]]]},{\"t\":\"Para\",\"c\":[{\"t\":\"Code\",\"c\":[[\"\",[],[]],\"anchor:begin:table\"]}]},{\"t\":\"Table\",\"c\":[[\"\",[],[]],[null,[{\"t\":\"Plain\",\"c\":[{\"t\":\"Str\",\"c\":\"TABLE-CAPTION-MATH\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"inline\"},{\"t\":\"Space\"},{\"t\":\"Math\",\"c\":[{\"t\":\"InlineMath\"},\"\\\\frac{a+b}{c+d}\"]}]}]],[[{\"t\":\"AlignLeft\"},{\"t\":\"ColWidthDefault\"}],[{\"t\":\"AlignLeft\"},{\"t\":\"ColWidthDefault\"}]],[[\"\",[],[]],[[[\"\",[],[]],[[[\"\",[],[]],{\"t\":\"AlignDefault\"},1,1,[{\"t\":\"Plain\",\"c\":[{\"t\":\"Str\",\"c\":\"Case\"}]}]],[[\"\",[],[]],{\"t\":\"AlignDefault\"},1,1,[{\"t\":\"Plain\",\"c\":[{\"t\":\"Str\",\"c\":\"Value\"}]}]]]]]],[[[\"\",[],[]],0,[],[[[\"\",[],[]],[[[\"\",[],[]],{\"t\":\"AlignDefault\"},1,1,[{\"t\":\"Plain\",\"c\":[{\"t\":\"Str\",\"c\":\"TABLE-MATH\"}]}]],[[\"\",[],[]],{\"t\":\"AlignDefault\"},1,1,[{\"t\":\"Plain\",\"c\":[{\"t\":\"Math\",\"c\":[{\"t\":\"InlineMath\"},\"\\\\frac{a+b}{c+d}\"]}]}]]]],[[\"\",[],[]],[[[\"\",[],[]],{\"t\":\"AlignDefault\"},1,1,[{\"t\":\"Plain\",\"c\":[{\"t\":\"Str\",\"c\":\"TABLE-CONTROL\"}]}]],[[\"\",[],[]],{\"t\":\"AlignDefault\"},1,1,[{\"t\":\"Plain\",\"c\":[{\"t\":\"Str\",\"c\":\"ordinary\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"cell\"}]}]]]]]]],[[\"\",[],[]],[]]]},{\"t\":\"Para\",\"c\":[{\"t\":\"Code\",\"c\":[[\"\",[],[]],\"anchor:end:table\"]}]},{\"t\":\"Para\",\"c\":[{\"t\":\"Code\",\"c\":[[\"\",[],[]],\"anchor:begin:figure\"]}]},{\"t\":\"Figure\",\"c\":[[\"\",[],[]],[null,[{\"t\":\"Plain\",\"c\":[{\"t\":\"Str\",\"c\":\"IMAGE-CAPTION-CONTROL\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"preserved\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"nearby\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"image\"}]}]],[{\"t\":\"Plain\",\"c\":[{\"t\":\"Image\",\"c\":[[\"\",[],[[\"width\",\"10cm\"]]],[{\"t\":\"Str\",\"c\":\"IMAGE-CAPTION-CONTROL\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"preserved\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"nearby\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"image\"}],[\"../layout.png\",\"\"]]}]}]]},{\"t\":\"Para\",\"c\":[{\"t\":\"Code\",\"c\":[[\"\",[],[]],\"anchor:end:figure\"]}]},{\"t\":\"Para\",\"c\":[{\"t\":\"Str\",\"c\":\"CONTROL-AFTER\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"ordinary\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"non-math\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"paragraph\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"after\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"the\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"neighboring\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"image\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"and\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"caption.\"}]}]}\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "uv",
+      "run",
+      "--project",
+      "C:\\Users\\zhu_j\\worktrees\\snippet-docx-inline-object-layout",
+      "snippet-docx",
+      "draft",
+      "C:\\Users\\zhu_j\\worktrees\\snippet-docx-inline-object-layout\\.scratch\\inline-object-layout\\evidence\\math-baseline\\figure-caption-source.md",
+      "--snippet",
+      "C:\\Users\\zhu_j\\worktrees\\snippet-docx-inline-object-layout\\.scratch\\inline-object-layout\\evidence\\math-baseline\\snippet.yaml",
+      "--out",
+      "C:\\Users\\zhu_j\\worktrees\\snippet-docx-inline-object-layout\\.scratch\\inline-object-layout\\evidence\\math-baseline\\figure-caption-draft.docx",
+      "--emit-md",
+      "C:\\Users\\zhu_j\\worktrees\\snippet-docx-inline-object-layout\\.scratch\\inline-object-layout\\evidence\\math-baseline\\figure-caption-emitted.md"
+    ],
+    "cwd": "C:\\Users\\zhu_j\\worktrees\\snippet-docx-inline-object-layout",
+    "returncode": 0,
+    "stdout": "draft: C:\\Users\\zhu_j\\worktrees\\snippet-docx-inline-object-layout\\.scratch\\inline-object-layout\\evidence\\math-baseline\\figure-caption-source.md -> C:\\Users\\zhu_j\\worktrees\\snippet-docx-inline-object-layout\\.scratch\\inline-object-layout\\evidence\\math-baseline\\figure-caption-draft.docx\n",
+    "stderr": "warning: `VIRTUAL_ENV=C:\\Users\\zhu_j\\.agents\\skills\\snippet-docx\\.venv` does not match the project environment path `.venv` and will be ignored; use `--active` to target the active environment instead\n"
+  },
+  {
+    "argv": [
+      "uv",
+      "run",
+      "--project",
+      "C:\\Users\\zhu_j\\worktrees\\snippet-docx-inline-object-layout",
+      "snippet-docx",
+      "polish",
+      "C:\\Users\\zhu_j\\worktrees\\snippet-docx-inline-object-layout\\.scratch\\inline-object-layout\\evidence\\math-baseline\\figure-caption-draft.docx",
+      "--snippet",
+      "C:\\Users\\zhu_j\\worktrees\\snippet-docx-inline-object-layout\\.scratch\\inline-object-layout\\evidence\\math-baseline\\snippet.yaml",
+      "--md",
+      "C:\\Users\\zhu_j\\worktrees\\snippet-docx-inline-object-layout\\.scratch\\inline-object-layout\\evidence\\math-baseline\\figure-caption-emitted.md",
+      "--out",
+      "C:\\Users\\zhu_j\\worktrees\\snippet-docx-inline-object-layout\\.scratch\\inline-object-layout\\evidence\\math-baseline\\figure-caption-final.docx"
+    ],
+    "cwd": "C:\\Users\\zhu_j\\worktrees\\snippet-docx-inline-object-layout",
+    "returncode": 0,
+    "stdout": "polish: C:\\Users\\zhu_j\\worktrees\\snippet-docx-inline-object-layout\\.scratch\\inline-object-layout\\evidence\\math-baseline\\figure-caption-draft.docx -> C:\\Users\\zhu_j\\worktrees\\snippet-docx-inline-object-layout\\.scratch\\inline-object-layout\\evidence\\math-baseline\\figure-caption-final.docx\n",
+    "stderr": "warning: `VIRTUAL_ENV=C:\\Users\\zhu_j\\.agents\\skills\\snippet-docx\\.venv` does not match the project environment path `.venv` and will be ignored; use `--active` to target the active environment instead\n"
+  },
+  {
+    "argv": [
+      "uv",
+      "run",
+      "--project",
+      "C:\\Users\\zhu_j\\worktrees\\snippet-docx-inline-object-layout",
+      "snippet-docx",
+      "polish",
+      "C:\\Users\\zhu_j\\worktrees\\snippet-docx-inline-object-layout\\.scratch\\inline-object-layout\\evidence\\math-baseline\\direct-exact-draft.docx",
+      "--snippet",
+      "C:\\Users\\zhu_j\\worktrees\\snippet-docx-inline-object-layout\\.scratch\\inline-object-layout\\evidence\\math-baseline\\auto-style-override.yaml",
+      "--md",
+      "C:\\Users\\zhu_j\\worktrees\\snippet-docx-inline-object-layout\\.scratch\\inline-object-layout\\evidence\\math-baseline\\emitted.md",
+      "--out",
+      "C:\\Users\\zhu_j\\worktrees\\snippet-docx-inline-object-layout\\.scratch\\inline-object-layout\\evidence\\math-baseline\\direct-exact-final.docx"
+    ],
+    "cwd": "C:\\Users\\zhu_j\\worktrees\\snippet-docx-inline-object-layout",
+    "returncode": 0,
+    "stdout": "polish: C:\\Users\\zhu_j\\worktrees\\snippet-docx-inline-object-layout\\.scratch\\inline-object-layout\\evidence\\math-baseline\\direct-exact-draft.docx -> C:\\Users\\zhu_j\\worktrees\\snippet-docx-inline-object-layout\\.scratch\\inline-object-layout\\evidence\\math-baseline\\direct-exact-final.docx\n",
+    "stderr": "warning: `VIRTUAL_ENV=C:\\Users\\zhu_j\\.agents\\skills\\snippet-docx\\.venv` does not match the project environment path `.venv` and will be ignored; use `--active` to target the active environment instead\n"
+  },
+  {
+    "argv": [
+      "uv",
+      "run",
+      "--project",
+      "C:\\Users\\zhu_j\\worktrees\\snippet-docx-inline-object-layout",
+      "python",
+      "-c",
+      "import sys,json,importlib.metadata\nfrom pathlib import Path\nfrom lxml import etree\nimport snippet_docx.ops_docx as ops\nimport snippet_docx.pipeline as pipeline\nroot=Path(sys.argv[1]); target=Path(sys.argv[2]); records=[]\nns={'w':'http://schemas.openxmlformats.org/wordprocessingml/2006/main','m':'http://schemas.openxmlformats.org/officeDocument/2006/math'}\ndef snapshot(doc):\n out=[]\n for p in doc.element.body.iter('{'+ns['w']+'}p'):\n  if p.xpath('.//m:oMath') or 'CAPTION-MATH' in ''.join(p.xpath('.//w:t/text()')):\n   pstyle=p.xpath('./w:pPr/w:pStyle/@w:val')\n   sid=pstyle[0] if pstyle else ''\n   style=doc.styles[sid] if sid else None\n   out.append({'xpath':p.getroottree().getpath(p),'text':''.join(p.xpath('.//w:t/text()')),'math_count':len(p.xpath('.//m:oMath')),'style':sid,'direct_pPr':etree.tostring(p.find('{'+ns['w']+'}pPr')).decode() if p.find('{'+ns['w']+'}pPr') is not None else None,'style_xml':etree.tostring(style.element).decode() if style is not None else None})\n return out\nfor cls in [ops.CreateStyles,ops.NumberCaptions,ops.SetParagraphStyle,ops.FixTable,ops.ClampImageWidths,ops.InsertSectionBreak,ops.StripAnchors]:\n old=cls.__call__\n def wrapped(self,doc,ctx,_old=old,_name=cls.__name__):\n  before=snapshot(doc); result=_old(self,doc,ctx); after=snapshot(doc)\n  records.append({'operation':_name,'before':before,'after':after})\n  (target/'polish-stage-trace.json').write_text(json.dumps({'pipeline_module':pipeline.__file__,'instrumentation':'Read-only before/after snapshots around existing real CLI ops; wrappers do not alter doc beyond original op.','stages':records},ensure_ascii=False,indent=2),encoding='utf-8')\n  return result\n cls.__call__=wrapped\nsys.argv=['snippet-docx','polish',str(target/'draft.docx'),'--snippet',str(target/'snippet.yaml'),'--md',str(target/'emitted.md'),'--out',str(target/'stage-trace-final.docx')]\nep=next(e for e in importlib.metadata.entry_points(group='console_scripts') if e.name=='snippet-docx')\nep.load()()\n",
+      "C:\\Users\\zhu_j\\worktrees\\snippet-docx-inline-object-layout",
+      "C:\\Users\\zhu_j\\worktrees\\snippet-docx-inline-object-layout\\.scratch\\inline-object-layout\\evidence\\math-baseline"
+    ],
+    "cwd": "C:\\Users\\zhu_j\\worktrees\\snippet-docx-inline-object-layout",
+    "returncode": 0,
+    "stdout": "polish: C:\\Users\\zhu_j\\worktrees\\snippet-docx-inline-object-layout\\.scratch\\inline-object-layout\\evidence\\math-baseline\\draft.docx -> C:\\Users\\zhu_j\\worktrees\\snippet-docx-inline-object-layout\\.scratch\\inline-object-layout\\evidence\\math-baseline\\stage-trace-final.docx\n",
+    "stderr": "warning: `VIRTUAL_ENV=C:\\Users\\zhu_j\\.agents\\skills\\snippet-docx\\.venv` does not match the project environment path `.venv` and will be ignored; use `--active` to target the active environment instead\n<string>:14: UserWarning: style lookup by style_id is deprecated. Use style name as key instead.\n"
+  },
+  {
+    "argv": [
+      "pandoc",
+      "-f",
+      "markdown+implicit_figures+table_captions",
+      "-t",
+      "json",
+      "C:\\Users\\zhu_j\\worktrees\\snippet-docx-inline-object-layout\\.scratch\\inline-object-layout\\evidence\\math-baseline\\figure-caption-source.md"
+    ],
+    "cwd": "C:\\Users\\zhu_j\\worktrees\\snippet-docx-inline-object-layout",
+    "returncode": 0,
+    "stdout": "{\"pandoc-api-version\":[1,23,1],\"meta\":{},\"blocks\":[{\"t\":\"Header\",\"c\":[1,[\"figure-math-caption-preservation\",[],[]],[{\"t\":\"Str\",\"c\":\"Figure\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"math\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"caption\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"preservation\"}]]},{\"t\":\"Para\",\"c\":[{\"t\":\"Str\",\"c\":\"FIGURE-CAPTION-CONTROL-BEFORE\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"ordinary\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"non-math\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"paragraph.\"}]},{\"t\":\"Para\",\"c\":[{\"t\":\"Code\",\"c\":[[\"\",[],[]],\"anchor:begin:figure\"]}]},{\"t\":\"Figure\",\"c\":[[\"\",[],[]],[null,[{\"t\":\"Plain\",\"c\":[{\"t\":\"Str\",\"c\":\"FIGURE-CAPTION-MATH\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"inline\"},{\"t\":\"Space\"},{\"t\":\"Math\",\"c\":[{\"t\":\"InlineMath\"},\"\\\\frac{a+b}{c+d}\"]}]}]],[{\"t\":\"Plain\",\"c\":[{\"t\":\"Image\",\"c\":[[\"\",[],[[\"width\",\"10cm\"]]],[{\"t\":\"Str\",\"c\":\"FIGURE-CAPTION-MATH\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"inline\"},{\"t\":\"Space\"},{\"t\":\"Math\",\"c\":[{\"t\":\"InlineMath\"},\"\\\\frac{a+b}{c+d}\"]}],[\"../layout.png\",\"\"]]}]}]]},{\"t\":\"Para\",\"c\":[{\"t\":\"Code\",\"c\":[[\"\",[],[]],\"anchor:end:figure\"]}]},{\"t\":\"Para\",\"c\":[{\"t\":\"Str\",\"c\":\"FIGURE-CAPTION-CONTROL-AFTER\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"ordinary\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"non-math\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"paragraph.\"}]}]}\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "pandoc",
+      "-f",
+      "markdown+implicit_figures+table_captions",
+      "-t",
+      "json",
+      "C:\\Users\\zhu_j\\worktrees\\snippet-docx-inline-object-layout\\.scratch\\inline-object-layout\\evidence\\math-baseline\\figure-caption-emitted.md"
+    ],
+    "cwd": "C:\\Users\\zhu_j\\worktrees\\snippet-docx-inline-object-layout",
+    "returncode": 0,
+    "stdout": "{\"pandoc-api-version\":[1,23,1],\"meta\":{},\"blocks\":[{\"t\":\"Header\",\"c\":[2,[\"figure-math-caption-preservation\",[],[[\"snippet-docx-section\",\"[2, 2]\"]]],[{\"t\":\"Str\",\"c\":\"2.2\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"Figure\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"math\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"caption\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"preservation\"}]]},{\"t\":\"Para\",\"c\":[{\"t\":\"Str\",\"c\":\"FIGURE-CAPTION-CONTROL-BEFORE\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"ordinary\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"non-math\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"paragraph.\"}]},{\"t\":\"Para\",\"c\":[{\"t\":\"Code\",\"c\":[[\"\",[],[]],\"anchor:begin:figure\"]}]},{\"t\":\"Figure\",\"c\":[[\"\",[],[]],[null,[{\"t\":\"Plain\",\"c\":[{\"t\":\"Str\",\"c\":\"FIGURE-CAPTION-MATH\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"inline\"},{\"t\":\"Space\"},{\"t\":\"Math\",\"c\":[{\"t\":\"InlineMath\"},\"\\\\frac{a+b}{c+d}\"]}]}]],[{\"t\":\"Plain\",\"c\":[{\"t\":\"Image\",\"c\":[[\"\",[],[[\"width\",\"10cm\"]]],[{\"t\":\"Str\",\"c\":\"FIGURE-CAPTION-MATH\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"inline\"},{\"t\":\"Space\"},{\"t\":\"Math\",\"c\":[{\"t\":\"InlineMath\"},\"\\\\frac{a+b}{c+d}\"]}],[\"../layout.png\",\"\"]]}]}]]},{\"t\":\"Para\",\"c\":[{\"t\":\"Code\",\"c\":[[\"\",[],[]],\"anchor:end:figure\"]}]},{\"t\":\"Para\",\"c\":[{\"t\":\"Str\",\"c\":\"FIGURE-CAPTION-CONTROL-AFTER\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"ordinary\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"non-math\"},{\"t\":\"Space\"},{\"t\":\"Str\",\"c\":\"paragraph.\"}]}]}\n",
+    "stderr": ""
+  }
+]

@@ -13,10 +13,15 @@ import zipfile
 from pathlib import Path
 
 import pytest
+from docx import Document
+from docx.oxml.ns import qn
+from lxml import etree
 
 from snippet_docx import styles
 from snippet_docx.cli import main
 from snippet_docx.config import Config
+from snippet_docx.ops_docx import CreateStyles, SetParagraphStyle
+from snippet_docx.pipeline import Ctx
 from snippet_docx.strategies.ecepdi import EcepdiStrategy
 
 DATA = Path(__file__).parent / "data"
@@ -106,16 +111,18 @@ def test_default_output_matches_every_packaged_value(
         spacing = ppr.find(f"{W}spacing")
         assert spacing.get(f"{W}before") == str(int(spec["space_before_pt"] * 20))
         assert spacing.get(f"{W}after") == str(int(spec["space_after_pt"] * 20))
-        if spec["line_spacing_rule"] == "exact":
-            assert spacing.get(f"{W}line") == str(int(spec["line_spacing"] * 20))
-            assert spacing.get(f"{W}lineRule") == "exact"
-        else:
-            assert spacing.get(f"{W}line") == str(round(spec["line_spacing"] * 240))
-            assert spacing.get(f"{W}lineRule") == "auto"
+        line, rule = styles.line_spacing_attrs(
+            spec["line_spacing_rule"], spec["line_spacing"])
+        assert spacing.get(f"{W}line") == str(line)
+        assert spacing.get(f"{W}lineRule") == rule
         chars = round(spec["first_line_indent_pt"] / spec["font_size_pt"] * 100)
         ind = ppr.find(f"{W}ind")
-        if chars > 0:
+        if chars > 0 or spec.get("reset_indentation"):
             assert ind is not None and ind.get(f"{W}firstLineChars") == str(chars)
+            if spec.get("reset_indentation"):
+                for attr in ("left", "right", "start", "end", "hanging",
+                             "leftChars", "rightChars", "hangingChars"):
+                    assert ind.get(f"{W}{attr}") == "0"
         else:
             assert ind is None
         if name.startswith("heading") and name[-1].isdigit():
@@ -215,11 +222,13 @@ def test_image_paragraph_centered_with_indent_suppressed(
     assert len(images) == 1
     style_id, text = images[0]
     assert not text.strip()
-    assert style_id == "figure_caption"
-    # the assigned style is centered with no first-line indent
+    assert style_id != "figure_caption"
+    # The independent image role is centered and explicitly indent-free.
     by_id = _styles_by_id(final)
     assert _attr(by_id[style_id], f"{W}pPr/{W}jc", "val") == "center"
-    assert by_id[style_id].find(f"{W}pPr/{W}ind") is None
+    ind = by_id[style_id].find(f"{W}pPr/{W}ind")
+    assert ind is not None
+    assert all(value == "0" for value in ind.attrib.values())
 
 
 def test_list_paragraphs_keep_numbering(
@@ -239,15 +248,13 @@ def test_list_paragraphs_keep_numbering(
 def test_styles_are_named_pstyle_not_direct_run_formatting(
         tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     final = _polished(STYLES_MD, SNIPPET, tmp_path, monkeypatch)
+    known = styles.load_packaged_defaults()["style"]
     # restyled body/caption/heading runs carry no direct rPr font overrides
     for p in _xml(final, "word/document.xml").iter(f"{W}p"):
         ppr = p.find(f"{W}pPr")
         if ppr is None or ppr.find(f"{W}pStyle") is None:
             continue
-        if ppr.find(f"{W}pStyle").get(f"{W}val") not in {
-                "normal_text", "table_caption", "figure_caption", "table",
-                "heading1", "heading2", "heading3", "heading4", "heading5",
-                "list_item"}:
+        if ppr.find(f"{W}pStyle").get(f"{W}val") not in known:
             continue
         for run in p.findall(f"{W}r"):
             rpr = run.find(f"{W}rPr")
@@ -288,10 +295,177 @@ def test_packaged_defaults_roundtrip_through_engine() -> None:
     strategy = EcepdiStrategy()
     config = Config(strategy="ecepdi", prefix=(2,), styles={})
     entries = styles.resolve_styles(strategy, config)
-    assert set(entries) == {"heading1", "heading2", "heading3", "heading4",
-                            "heading5", "normal_text", "table_caption",
-                            "figure_caption", "table", "list_item"}
+    assert entries == styles.load_packaged_defaults()["style"]
     for spec in entries.values():
         assert styles.first_line_chars(spec) >= 0
         styles.line_spacing_attrs(spec["line_spacing_rule"],
                                   spec["line_spacing"])
+
+
+@pytest.mark.parametrize(("rule", "value", "expected"), [
+    ("exact", 13.25, (265, "exact")),
+    ("atLeast", 13.25, (265, "atLeast")),
+    ("auto", 1.25, (300, "auto")),
+])
+def test_line_spacing_units(rule: str, value: float,
+                            expected: tuple[int, str]) -> None:
+    assert styles.line_spacing_attrs(rule, value) == expected
+
+
+def test_unknown_leading_rule_rejected() -> None:
+    with pytest.raises(ValueError, match="auto\\|exact\\|atLeast"):
+        styles.line_spacing_attrs("minimum", 12)
+
+
+@pytest.mark.parametrize("role", [
+    "normal_text", "heading2", "list_item", "table_caption", "table",
+])
+def test_math_keeps_role_and_direct_properties_while_exact_grows(role: str) -> None:
+    doc = Document()
+    strategy = EcepdiStrategy()
+    config = Config(strategy="ecepdi", prefix=(2,), styles={})
+    ctx = Ctx(config=config, strategy=strategy)
+    CreateStyles()(doc, ctx)
+    para = (doc.add_table(rows=1, cols=1).cell(0, 0).paragraphs[0]
+            if role == "table" else doc.add_paragraph())
+    para.add_run("mixed prose ")
+    para._p.append(etree.Element(qn("m:oMath")))
+    ppr = para._p.get_or_add_pPr()
+    if role == "heading2":
+        para.style = "Heading 2"
+    elif role == "table_caption":
+        para.style = role
+    elif role == "list_item":
+        numpr = ppr.get_or_add_numPr()
+        etree.SubElement(numpr, qn("w:numId")).set(qn("w:val"), "4")
+    spacing = ppr.get_or_add_spacing()
+    for attr, value in {"before": "71", "after": "93", "line": "201",
+                        "lineRule": "exact", "beforeAutospacing": "0"}.items():
+        spacing.set(qn(f"w:{attr}"), value)
+    sectpr = etree.SubElement(ppr, qn("w:sectPr"))
+    etree.SubElement(sectpr, qn("w:type")).set(qn("w:val"), "continuous")
+    preserved = etree.tostring(sectpr)
+    SetParagraphStyle()(doc, ctx)
+    assert ppr.find(qn("w:pStyle")).get(qn("w:val")) == role
+    assert spacing.get(qn("w:line")) == "201"
+    assert spacing.get(qn("w:lineRule")) == "atLeast"
+    assert spacing.get(qn("w:before")) == "71"
+    assert spacing.get(qn("w:after")) == "93"
+    assert spacing.get(qn("w:beforeAutospacing")) == "0"
+    assert etree.tostring(sectpr) == preserved
+    assert para._p.find(qn("m:oMath")) is not None
+    if role == "list_item":
+        assert ppr.find(f"{qn('w:numPr')}/{qn('w:numId')}").get(qn("w:val")) == "4"
+
+
+@pytest.mark.parametrize("source", ["style", "base", "defaults"])
+def test_math_resolves_partial_direct_spacing_and_inherited_floor(source: str) -> None:
+    doc = Document()
+    strategy = EcepdiStrategy()
+    ctx = Ctx(config=Config(strategy="ecepdi", prefix=(2,), styles={}),
+              strategy=strategy)
+    CreateStyles()(doc, ctx)
+    para = doc.add_paragraph("inline ")
+    para._p.append(etree.Element(qn("m:oMath")))
+    direct = para._p.get_or_add_pPr().get_or_add_spacing()
+    direct.set(qn("w:before"), "77")
+    normal = doc.styles["normal_text"].element
+    normal_ppr = normal.find(qn("w:pPr"))
+    normal_spacing = normal_ppr.find(qn("w:spacing"))
+    normal_spacing.attrib.pop(qn("w:line"))
+    normal_spacing.attrib.pop(qn("w:lineRule"))
+    if source == "style":
+        inherited = normal_spacing
+    elif source == "base":
+        inherited = doc.styles["Normal"].element.get_or_add_pPr().get_or_add_spacing()
+    else:
+        inherited = doc.styles.element.find(
+            f"{qn('w:docDefaults')}/{qn('w:pPrDefault')}/{qn('w:pPr')}"
+            f"/{qn('w:spacing')}")
+    inherited.set(qn("w:line"), "317")
+    inherited.set(qn("w:lineRule"), "exact")
+    # Direct rule and inherited numeric floor must resolve independently.
+    direct.set(qn("w:lineRule"), "exact")
+    SetParagraphStyle()(doc, ctx)
+    assert direct.get(qn("w:lineRule")) == "atLeast"
+    assert direct.get(qn("w:line")) == "317"
+    assert direct.get(qn("w:before")) == "77"
+
+
+@pytest.mark.parametrize("rule", ["auto", "atLeast"])
+def test_safe_math_leading_and_plain_exact_paragraph_unchanged(rule: str) -> None:
+    doc = Document()
+    strategy = EcepdiStrategy()
+    ctx = Ctx(config=Config(strategy="ecepdi", prefix=(2,), styles={}),
+              strategy=strategy)
+    CreateStyles()(doc, ctx)
+    math = doc.add_paragraph("math ")
+    math._p.append(etree.Element(qn("m:oMath")))
+    spacing = math._p.get_or_add_pPr().get_or_add_spacing()
+    spacing.set(qn("w:line"), "333")
+    spacing.set(qn("w:lineRule"), rule)
+    plain = doc.add_paragraph("plain")
+    plain_spacing = plain._p.get_or_add_pPr().get_or_add_spacing()
+    plain_spacing.set(qn("w:line"), "222")
+    plain_spacing.set(qn("w:lineRule"), "exact")
+    before = etree.tostring(plain_spacing)
+    SetParagraphStyle()(doc, ctx)
+    assert spacing.get(qn("w:line")) == "333"
+    assert spacing.get(qn("w:lineRule")) == rule
+    assert etree.tostring(plain_spacing) == before
+
+
+def test_configured_side_indents_override_character_aliases_consistently() -> None:
+    doc = Document()
+    styles.define_paragraph_style(doc, "object_layout", {
+        "font_size_pt": 12, "reset_indentation": True,
+        "left_indent_pt": 12, "right_indent_pt": 6,
+        "first_line_indent_pt": 0,
+    })
+    ind = doc.styles["object_layout"].element.find(
+        f"{qn('w:pPr')}/{qn('w:ind')}")
+    for alias in ("left", "start"):
+        assert ind.get(qn(f"w:{alias}")) == "240"
+        assert ind.get(qn(f"w:{alias}Chars")) == "100"
+    for alias in ("right", "end"):
+        assert ind.get(qn(f"w:{alias}")) == "120"
+        assert ind.get(qn(f"w:{alias}Chars")) == "50"
+    assert ind.get(qn("w:firstLineChars")) == "0"
+    assert ind.get(qn("w:hangingChars")) == "0"
+
+
+def test_positive_first_line_override_reaches_reset_image_paragraph(
+        tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    snippet = tmp_path / "snippet.yaml"
+    snippet.write_text(
+        "strategy: ecepdi\n"
+        "section:\n"
+        "  prefix: [2]\n"
+        "styles:\n"
+        "  figure_image:\n"
+        "    first_line_indent_pt: 12\n"
+        "    left_indent_pt: 12\n"
+        "    right_indent_pt: 6\n",
+        encoding="utf-8",
+    )
+    final = _polished(STYLES_MD, snippet, tmp_path, monkeypatch)
+    image = next(p for p in _xml(final, "word/document.xml").iter(f"{W}p")
+                 if p.find(f".//{W}drawing") is not None)
+    ppr = image.find(f"{W}pPr")
+    style_id = ppr.find(f"{W}pStyle").get(f"{W}val")
+    ind = _styles_by_id(final)[style_id].find(f"{W}pPr/{W}ind")
+    assert ind is not None
+    assert ind.get(f"{W}firstLineChars") == "100"
+    # Even zero hanging values take precedence over the first-line override.
+    for attr in ("hanging", "hangingChars"):
+        assert ind.get(f"{W}{attr}") is None
+    for alias, twips, chars in (("left", "240", "100"),
+                                ("start", "240", "100"),
+                                ("right", "120", "50"),
+                                ("end", "120", "50")):
+        assert ind.get(f"{W}{alias}") == twips
+        assert ind.get(f"{W}{alias}Chars") == chars
+    # The consumer copies the role's indentation onto the actual image paragraph.
+    direct_ind = ppr.find(f"{W}ind")
+    assert direct_ind is not None
+    assert direct_ind.attrib == ind.attrib

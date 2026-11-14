@@ -1,0 +1,58 @@
+{
+  "scope": "Synthetic baseline diagnosis only; no production, tests or documentation edited. All new files are under evidence/math-baseline. Preserved image is referenced relatively as ../layout.png and was not changed.",
+  "pandoc_version": "pandoc.exe 3.7.0.2",
+  "command_evidence": "commands.json contains exact argv, cwd, returncode, stdout and stderr for every conversion and AST capture. All recorded commands exited 0. uv --project always names C:/Users/zhu_j/worktrees/snippet-docx-inline-object-layout. The warning about the inherited canonical VIRTUAL_ENV says it is ignored; the instrumented pipeline module path confirms worktree source.",
+  "main_pipeline": {
+    "commands": [
+      "uv run --project C:/Users/zhu_j/worktrees/snippet-docx-inline-object-layout snippet-docx draft <this-directory>/source.md --snippet <this-directory>/snippet.yaml --out <this-directory>/draft.docx --emit-md <this-directory>/emitted.md",
+      "uv run --project C:/Users/zhu_j/worktrees/snippet-docx-inline-object-layout snippet-docx polish <this-directory>/draft.docx --snippet <this-directory>/snippet.yaml --md <this-directory>/emitted.md --out <this-directory>/final.docx"
+    ],
+    "input_coverage": ["tall nested inline fraction", "inline superscript inside long naturally wrapping prose", "display nested fraction", "display 3x2 matrix", "display sum/integral/product with limits", "inline fraction in heading", "inline fraction in ordered list", "inline fraction in table cell", "inline fraction in native table caption", "ordinary non-math controls", "nearby inline image with caption"],
+    "math_ast": {"source": {"InlineMath": 6, "DisplayMath": 3}, "emitted": {"InlineMath": 6, "DisplayMath": 3}, "formula_and_kind_pairs_identical_in_order": true},
+    "native_math": {"draft_oMath": 9, "draft_oMathPara": 3, "final_oMath": 8, "final_oMathPara": 3},
+    "retained_semantics": "All eight surviving non-caption m:oMath subtrees are identical by expanded tag, sorted attributes, text and child order; namespace declarations and tails are excluded. See math-preservation-fingerprints.json. Display math is m:oMathPara/m:oMath inside a top-level w:p in both artifacts. Inline math is direct m:oMath in its actual heading, prose, list, caption or table-cell w:p.",
+    "loss": "Draft table caption /w:document/w:body/w:p[18] has native m:oMath; final caption /w:document/w:body/w:p[17] has none and contains literal TeX: 表 2.2-1 TABLE-CAPTION-MATH inline \\frac{a+b}{c+d}. Read-only op snapshots of a real CLI polish locate 9->8 loss at NumberCaptions. CreateStyles and all later ops preserve their entering math counts."
+  },
+  "effective_allocation": {
+    "evidence": "paragraph-property-trace.json records exact XPath, direct pPr, full style/basedOn chain, docDefaults, merged properties and winning sources, OMML XML, neighboring paragraph roles, image metadata and list numbering context. polish-stage-trace.json records before/after each existing op and active named-style XML.",
+    "draft": "Heading2 -> Normal; BodyText -> Normal; Compact -> BodyText -> Normal; TableCaption -> Caption -> Normal. Normal pPr is empty. docDefaults pPr contains only spacing after=200. No direct or inherited line/lineRule is specified for any baseline math paragraph. No sectPr docGrid or settings grid element is present. Default viewer leading is not measured.",
+    "polish_stage": "CreateStyles adds configured house styles but does not reassign the entering Pandoc math styles. SetParagraphStyle changes the active style to the exact-height house role; that is the operation introducing effective fixed line allocation for the observed math paragraphs.",
+    "exact_paths_final": [
+      {"xpath": "/w:document/w:body/w:p[1]", "role": "heading2", "kind": "inline fraction"},
+      {"xpath": "/w:document/w:body/w:p[3]", "role": "normal_text", "kind": "tall inline fraction"},
+      {"xpath": "/w:document/w:body/w:p[5]", "role": "normal_text", "kind": "inline superscript in long prose"},
+      {"xpath": "/w:document/w:body/w:p[7]", "role": "normal_text", "kind": "display fraction"},
+      {"xpath": "/w:document/w:body/w:p[10]", "role": "normal_text", "kind": "display matrix"},
+      {"xpath": "/w:document/w:body/w:p[13]", "role": "normal_text", "kind": "display large operators"},
+      {"xpath": "/w:document/w:body/w:p[15]", "role": "list_item", "kind": "inline fraction"}
+    ],
+    "winning_exact_properties": "All seven listed paragraphs have effective line=460, lineRule=exact (23pt), before=0, after=0 from their active house style; no direct spacing exists. heading2/list_item are early branches, not normal_text fallthrough.",
+    "display_indentation": "All three display paragraphs fall through BodyText -> normal_text, gaining firstLineChars=200 (two-character first-line indent) and justified alignment; they have no distinct display role.",
+    "table_cell": "Final /w:document/w:body/w:tbl/w:tr[2]/w:tc[2]/w:p keeps native inline math, receives table role via early table branch, auto line=360 (1.5), before=after=0. Baseline itself does not give this table-cell math exact leading.",
+    "caption": "Final table_caption is auto line=360, before=100, after=0, but native equation content has already been flattened. A line-allocation-only change cannot restore this lost content.",
+    "list_indentation": "Draft and final retain numId=1001, ilvl=0, abstractNumId=99411, decimal numbering and numbering-level indentation left=720/hanging=360 twips. No direct indentation was cleared or introduced.",
+    "non_math_controls": "Final ordinary body controls remain normal_text, exact23pt, before=after=0, firstLineChars=200. No blanket body-style change was made.",
+    "grid_and_math_settings": "No document grid is present; no m:mathPr settings element is present. These outputs do not establish installed math-font resolution or target-viewer font selection."
+  },
+  "figure_caption_variant": {
+    "artifacts": ["figure-caption-source.md", "figure-caption-emitted.md", "figure-caption-draft.docx", "figure-caption-final.docx", "figure-caption-source-ast.json", "figure-caption-emitted-ast.json"],
+    "result": "Source and emitted ALT/caption retain InlineMath. Draft ImageCaption /w:document/w:body/w:p[5] contains one native m:oMath; final figure_caption /w:document/w:body/w:p[4] contains zero and literal TeX: 图 2.2-1 FIGURE-CAPTION-MATH inline \\frac{a+b}{c+d}. Image accessibility descr retains the TeX-bearing ALT in both documents."
+  },
+  "direct_override_diagnostic": {
+    "artifacts": ["direct-exact-draft.docx", "direct-exact-final.docx", "direct-exact-injection.json", "auto-style-override.yaml"],
+    "provenance": "A diagnostic copy of actual draft.docx injects only direct paragraph spacing line=200 lineRule=exact onto all nine entering math paragraphs. This exact10pt property is deliberately injected, not naturally emitted by Pandoc and not a user-supplied failing artifact.",
+    "command": "Actual snippet-docx polish uses direct-exact-draft.docx, emitted.md and auto-style-override.yaml, output direct-exact-final.docx.",
+    "observed": "All eight surviving math paragraphs retain direct exact10pt, despite active heading2/normal_text/list_item/table styles having auto line=432 (1.8). Caption still loses OMML. Changing only named styles does not defeat existing direct exact leading. Baseline had no such direct spacing."
+  },
+  "image_preservation": {
+    "result": "Baseline and figure-caption variant retain wp:inline (not floating), wp:extent and a:xfrm/a:ext both cx=3599999 cy=1349999, original ALT/accessibility descr and original media bytes. No blank spacer paragraphs or image changes were introduced.",
+    "image_media_sha256": "4dd1c4719c3c6f7e098668e2516158fadd5449dac8c4cb2213eed0ac5d807a95"
+  },
+  "limits": [
+    "This is a synthetic structural reproduction of fixed line-allocation paths and a concrete native-caption math-loss bug, not a reproduction of the user's original unprovided equation-bearing failure.",
+    "Exact23pt is demonstrably introduced on native inline and display math during polish, but no formula height or page-space bounding box was measured; actual clipping/collision mechanism in Word is not established.",
+    "The long prose fixture is intended to wrap naturally; no target-viewer line count or actual wrap position is claimed.",
+    "No Word COM, officecli refresh, Word launch or Word-backed export was used. No target-viewer screenshot exists for these synthetic outputs. XML does not certify rendered non-overlap.",
+    "No suites, builds, lint or formatters were run. All exercised executions were diagnostic CLI conversions, Pandoc AST captures or read-only XML inspection. No throwaway script file was created; transient instrumentation exists only as exact recorded argv in commands.json."
+  ]
+}

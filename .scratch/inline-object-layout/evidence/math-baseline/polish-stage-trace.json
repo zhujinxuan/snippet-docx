@@ -1,0 +1,1063 @@
+{
+  "pipeline_module": "C:\\Users\\zhu_j\\worktrees\\snippet-docx-inline-object-layout\\src\\snippet_docx\\pipeline.py",
+  "instrumentation": "Read-only before/after snapshots around existing real CLI ops; wrappers do not alter doc beyond original op.",
+  "stages": [
+    {
+      "operation": "CreateStyles",
+      "before": [
+        {
+          "xpath": "/w:document/w:body/w:p[1]",
+          "text": "2.2 MATH-HEADING inline  allocation",
+          "math_count": 1,
+          "style": "Heading2",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"Heading2\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:styleId=\"Heading2\" w:type=\"paragraph\"><w:name w:val=\"heading 2\"/><w:basedOn w:val=\"Normal\"/><w:next w:val=\"BodyText\"/><w:link w:val=\"Heading2Char\"/><w:uiPriority w:val=\"9\"/><w:semiHidden/><w:unhideWhenUsed/><w:qFormat/><w:rsid w:val=\"00A10FD9\"/><w:pPr><w:keepNext/><w:keepLines/><w:spacing w:after=\"80\" w:before=\"160\"/><w:outlineLvl w:val=\"1\"/></w:pPr><w:rPr><w:rFonts w:asciiTheme=\"majorHAnsi\" w:cstheme=\"majorBidi\" w:eastAsiaTheme=\"majorEastAsia\" w:hAnsiTheme=\"majorHAnsi\"/><w:color w:themeColor=\"accent1\" w:themeShade=\"BF\" w:val=\"0F4761\"/><w:sz w:val=\"32\"/><w:szCs w:val=\"32\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[3]",
+          "text": "INLINE-FRACTION 正文前  正文后。This tall nested inline fraction shares its paragraph with ordinary text.",
+          "math_count": 1,
+          "style": "BodyText",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"BodyText\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:styleId=\"BodyText\" w:type=\"paragraph\"><w:name w:val=\"Body Text\"/><w:basedOn w:val=\"Normal\"/><w:link w:val=\"BodyTextChar\"/><w:qFormat/><w:pPr><w:spacing w:after=\"180\" w:before=\"180\"/></w:pPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[5]",
+          "text": "INLINE-SUPERSCRIPT-WRAPPED 正文前  正文后。This deliberately long prose paragraph provides enough natural text for line wrapping at normal report page widths. Its equation stays inline, and its paragraph stays ordinary prose rather than becoming a display equation. Additional surrounding Chinese prose keeps the line allocation diagnostic independent of one short formula: 本段用于检查自然换行后的行距，公式前后均保留普通文字，连续多行仍属于同一正文段落。",
+          "math_count": 1,
+          "style": "BodyText",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"BodyText\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:styleId=\"BodyText\" w:type=\"paragraph\"><w:name w:val=\"Body Text\"/><w:basedOn w:val=\"Normal\"/><w:link w:val=\"BodyTextChar\"/><w:qFormat/><w:pPr><w:spacing w:after=\"180\" w:before=\"180\"/></w:pPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[7]",
+          "text": "",
+          "math_count": 1,
+          "style": "BodyText",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"BodyText\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:styleId=\"BodyText\" w:type=\"paragraph\"><w:name w:val=\"Body Text\"/><w:basedOn w:val=\"Normal\"/><w:link w:val=\"BodyTextChar\"/><w:qFormat/><w:pPr><w:spacing w:after=\"180\" w:before=\"180\"/></w:pPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[10]",
+          "text": "",
+          "math_count": 1,
+          "style": "BodyText",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"BodyText\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:styleId=\"BodyText\" w:type=\"paragraph\"><w:name w:val=\"Body Text\"/><w:basedOn w:val=\"Normal\"/><w:link w:val=\"BodyTextChar\"/><w:qFormat/><w:pPr><w:spacing w:after=\"180\" w:before=\"180\"/></w:pPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[13]",
+          "text": "",
+          "math_count": 1,
+          "style": "BodyText",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"BodyText\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:styleId=\"BodyText\" w:type=\"paragraph\"><w:name w:val=\"Body Text\"/><w:basedOn w:val=\"Normal\"/><w:link w:val=\"BodyTextChar\"/><w:qFormat/><w:pPr><w:spacing w:after=\"180\" w:before=\"180\"/></w:pPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[15]",
+          "text": "LIST-MATH inline  retains ordered list numbering.",
+          "math_count": 1,
+          "style": "Compact",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"Compact\"/><w:numPr><w:ilvl w:val=\"0\"/><w:numId w:val=\"1001\"/></w:numPr></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:customStyle=\"1\" w:styleId=\"Compact\" w:type=\"paragraph\"><w:name w:val=\"Compact\"/><w:basedOn w:val=\"BodyText\"/><w:qFormat/><w:pPr><w:spacing w:after=\"36\" w:before=\"36\"/></w:pPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[18]",
+          "text": "TABLE-CAPTION-MATH inline ",
+          "math_count": 1,
+          "style": "TableCaption",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"TableCaption\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:customStyle=\"1\" w:styleId=\"TableCaption\" w:type=\"paragraph\"><w:name w:val=\"Table Caption\"/><w:basedOn w:val=\"Caption\"/><w:pPr><w:keepNext/></w:pPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:tbl/w:tr[2]/w:tc[2]/w:p",
+          "text": "",
+          "math_count": 1,
+          "style": "Compact",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"Compact\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:customStyle=\"1\" w:styleId=\"Compact\" w:type=\"paragraph\"><w:name w:val=\"Compact\"/><w:basedOn w:val=\"BodyText\"/><w:qFormat/><w:pPr><w:spacing w:after=\"36\" w:before=\"36\"/></w:pPr></w:style>"
+        }
+      ],
+      "after": [
+        {
+          "xpath": "/w:document/w:body/w:p[1]",
+          "text": "2.2 MATH-HEADING inline  allocation",
+          "math_count": 1,
+          "style": "Heading2",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"Heading2\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:styleId=\"Heading2\" w:type=\"paragraph\"><w:name w:val=\"heading 2\"/><w:basedOn w:val=\"Normal\"/><w:next w:val=\"BodyText\"/><w:link w:val=\"Heading2Char\"/><w:uiPriority w:val=\"9\"/><w:semiHidden/><w:unhideWhenUsed/><w:qFormat/><w:rsid w:val=\"00A10FD9\"/><w:pPr><w:keepNext/><w:keepLines/><w:spacing w:after=\"80\" w:before=\"160\"/><w:outlineLvl w:val=\"1\"/></w:pPr><w:rPr><w:rFonts w:asciiTheme=\"majorHAnsi\" w:cstheme=\"majorBidi\" w:eastAsiaTheme=\"majorEastAsia\" w:hAnsiTheme=\"majorHAnsi\"/><w:color w:themeColor=\"accent1\" w:themeShade=\"BF\" w:val=\"0F4761\"/><w:sz w:val=\"32\"/><w:szCs w:val=\"32\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[3]",
+          "text": "INLINE-FRACTION 正文前  正文后。This tall nested inline fraction shares its paragraph with ordinary text.",
+          "math_count": 1,
+          "style": "BodyText",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"BodyText\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:styleId=\"BodyText\" w:type=\"paragraph\"><w:name w:val=\"Body Text\"/><w:basedOn w:val=\"Normal\"/><w:link w:val=\"BodyTextChar\"/><w:qFormat/><w:pPr><w:spacing w:after=\"180\" w:before=\"180\"/></w:pPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[5]",
+          "text": "INLINE-SUPERSCRIPT-WRAPPED 正文前  正文后。This deliberately long prose paragraph provides enough natural text for line wrapping at normal report page widths. Its equation stays inline, and its paragraph stays ordinary prose rather than becoming a display equation. Additional surrounding Chinese prose keeps the line allocation diagnostic independent of one short formula: 本段用于检查自然换行后的行距，公式前后均保留普通文字，连续多行仍属于同一正文段落。",
+          "math_count": 1,
+          "style": "BodyText",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"BodyText\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:styleId=\"BodyText\" w:type=\"paragraph\"><w:name w:val=\"Body Text\"/><w:basedOn w:val=\"Normal\"/><w:link w:val=\"BodyTextChar\"/><w:qFormat/><w:pPr><w:spacing w:after=\"180\" w:before=\"180\"/></w:pPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[7]",
+          "text": "",
+          "math_count": 1,
+          "style": "BodyText",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"BodyText\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:styleId=\"BodyText\" w:type=\"paragraph\"><w:name w:val=\"Body Text\"/><w:basedOn w:val=\"Normal\"/><w:link w:val=\"BodyTextChar\"/><w:qFormat/><w:pPr><w:spacing w:after=\"180\" w:before=\"180\"/></w:pPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[10]",
+          "text": "",
+          "math_count": 1,
+          "style": "BodyText",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"BodyText\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:styleId=\"BodyText\" w:type=\"paragraph\"><w:name w:val=\"Body Text\"/><w:basedOn w:val=\"Normal\"/><w:link w:val=\"BodyTextChar\"/><w:qFormat/><w:pPr><w:spacing w:after=\"180\" w:before=\"180\"/></w:pPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[13]",
+          "text": "",
+          "math_count": 1,
+          "style": "BodyText",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"BodyText\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:styleId=\"BodyText\" w:type=\"paragraph\"><w:name w:val=\"Body Text\"/><w:basedOn w:val=\"Normal\"/><w:link w:val=\"BodyTextChar\"/><w:qFormat/><w:pPr><w:spacing w:after=\"180\" w:before=\"180\"/></w:pPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[15]",
+          "text": "LIST-MATH inline  retains ordered list numbering.",
+          "math_count": 1,
+          "style": "Compact",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"Compact\"/><w:numPr><w:ilvl w:val=\"0\"/><w:numId w:val=\"1001\"/></w:numPr></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:customStyle=\"1\" w:styleId=\"Compact\" w:type=\"paragraph\"><w:name w:val=\"Compact\"/><w:basedOn w:val=\"BodyText\"/><w:qFormat/><w:pPr><w:spacing w:after=\"36\" w:before=\"36\"/></w:pPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[18]",
+          "text": "TABLE-CAPTION-MATH inline ",
+          "math_count": 1,
+          "style": "TableCaption",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"TableCaption\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:customStyle=\"1\" w:styleId=\"TableCaption\" w:type=\"paragraph\"><w:name w:val=\"Table Caption\"/><w:basedOn w:val=\"Caption\"/><w:pPr><w:keepNext/></w:pPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:tbl/w:tr[2]/w:tc[2]/w:p",
+          "text": "",
+          "math_count": 1,
+          "style": "Compact",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"Compact\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:customStyle=\"1\" w:styleId=\"Compact\" w:type=\"paragraph\"><w:name w:val=\"Compact\"/><w:basedOn w:val=\"BodyText\"/><w:qFormat/><w:pPr><w:spacing w:after=\"36\" w:before=\"36\"/></w:pPr></w:style>"
+        }
+      ]
+    },
+    {
+      "operation": "NumberCaptions",
+      "before": [
+        {
+          "xpath": "/w:document/w:body/w:p[1]",
+          "text": "2.2 MATH-HEADING inline  allocation",
+          "math_count": 1,
+          "style": "Heading2",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"Heading2\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:styleId=\"Heading2\" w:type=\"paragraph\"><w:name w:val=\"heading 2\"/><w:basedOn w:val=\"Normal\"/><w:next w:val=\"BodyText\"/><w:link w:val=\"Heading2Char\"/><w:uiPriority w:val=\"9\"/><w:semiHidden/><w:unhideWhenUsed/><w:qFormat/><w:rsid w:val=\"00A10FD9\"/><w:pPr><w:keepNext/><w:keepLines/><w:spacing w:after=\"80\" w:before=\"160\"/><w:outlineLvl w:val=\"1\"/></w:pPr><w:rPr><w:rFonts w:asciiTheme=\"majorHAnsi\" w:cstheme=\"majorBidi\" w:eastAsiaTheme=\"majorEastAsia\" w:hAnsiTheme=\"majorHAnsi\"/><w:color w:themeColor=\"accent1\" w:themeShade=\"BF\" w:val=\"0F4761\"/><w:sz w:val=\"32\"/><w:szCs w:val=\"32\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[3]",
+          "text": "INLINE-FRACTION 正文前  正文后。This tall nested inline fraction shares its paragraph with ordinary text.",
+          "math_count": 1,
+          "style": "BodyText",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"BodyText\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:styleId=\"BodyText\" w:type=\"paragraph\"><w:name w:val=\"Body Text\"/><w:basedOn w:val=\"Normal\"/><w:link w:val=\"BodyTextChar\"/><w:qFormat/><w:pPr><w:spacing w:after=\"180\" w:before=\"180\"/></w:pPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[5]",
+          "text": "INLINE-SUPERSCRIPT-WRAPPED 正文前  正文后。This deliberately long prose paragraph provides enough natural text for line wrapping at normal report page widths. Its equation stays inline, and its paragraph stays ordinary prose rather than becoming a display equation. Additional surrounding Chinese prose keeps the line allocation diagnostic independent of one short formula: 本段用于检查自然换行后的行距，公式前后均保留普通文字，连续多行仍属于同一正文段落。",
+          "math_count": 1,
+          "style": "BodyText",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"BodyText\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:styleId=\"BodyText\" w:type=\"paragraph\"><w:name w:val=\"Body Text\"/><w:basedOn w:val=\"Normal\"/><w:link w:val=\"BodyTextChar\"/><w:qFormat/><w:pPr><w:spacing w:after=\"180\" w:before=\"180\"/></w:pPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[7]",
+          "text": "",
+          "math_count": 1,
+          "style": "BodyText",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"BodyText\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:styleId=\"BodyText\" w:type=\"paragraph\"><w:name w:val=\"Body Text\"/><w:basedOn w:val=\"Normal\"/><w:link w:val=\"BodyTextChar\"/><w:qFormat/><w:pPr><w:spacing w:after=\"180\" w:before=\"180\"/></w:pPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[10]",
+          "text": "",
+          "math_count": 1,
+          "style": "BodyText",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"BodyText\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:styleId=\"BodyText\" w:type=\"paragraph\"><w:name w:val=\"Body Text\"/><w:basedOn w:val=\"Normal\"/><w:link w:val=\"BodyTextChar\"/><w:qFormat/><w:pPr><w:spacing w:after=\"180\" w:before=\"180\"/></w:pPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[13]",
+          "text": "",
+          "math_count": 1,
+          "style": "BodyText",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"BodyText\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:styleId=\"BodyText\" w:type=\"paragraph\"><w:name w:val=\"Body Text\"/><w:basedOn w:val=\"Normal\"/><w:link w:val=\"BodyTextChar\"/><w:qFormat/><w:pPr><w:spacing w:after=\"180\" w:before=\"180\"/></w:pPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[15]",
+          "text": "LIST-MATH inline  retains ordered list numbering.",
+          "math_count": 1,
+          "style": "Compact",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"Compact\"/><w:numPr><w:ilvl w:val=\"0\"/><w:numId w:val=\"1001\"/></w:numPr></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:customStyle=\"1\" w:styleId=\"Compact\" w:type=\"paragraph\"><w:name w:val=\"Compact\"/><w:basedOn w:val=\"BodyText\"/><w:qFormat/><w:pPr><w:spacing w:after=\"36\" w:before=\"36\"/></w:pPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[18]",
+          "text": "TABLE-CAPTION-MATH inline ",
+          "math_count": 1,
+          "style": "TableCaption",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"TableCaption\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:customStyle=\"1\" w:styleId=\"TableCaption\" w:type=\"paragraph\"><w:name w:val=\"Table Caption\"/><w:basedOn w:val=\"Caption\"/><w:pPr><w:keepNext/></w:pPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:tbl/w:tr[2]/w:tc[2]/w:p",
+          "text": "",
+          "math_count": 1,
+          "style": "Compact",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"Compact\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:customStyle=\"1\" w:styleId=\"Compact\" w:type=\"paragraph\"><w:name w:val=\"Compact\"/><w:basedOn w:val=\"BodyText\"/><w:qFormat/><w:pPr><w:spacing w:after=\"36\" w:before=\"36\"/></w:pPr></w:style>"
+        }
+      ],
+      "after": [
+        {
+          "xpath": "/w:document/w:body/w:p[1]",
+          "text": "2.2 MATH-HEADING inline  allocation",
+          "math_count": 1,
+          "style": "Heading2",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"Heading2\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:styleId=\"Heading2\" w:type=\"paragraph\"><w:name w:val=\"heading 2\"/><w:basedOn w:val=\"Normal\"/><w:next w:val=\"BodyText\"/><w:link w:val=\"Heading2Char\"/><w:uiPriority w:val=\"9\"/><w:semiHidden/><w:unhideWhenUsed/><w:qFormat/><w:rsid w:val=\"00A10FD9\"/><w:pPr><w:keepNext/><w:keepLines/><w:spacing w:after=\"80\" w:before=\"160\"/><w:outlineLvl w:val=\"1\"/></w:pPr><w:rPr><w:rFonts w:asciiTheme=\"majorHAnsi\" w:cstheme=\"majorBidi\" w:eastAsiaTheme=\"majorEastAsia\" w:hAnsiTheme=\"majorHAnsi\"/><w:color w:themeColor=\"accent1\" w:themeShade=\"BF\" w:val=\"0F4761\"/><w:sz w:val=\"32\"/><w:szCs w:val=\"32\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[3]",
+          "text": "INLINE-FRACTION 正文前  正文后。This tall nested inline fraction shares its paragraph with ordinary text.",
+          "math_count": 1,
+          "style": "BodyText",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"BodyText\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:styleId=\"BodyText\" w:type=\"paragraph\"><w:name w:val=\"Body Text\"/><w:basedOn w:val=\"Normal\"/><w:link w:val=\"BodyTextChar\"/><w:qFormat/><w:pPr><w:spacing w:after=\"180\" w:before=\"180\"/></w:pPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[5]",
+          "text": "INLINE-SUPERSCRIPT-WRAPPED 正文前  正文后。This deliberately long prose paragraph provides enough natural text for line wrapping at normal report page widths. Its equation stays inline, and its paragraph stays ordinary prose rather than becoming a display equation. Additional surrounding Chinese prose keeps the line allocation diagnostic independent of one short formula: 本段用于检查自然换行后的行距，公式前后均保留普通文字，连续多行仍属于同一正文段落。",
+          "math_count": 1,
+          "style": "BodyText",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"BodyText\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:styleId=\"BodyText\" w:type=\"paragraph\"><w:name w:val=\"Body Text\"/><w:basedOn w:val=\"Normal\"/><w:link w:val=\"BodyTextChar\"/><w:qFormat/><w:pPr><w:spacing w:after=\"180\" w:before=\"180\"/></w:pPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[7]",
+          "text": "",
+          "math_count": 1,
+          "style": "BodyText",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"BodyText\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:styleId=\"BodyText\" w:type=\"paragraph\"><w:name w:val=\"Body Text\"/><w:basedOn w:val=\"Normal\"/><w:link w:val=\"BodyTextChar\"/><w:qFormat/><w:pPr><w:spacing w:after=\"180\" w:before=\"180\"/></w:pPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[10]",
+          "text": "",
+          "math_count": 1,
+          "style": "BodyText",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"BodyText\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:styleId=\"BodyText\" w:type=\"paragraph\"><w:name w:val=\"Body Text\"/><w:basedOn w:val=\"Normal\"/><w:link w:val=\"BodyTextChar\"/><w:qFormat/><w:pPr><w:spacing w:after=\"180\" w:before=\"180\"/></w:pPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[13]",
+          "text": "",
+          "math_count": 1,
+          "style": "BodyText",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"BodyText\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:styleId=\"BodyText\" w:type=\"paragraph\"><w:name w:val=\"Body Text\"/><w:basedOn w:val=\"Normal\"/><w:link w:val=\"BodyTextChar\"/><w:qFormat/><w:pPr><w:spacing w:after=\"180\" w:before=\"180\"/></w:pPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[15]",
+          "text": "LIST-MATH inline  retains ordered list numbering.",
+          "math_count": 1,
+          "style": "Compact",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"Compact\"/><w:numPr><w:ilvl w:val=\"0\"/><w:numId w:val=\"1001\"/></w:numPr></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:customStyle=\"1\" w:styleId=\"Compact\" w:type=\"paragraph\"><w:name w:val=\"Compact\"/><w:basedOn w:val=\"BodyText\"/><w:qFormat/><w:pPr><w:spacing w:after=\"36\" w:before=\"36\"/></w:pPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[18]",
+          "text": "表 2.2-1 TABLE-CAPTION-MATH inline \\frac{a+b}{c+d}",
+          "math_count": 0,
+          "style": "table_caption",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"table_caption\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"table_caption\"><w:name w:val=\"table_caption\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"100\" w:after=\"0\" w:line=\"360\" w:lineRule=\"auto\"/><w:jc w:val=\"center\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:tbl/w:tr[2]/w:tc[2]/w:p",
+          "text": "",
+          "math_count": 1,
+          "style": "Compact",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"Compact\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:customStyle=\"1\" w:styleId=\"Compact\" w:type=\"paragraph\"><w:name w:val=\"Compact\"/><w:basedOn w:val=\"BodyText\"/><w:qFormat/><w:pPr><w:spacing w:after=\"36\" w:before=\"36\"/></w:pPr></w:style>"
+        }
+      ]
+    },
+    {
+      "operation": "SetParagraphStyle",
+      "before": [
+        {
+          "xpath": "/w:document/w:body/w:p[1]",
+          "text": "2.2 MATH-HEADING inline  allocation",
+          "math_count": 1,
+          "style": "Heading2",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"Heading2\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:styleId=\"Heading2\" w:type=\"paragraph\"><w:name w:val=\"heading 2\"/><w:basedOn w:val=\"Normal\"/><w:next w:val=\"BodyText\"/><w:link w:val=\"Heading2Char\"/><w:uiPriority w:val=\"9\"/><w:semiHidden/><w:unhideWhenUsed/><w:qFormat/><w:rsid w:val=\"00A10FD9\"/><w:pPr><w:keepNext/><w:keepLines/><w:spacing w:after=\"80\" w:before=\"160\"/><w:outlineLvl w:val=\"1\"/></w:pPr><w:rPr><w:rFonts w:asciiTheme=\"majorHAnsi\" w:cstheme=\"majorBidi\" w:eastAsiaTheme=\"majorEastAsia\" w:hAnsiTheme=\"majorHAnsi\"/><w:color w:themeColor=\"accent1\" w:themeShade=\"BF\" w:val=\"0F4761\"/><w:sz w:val=\"32\"/><w:szCs w:val=\"32\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[3]",
+          "text": "INLINE-FRACTION 正文前  正文后。This tall nested inline fraction shares its paragraph with ordinary text.",
+          "math_count": 1,
+          "style": "BodyText",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"BodyText\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:styleId=\"BodyText\" w:type=\"paragraph\"><w:name w:val=\"Body Text\"/><w:basedOn w:val=\"Normal\"/><w:link w:val=\"BodyTextChar\"/><w:qFormat/><w:pPr><w:spacing w:after=\"180\" w:before=\"180\"/></w:pPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[5]",
+          "text": "INLINE-SUPERSCRIPT-WRAPPED 正文前  正文后。This deliberately long prose paragraph provides enough natural text for line wrapping at normal report page widths. Its equation stays inline, and its paragraph stays ordinary prose rather than becoming a display equation. Additional surrounding Chinese prose keeps the line allocation diagnostic independent of one short formula: 本段用于检查自然换行后的行距，公式前后均保留普通文字，连续多行仍属于同一正文段落。",
+          "math_count": 1,
+          "style": "BodyText",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"BodyText\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:styleId=\"BodyText\" w:type=\"paragraph\"><w:name w:val=\"Body Text\"/><w:basedOn w:val=\"Normal\"/><w:link w:val=\"BodyTextChar\"/><w:qFormat/><w:pPr><w:spacing w:after=\"180\" w:before=\"180\"/></w:pPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[7]",
+          "text": "",
+          "math_count": 1,
+          "style": "BodyText",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"BodyText\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:styleId=\"BodyText\" w:type=\"paragraph\"><w:name w:val=\"Body Text\"/><w:basedOn w:val=\"Normal\"/><w:link w:val=\"BodyTextChar\"/><w:qFormat/><w:pPr><w:spacing w:after=\"180\" w:before=\"180\"/></w:pPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[10]",
+          "text": "",
+          "math_count": 1,
+          "style": "BodyText",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"BodyText\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:styleId=\"BodyText\" w:type=\"paragraph\"><w:name w:val=\"Body Text\"/><w:basedOn w:val=\"Normal\"/><w:link w:val=\"BodyTextChar\"/><w:qFormat/><w:pPr><w:spacing w:after=\"180\" w:before=\"180\"/></w:pPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[13]",
+          "text": "",
+          "math_count": 1,
+          "style": "BodyText",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"BodyText\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:styleId=\"BodyText\" w:type=\"paragraph\"><w:name w:val=\"Body Text\"/><w:basedOn w:val=\"Normal\"/><w:link w:val=\"BodyTextChar\"/><w:qFormat/><w:pPr><w:spacing w:after=\"180\" w:before=\"180\"/></w:pPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[15]",
+          "text": "LIST-MATH inline  retains ordered list numbering.",
+          "math_count": 1,
+          "style": "Compact",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"Compact\"/><w:numPr><w:ilvl w:val=\"0\"/><w:numId w:val=\"1001\"/></w:numPr></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:customStyle=\"1\" w:styleId=\"Compact\" w:type=\"paragraph\"><w:name w:val=\"Compact\"/><w:basedOn w:val=\"BodyText\"/><w:qFormat/><w:pPr><w:spacing w:after=\"36\" w:before=\"36\"/></w:pPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[18]",
+          "text": "表 2.2-1 TABLE-CAPTION-MATH inline \\frac{a+b}{c+d}",
+          "math_count": 0,
+          "style": "table_caption",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"table_caption\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"table_caption\"><w:name w:val=\"table_caption\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"100\" w:after=\"0\" w:line=\"360\" w:lineRule=\"auto\"/><w:jc w:val=\"center\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:tbl/w:tr[2]/w:tc[2]/w:p",
+          "text": "",
+          "math_count": 1,
+          "style": "Compact",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"Compact\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:customStyle=\"1\" w:styleId=\"Compact\" w:type=\"paragraph\"><w:name w:val=\"Compact\"/><w:basedOn w:val=\"BodyText\"/><w:qFormat/><w:pPr><w:spacing w:after=\"36\" w:before=\"36\"/></w:pPr></w:style>"
+        }
+      ],
+      "after": [
+        {
+          "xpath": "/w:document/w:body/w:p[1]",
+          "text": "2.2 MATH-HEADING inline  allocation",
+          "math_count": 1,
+          "style": "heading2",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"heading2\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"heading2\"><w:name w:val=\"heading2\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:jc w:val=\"both\"/><w:outlineLvl w:val=\"1\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b/><w:bCs/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[3]",
+          "text": "INLINE-FRACTION 正文前  正文后。This tall nested inline fraction shares its paragraph with ordinary text.",
+          "math_count": 1,
+          "style": "normal_text",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"normal_text\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"normal_text\"><w:name w:val=\"normal_text\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:ind w:firstLineChars=\"200\"/><w:jc w:val=\"both\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[5]",
+          "text": "INLINE-SUPERSCRIPT-WRAPPED 正文前  正文后。This deliberately long prose paragraph provides enough natural text for line wrapping at normal report page widths. Its equation stays inline, and its paragraph stays ordinary prose rather than becoming a display equation. Additional surrounding Chinese prose keeps the line allocation diagnostic independent of one short formula: 本段用于检查自然换行后的行距，公式前后均保留普通文字，连续多行仍属于同一正文段落。",
+          "math_count": 1,
+          "style": "normal_text",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"normal_text\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"normal_text\"><w:name w:val=\"normal_text\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:ind w:firstLineChars=\"200\"/><w:jc w:val=\"both\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[7]",
+          "text": "",
+          "math_count": 1,
+          "style": "normal_text",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"normal_text\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"normal_text\"><w:name w:val=\"normal_text\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:ind w:firstLineChars=\"200\"/><w:jc w:val=\"both\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[10]",
+          "text": "",
+          "math_count": 1,
+          "style": "normal_text",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"normal_text\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"normal_text\"><w:name w:val=\"normal_text\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:ind w:firstLineChars=\"200\"/><w:jc w:val=\"both\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[13]",
+          "text": "",
+          "math_count": 1,
+          "style": "normal_text",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"normal_text\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"normal_text\"><w:name w:val=\"normal_text\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:ind w:firstLineChars=\"200\"/><w:jc w:val=\"both\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[15]",
+          "text": "LIST-MATH inline  retains ordered list numbering.",
+          "math_count": 1,
+          "style": "list_item",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"list_item\"/><w:numPr><w:ilvl w:val=\"0\"/><w:numId w:val=\"1001\"/></w:numPr></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"list_item\"><w:name w:val=\"list_item\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:jc w:val=\"both\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[18]",
+          "text": "表 2.2-1 TABLE-CAPTION-MATH inline \\frac{a+b}{c+d}",
+          "math_count": 0,
+          "style": "table_caption",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"table_caption\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"table_caption\"><w:name w:val=\"table_caption\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"100\" w:after=\"0\" w:line=\"360\" w:lineRule=\"auto\"/><w:jc w:val=\"center\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:tbl/w:tr[2]/w:tc[2]/w:p",
+          "text": "",
+          "math_count": 1,
+          "style": "table",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"table\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"table\"><w:name w:val=\"table\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"360\" w:lineRule=\"auto\"/><w:jc w:val=\"center\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"18\"/><w:szCs w:val=\"18\"/></w:rPr></w:style>"
+        }
+      ]
+    },
+    {
+      "operation": "FixTable",
+      "before": [
+        {
+          "xpath": "/w:document/w:body/w:p[1]",
+          "text": "2.2 MATH-HEADING inline  allocation",
+          "math_count": 1,
+          "style": "heading2",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"heading2\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"heading2\"><w:name w:val=\"heading2\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:jc w:val=\"both\"/><w:outlineLvl w:val=\"1\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b/><w:bCs/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[3]",
+          "text": "INLINE-FRACTION 正文前  正文后。This tall nested inline fraction shares its paragraph with ordinary text.",
+          "math_count": 1,
+          "style": "normal_text",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"normal_text\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"normal_text\"><w:name w:val=\"normal_text\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:ind w:firstLineChars=\"200\"/><w:jc w:val=\"both\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[5]",
+          "text": "INLINE-SUPERSCRIPT-WRAPPED 正文前  正文后。This deliberately long prose paragraph provides enough natural text for line wrapping at normal report page widths. Its equation stays inline, and its paragraph stays ordinary prose rather than becoming a display equation. Additional surrounding Chinese prose keeps the line allocation diagnostic independent of one short formula: 本段用于检查自然换行后的行距，公式前后均保留普通文字，连续多行仍属于同一正文段落。",
+          "math_count": 1,
+          "style": "normal_text",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"normal_text\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"normal_text\"><w:name w:val=\"normal_text\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:ind w:firstLineChars=\"200\"/><w:jc w:val=\"both\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[7]",
+          "text": "",
+          "math_count": 1,
+          "style": "normal_text",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"normal_text\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"normal_text\"><w:name w:val=\"normal_text\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:ind w:firstLineChars=\"200\"/><w:jc w:val=\"both\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[10]",
+          "text": "",
+          "math_count": 1,
+          "style": "normal_text",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"normal_text\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"normal_text\"><w:name w:val=\"normal_text\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:ind w:firstLineChars=\"200\"/><w:jc w:val=\"both\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[13]",
+          "text": "",
+          "math_count": 1,
+          "style": "normal_text",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"normal_text\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"normal_text\"><w:name w:val=\"normal_text\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:ind w:firstLineChars=\"200\"/><w:jc w:val=\"both\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[15]",
+          "text": "LIST-MATH inline  retains ordered list numbering.",
+          "math_count": 1,
+          "style": "list_item",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"list_item\"/><w:numPr><w:ilvl w:val=\"0\"/><w:numId w:val=\"1001\"/></w:numPr></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"list_item\"><w:name w:val=\"list_item\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:jc w:val=\"both\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[18]",
+          "text": "表 2.2-1 TABLE-CAPTION-MATH inline \\frac{a+b}{c+d}",
+          "math_count": 0,
+          "style": "table_caption",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"table_caption\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"table_caption\"><w:name w:val=\"table_caption\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"100\" w:after=\"0\" w:line=\"360\" w:lineRule=\"auto\"/><w:jc w:val=\"center\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:tbl/w:tr[2]/w:tc[2]/w:p",
+          "text": "",
+          "math_count": 1,
+          "style": "table",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"table\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"table\"><w:name w:val=\"table\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"360\" w:lineRule=\"auto\"/><w:jc w:val=\"center\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"18\"/><w:szCs w:val=\"18\"/></w:rPr></w:style>"
+        }
+      ],
+      "after": [
+        {
+          "xpath": "/w:document/w:body/w:p[1]",
+          "text": "2.2 MATH-HEADING inline  allocation",
+          "math_count": 1,
+          "style": "heading2",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"heading2\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"heading2\"><w:name w:val=\"heading2\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:jc w:val=\"both\"/><w:outlineLvl w:val=\"1\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b/><w:bCs/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[3]",
+          "text": "INLINE-FRACTION 正文前  正文后。This tall nested inline fraction shares its paragraph with ordinary text.",
+          "math_count": 1,
+          "style": "normal_text",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"normal_text\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"normal_text\"><w:name w:val=\"normal_text\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:ind w:firstLineChars=\"200\"/><w:jc w:val=\"both\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[5]",
+          "text": "INLINE-SUPERSCRIPT-WRAPPED 正文前  正文后。This deliberately long prose paragraph provides enough natural text for line wrapping at normal report page widths. Its equation stays inline, and its paragraph stays ordinary prose rather than becoming a display equation. Additional surrounding Chinese prose keeps the line allocation diagnostic independent of one short formula: 本段用于检查自然换行后的行距，公式前后均保留普通文字，连续多行仍属于同一正文段落。",
+          "math_count": 1,
+          "style": "normal_text",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"normal_text\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"normal_text\"><w:name w:val=\"normal_text\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:ind w:firstLineChars=\"200\"/><w:jc w:val=\"both\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[7]",
+          "text": "",
+          "math_count": 1,
+          "style": "normal_text",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"normal_text\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"normal_text\"><w:name w:val=\"normal_text\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:ind w:firstLineChars=\"200\"/><w:jc w:val=\"both\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[10]",
+          "text": "",
+          "math_count": 1,
+          "style": "normal_text",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"normal_text\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"normal_text\"><w:name w:val=\"normal_text\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:ind w:firstLineChars=\"200\"/><w:jc w:val=\"both\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[13]",
+          "text": "",
+          "math_count": 1,
+          "style": "normal_text",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"normal_text\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"normal_text\"><w:name w:val=\"normal_text\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:ind w:firstLineChars=\"200\"/><w:jc w:val=\"both\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[15]",
+          "text": "LIST-MATH inline  retains ordered list numbering.",
+          "math_count": 1,
+          "style": "list_item",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"list_item\"/><w:numPr><w:ilvl w:val=\"0\"/><w:numId w:val=\"1001\"/></w:numPr></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"list_item\"><w:name w:val=\"list_item\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:jc w:val=\"both\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[18]",
+          "text": "表 2.2-1 TABLE-CAPTION-MATH inline \\frac{a+b}{c+d}",
+          "math_count": 0,
+          "style": "table_caption",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"table_caption\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"table_caption\"><w:name w:val=\"table_caption\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"100\" w:after=\"0\" w:line=\"360\" w:lineRule=\"auto\"/><w:jc w:val=\"center\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:tbl/w:tr[2]/w:tc[2]/w:p",
+          "text": "",
+          "math_count": 1,
+          "style": "table",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"table\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"table\"><w:name w:val=\"table\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"360\" w:lineRule=\"auto\"/><w:jc w:val=\"center\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"18\"/><w:szCs w:val=\"18\"/></w:rPr></w:style>"
+        }
+      ]
+    },
+    {
+      "operation": "ClampImageWidths",
+      "before": [
+        {
+          "xpath": "/w:document/w:body/w:p[1]",
+          "text": "2.2 MATH-HEADING inline  allocation",
+          "math_count": 1,
+          "style": "heading2",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"heading2\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"heading2\"><w:name w:val=\"heading2\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:jc w:val=\"both\"/><w:outlineLvl w:val=\"1\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b/><w:bCs/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[3]",
+          "text": "INLINE-FRACTION 正文前  正文后。This tall nested inline fraction shares its paragraph with ordinary text.",
+          "math_count": 1,
+          "style": "normal_text",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"normal_text\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"normal_text\"><w:name w:val=\"normal_text\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:ind w:firstLineChars=\"200\"/><w:jc w:val=\"both\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[5]",
+          "text": "INLINE-SUPERSCRIPT-WRAPPED 正文前  正文后。This deliberately long prose paragraph provides enough natural text for line wrapping at normal report page widths. Its equation stays inline, and its paragraph stays ordinary prose rather than becoming a display equation. Additional surrounding Chinese prose keeps the line allocation diagnostic independent of one short formula: 本段用于检查自然换行后的行距，公式前后均保留普通文字，连续多行仍属于同一正文段落。",
+          "math_count": 1,
+          "style": "normal_text",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"normal_text\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"normal_text\"><w:name w:val=\"normal_text\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:ind w:firstLineChars=\"200\"/><w:jc w:val=\"both\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[7]",
+          "text": "",
+          "math_count": 1,
+          "style": "normal_text",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"normal_text\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"normal_text\"><w:name w:val=\"normal_text\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:ind w:firstLineChars=\"200\"/><w:jc w:val=\"both\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[10]",
+          "text": "",
+          "math_count": 1,
+          "style": "normal_text",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"normal_text\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"normal_text\"><w:name w:val=\"normal_text\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:ind w:firstLineChars=\"200\"/><w:jc w:val=\"both\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[13]",
+          "text": "",
+          "math_count": 1,
+          "style": "normal_text",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"normal_text\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"normal_text\"><w:name w:val=\"normal_text\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:ind w:firstLineChars=\"200\"/><w:jc w:val=\"both\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[15]",
+          "text": "LIST-MATH inline  retains ordered list numbering.",
+          "math_count": 1,
+          "style": "list_item",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"list_item\"/><w:numPr><w:ilvl w:val=\"0\"/><w:numId w:val=\"1001\"/></w:numPr></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"list_item\"><w:name w:val=\"list_item\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:jc w:val=\"both\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[18]",
+          "text": "表 2.2-1 TABLE-CAPTION-MATH inline \\frac{a+b}{c+d}",
+          "math_count": 0,
+          "style": "table_caption",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"table_caption\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"table_caption\"><w:name w:val=\"table_caption\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"100\" w:after=\"0\" w:line=\"360\" w:lineRule=\"auto\"/><w:jc w:val=\"center\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:tbl/w:tr[2]/w:tc[2]/w:p",
+          "text": "",
+          "math_count": 1,
+          "style": "table",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"table\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"table\"><w:name w:val=\"table\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"360\" w:lineRule=\"auto\"/><w:jc w:val=\"center\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"18\"/><w:szCs w:val=\"18\"/></w:rPr></w:style>"
+        }
+      ],
+      "after": [
+        {
+          "xpath": "/w:document/w:body/w:p[1]",
+          "text": "2.2 MATH-HEADING inline  allocation",
+          "math_count": 1,
+          "style": "heading2",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"heading2\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"heading2\"><w:name w:val=\"heading2\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:jc w:val=\"both\"/><w:outlineLvl w:val=\"1\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b/><w:bCs/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[3]",
+          "text": "INLINE-FRACTION 正文前  正文后。This tall nested inline fraction shares its paragraph with ordinary text.",
+          "math_count": 1,
+          "style": "normal_text",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"normal_text\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"normal_text\"><w:name w:val=\"normal_text\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:ind w:firstLineChars=\"200\"/><w:jc w:val=\"both\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[5]",
+          "text": "INLINE-SUPERSCRIPT-WRAPPED 正文前  正文后。This deliberately long prose paragraph provides enough natural text for line wrapping at normal report page widths. Its equation stays inline, and its paragraph stays ordinary prose rather than becoming a display equation. Additional surrounding Chinese prose keeps the line allocation diagnostic independent of one short formula: 本段用于检查自然换行后的行距，公式前后均保留普通文字，连续多行仍属于同一正文段落。",
+          "math_count": 1,
+          "style": "normal_text",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"normal_text\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"normal_text\"><w:name w:val=\"normal_text\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:ind w:firstLineChars=\"200\"/><w:jc w:val=\"both\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[7]",
+          "text": "",
+          "math_count": 1,
+          "style": "normal_text",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"normal_text\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"normal_text\"><w:name w:val=\"normal_text\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:ind w:firstLineChars=\"200\"/><w:jc w:val=\"both\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[10]",
+          "text": "",
+          "math_count": 1,
+          "style": "normal_text",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"normal_text\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"normal_text\"><w:name w:val=\"normal_text\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:ind w:firstLineChars=\"200\"/><w:jc w:val=\"both\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[13]",
+          "text": "",
+          "math_count": 1,
+          "style": "normal_text",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"normal_text\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"normal_text\"><w:name w:val=\"normal_text\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:ind w:firstLineChars=\"200\"/><w:jc w:val=\"both\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[15]",
+          "text": "LIST-MATH inline  retains ordered list numbering.",
+          "math_count": 1,
+          "style": "list_item",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"list_item\"/><w:numPr><w:ilvl w:val=\"0\"/><w:numId w:val=\"1001\"/></w:numPr></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"list_item\"><w:name w:val=\"list_item\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:jc w:val=\"both\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[18]",
+          "text": "表 2.2-1 TABLE-CAPTION-MATH inline \\frac{a+b}{c+d}",
+          "math_count": 0,
+          "style": "table_caption",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"table_caption\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"table_caption\"><w:name w:val=\"table_caption\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"100\" w:after=\"0\" w:line=\"360\" w:lineRule=\"auto\"/><w:jc w:val=\"center\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:tbl/w:tr[2]/w:tc[2]/w:p",
+          "text": "",
+          "math_count": 1,
+          "style": "table",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"table\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"table\"><w:name w:val=\"table\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"360\" w:lineRule=\"auto\"/><w:jc w:val=\"center\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"18\"/><w:szCs w:val=\"18\"/></w:rPr></w:style>"
+        }
+      ]
+    },
+    {
+      "operation": "InsertSectionBreak",
+      "before": [
+        {
+          "xpath": "/w:document/w:body/w:p[1]",
+          "text": "2.2 MATH-HEADING inline  allocation",
+          "math_count": 1,
+          "style": "heading2",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"heading2\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"heading2\"><w:name w:val=\"heading2\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:jc w:val=\"both\"/><w:outlineLvl w:val=\"1\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b/><w:bCs/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[3]",
+          "text": "INLINE-FRACTION 正文前  正文后。This tall nested inline fraction shares its paragraph with ordinary text.",
+          "math_count": 1,
+          "style": "normal_text",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"normal_text\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"normal_text\"><w:name w:val=\"normal_text\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:ind w:firstLineChars=\"200\"/><w:jc w:val=\"both\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[5]",
+          "text": "INLINE-SUPERSCRIPT-WRAPPED 正文前  正文后。This deliberately long prose paragraph provides enough natural text for line wrapping at normal report page widths. Its equation stays inline, and its paragraph stays ordinary prose rather than becoming a display equation. Additional surrounding Chinese prose keeps the line allocation diagnostic independent of one short formula: 本段用于检查自然换行后的行距，公式前后均保留普通文字，连续多行仍属于同一正文段落。",
+          "math_count": 1,
+          "style": "normal_text",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"normal_text\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"normal_text\"><w:name w:val=\"normal_text\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:ind w:firstLineChars=\"200\"/><w:jc w:val=\"both\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[7]",
+          "text": "",
+          "math_count": 1,
+          "style": "normal_text",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"normal_text\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"normal_text\"><w:name w:val=\"normal_text\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:ind w:firstLineChars=\"200\"/><w:jc w:val=\"both\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[10]",
+          "text": "",
+          "math_count": 1,
+          "style": "normal_text",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"normal_text\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"normal_text\"><w:name w:val=\"normal_text\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:ind w:firstLineChars=\"200\"/><w:jc w:val=\"both\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[13]",
+          "text": "",
+          "math_count": 1,
+          "style": "normal_text",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"normal_text\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"normal_text\"><w:name w:val=\"normal_text\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:ind w:firstLineChars=\"200\"/><w:jc w:val=\"both\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[15]",
+          "text": "LIST-MATH inline  retains ordered list numbering.",
+          "math_count": 1,
+          "style": "list_item",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"list_item\"/><w:numPr><w:ilvl w:val=\"0\"/><w:numId w:val=\"1001\"/></w:numPr></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"list_item\"><w:name w:val=\"list_item\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:jc w:val=\"both\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[18]",
+          "text": "表 2.2-1 TABLE-CAPTION-MATH inline \\frac{a+b}{c+d}",
+          "math_count": 0,
+          "style": "table_caption",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"table_caption\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"table_caption\"><w:name w:val=\"table_caption\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"100\" w:after=\"0\" w:line=\"360\" w:lineRule=\"auto\"/><w:jc w:val=\"center\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:tbl/w:tr[2]/w:tc[2]/w:p",
+          "text": "",
+          "math_count": 1,
+          "style": "table",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"table\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"table\"><w:name w:val=\"table\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"360\" w:lineRule=\"auto\"/><w:jc w:val=\"center\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"18\"/><w:szCs w:val=\"18\"/></w:rPr></w:style>"
+        }
+      ],
+      "after": [
+        {
+          "xpath": "/w:document/w:body/w:p[1]",
+          "text": "2.2 MATH-HEADING inline  allocation",
+          "math_count": 1,
+          "style": "heading2",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"heading2\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"heading2\"><w:name w:val=\"heading2\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:jc w:val=\"both\"/><w:outlineLvl w:val=\"1\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b/><w:bCs/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[3]",
+          "text": "INLINE-FRACTION 正文前  正文后。This tall nested inline fraction shares its paragraph with ordinary text.",
+          "math_count": 1,
+          "style": "normal_text",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"normal_text\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"normal_text\"><w:name w:val=\"normal_text\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:ind w:firstLineChars=\"200\"/><w:jc w:val=\"both\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[5]",
+          "text": "INLINE-SUPERSCRIPT-WRAPPED 正文前  正文后。This deliberately long prose paragraph provides enough natural text for line wrapping at normal report page widths. Its equation stays inline, and its paragraph stays ordinary prose rather than becoming a display equation. Additional surrounding Chinese prose keeps the line allocation diagnostic independent of one short formula: 本段用于检查自然换行后的行距，公式前后均保留普通文字，连续多行仍属于同一正文段落。",
+          "math_count": 1,
+          "style": "normal_text",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"normal_text\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"normal_text\"><w:name w:val=\"normal_text\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:ind w:firstLineChars=\"200\"/><w:jc w:val=\"both\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[7]",
+          "text": "",
+          "math_count": 1,
+          "style": "normal_text",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"normal_text\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"normal_text\"><w:name w:val=\"normal_text\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:ind w:firstLineChars=\"200\"/><w:jc w:val=\"both\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[10]",
+          "text": "",
+          "math_count": 1,
+          "style": "normal_text",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"normal_text\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"normal_text\"><w:name w:val=\"normal_text\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:ind w:firstLineChars=\"200\"/><w:jc w:val=\"both\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[13]",
+          "text": "",
+          "math_count": 1,
+          "style": "normal_text",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"normal_text\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"normal_text\"><w:name w:val=\"normal_text\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:ind w:firstLineChars=\"200\"/><w:jc w:val=\"both\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[15]",
+          "text": "LIST-MATH inline  retains ordered list numbering.",
+          "math_count": 1,
+          "style": "list_item",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"list_item\"/><w:numPr><w:ilvl w:val=\"0\"/><w:numId w:val=\"1001\"/></w:numPr></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"list_item\"><w:name w:val=\"list_item\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:jc w:val=\"both\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[18]",
+          "text": "表 2.2-1 TABLE-CAPTION-MATH inline \\frac{a+b}{c+d}",
+          "math_count": 0,
+          "style": "table_caption",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"table_caption\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"table_caption\"><w:name w:val=\"table_caption\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"100\" w:after=\"0\" w:line=\"360\" w:lineRule=\"auto\"/><w:jc w:val=\"center\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:tbl/w:tr[2]/w:tc[2]/w:p",
+          "text": "",
+          "math_count": 1,
+          "style": "table",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"table\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"table\"><w:name w:val=\"table\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"360\" w:lineRule=\"auto\"/><w:jc w:val=\"center\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"18\"/><w:szCs w:val=\"18\"/></w:rPr></w:style>"
+        }
+      ]
+    },
+    {
+      "operation": "StripAnchors",
+      "before": [
+        {
+          "xpath": "/w:document/w:body/w:p[1]",
+          "text": "2.2 MATH-HEADING inline  allocation",
+          "math_count": 1,
+          "style": "heading2",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"heading2\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"heading2\"><w:name w:val=\"heading2\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:jc w:val=\"both\"/><w:outlineLvl w:val=\"1\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b/><w:bCs/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[3]",
+          "text": "INLINE-FRACTION 正文前  正文后。This tall nested inline fraction shares its paragraph with ordinary text.",
+          "math_count": 1,
+          "style": "normal_text",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"normal_text\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"normal_text\"><w:name w:val=\"normal_text\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:ind w:firstLineChars=\"200\"/><w:jc w:val=\"both\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[5]",
+          "text": "INLINE-SUPERSCRIPT-WRAPPED 正文前  正文后。This deliberately long prose paragraph provides enough natural text for line wrapping at normal report page widths. Its equation stays inline, and its paragraph stays ordinary prose rather than becoming a display equation. Additional surrounding Chinese prose keeps the line allocation diagnostic independent of one short formula: 本段用于检查自然换行后的行距，公式前后均保留普通文字，连续多行仍属于同一正文段落。",
+          "math_count": 1,
+          "style": "normal_text",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"normal_text\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"normal_text\"><w:name w:val=\"normal_text\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:ind w:firstLineChars=\"200\"/><w:jc w:val=\"both\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[7]",
+          "text": "",
+          "math_count": 1,
+          "style": "normal_text",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"normal_text\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"normal_text\"><w:name w:val=\"normal_text\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:ind w:firstLineChars=\"200\"/><w:jc w:val=\"both\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[10]",
+          "text": "",
+          "math_count": 1,
+          "style": "normal_text",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"normal_text\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"normal_text\"><w:name w:val=\"normal_text\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:ind w:firstLineChars=\"200\"/><w:jc w:val=\"both\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[13]",
+          "text": "",
+          "math_count": 1,
+          "style": "normal_text",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"normal_text\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"normal_text\"><w:name w:val=\"normal_text\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:ind w:firstLineChars=\"200\"/><w:jc w:val=\"both\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[15]",
+          "text": "LIST-MATH inline  retains ordered list numbering.",
+          "math_count": 1,
+          "style": "list_item",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"list_item\"/><w:numPr><w:ilvl w:val=\"0\"/><w:numId w:val=\"1001\"/></w:numPr></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"list_item\"><w:name w:val=\"list_item\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:jc w:val=\"both\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[18]",
+          "text": "表 2.2-1 TABLE-CAPTION-MATH inline \\frac{a+b}{c+d}",
+          "math_count": 0,
+          "style": "table_caption",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"table_caption\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"table_caption\"><w:name w:val=\"table_caption\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"100\" w:after=\"0\" w:line=\"360\" w:lineRule=\"auto\"/><w:jc w:val=\"center\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:tbl/w:tr[2]/w:tc[2]/w:p",
+          "text": "",
+          "math_count": 1,
+          "style": "table",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"table\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"table\"><w:name w:val=\"table\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"360\" w:lineRule=\"auto\"/><w:jc w:val=\"center\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"18\"/><w:szCs w:val=\"18\"/></w:rPr></w:style>"
+        }
+      ],
+      "after": [
+        {
+          "xpath": "/w:document/w:body/w:p[1]",
+          "text": "2.2 MATH-HEADING inline  allocation",
+          "math_count": 1,
+          "style": "heading2",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"heading2\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"heading2\"><w:name w:val=\"heading2\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:jc w:val=\"both\"/><w:outlineLvl w:val=\"1\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b/><w:bCs/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[3]",
+          "text": "INLINE-FRACTION 正文前  正文后。This tall nested inline fraction shares its paragraph with ordinary text.",
+          "math_count": 1,
+          "style": "normal_text",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"normal_text\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"normal_text\"><w:name w:val=\"normal_text\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:ind w:firstLineChars=\"200\"/><w:jc w:val=\"both\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[5]",
+          "text": "INLINE-SUPERSCRIPT-WRAPPED 正文前  正文后。This deliberately long prose paragraph provides enough natural text for line wrapping at normal report page widths. Its equation stays inline, and its paragraph stays ordinary prose rather than becoming a display equation. Additional surrounding Chinese prose keeps the line allocation diagnostic independent of one short formula: 本段用于检查自然换行后的行距，公式前后均保留普通文字，连续多行仍属于同一正文段落。",
+          "math_count": 1,
+          "style": "normal_text",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"normal_text\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"normal_text\"><w:name w:val=\"normal_text\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:ind w:firstLineChars=\"200\"/><w:jc w:val=\"both\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[7]",
+          "text": "",
+          "math_count": 1,
+          "style": "normal_text",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"normal_text\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"normal_text\"><w:name w:val=\"normal_text\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:ind w:firstLineChars=\"200\"/><w:jc w:val=\"both\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[10]",
+          "text": "",
+          "math_count": 1,
+          "style": "normal_text",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"normal_text\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"normal_text\"><w:name w:val=\"normal_text\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:ind w:firstLineChars=\"200\"/><w:jc w:val=\"both\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[13]",
+          "text": "",
+          "math_count": 1,
+          "style": "normal_text",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"normal_text\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"normal_text\"><w:name w:val=\"normal_text\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:ind w:firstLineChars=\"200\"/><w:jc w:val=\"both\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[15]",
+          "text": "LIST-MATH inline  retains ordered list numbering.",
+          "math_count": 1,
+          "style": "list_item",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"list_item\"/><w:numPr><w:ilvl w:val=\"0\"/><w:numId w:val=\"1001\"/></w:numPr></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"list_item\"><w:name w:val=\"list_item\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"460\" w:lineRule=\"exact\"/><w:jc w:val=\"both\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:p[17]",
+          "text": "表 2.2-1 TABLE-CAPTION-MATH inline \\frac{a+b}{c+d}",
+          "math_count": 0,
+          "style": "table_caption",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"table_caption\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"table_caption\"><w:name w:val=\"table_caption\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"100\" w:after=\"0\" w:line=\"360\" w:lineRule=\"auto\"/><w:jc w:val=\"center\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"24\"/><w:szCs w:val=\"24\"/></w:rPr></w:style>"
+        },
+        {
+          "xpath": "/w:document/w:body/w:tbl/w:tr[2]/w:tc[2]/w:p",
+          "text": "",
+          "math_count": 1,
+          "style": "table",
+          "direct_pPr": "<w:pPr xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:m=\"http://schemas.openxmlformats.org/officeDocument/2006/math\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w10=\"urn:schemas-microsoft-com:office:word\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"><w:pStyle w:val=\"table\"/></w:pPr>",
+          "style_xml": "<w:style xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:type=\"paragraph\" w:styleId=\"table\"><w:name w:val=\"table\"/><w:basedOn w:val=\"Normal\"/><w:qFormat/><w:pPr><w:spacing w:before=\"0\" w:after=\"0\" w:line=\"360\" w:lineRule=\"auto\"/><w:jc w:val=\"center\"/></w:pPr><w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:eastAsia=\"&#23435;&#20307;\"/><w:b w:val=\"0\"/><w:bCs w:val=\"0\"/><w:i w:val=\"0\"/><w:iCs w:val=\"0\"/><w:sz w:val=\"18\"/><w:szCs w:val=\"18\"/></w:rPr></w:style>"
+        }
+      ]
+    }
+  ]
+}

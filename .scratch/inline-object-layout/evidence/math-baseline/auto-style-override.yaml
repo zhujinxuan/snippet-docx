@@ -1,0 +1,19 @@
+strategy: ecepdi
+section:
+  prefix: [2, 2]
+styles:
+  normal_text:
+    line_spacing: 1.8
+    line_spacing_rule: auto
+  heading2:
+    line_spacing: 1.8
+    line_spacing_rule: auto
+  list_item:
+    line_spacing: 1.8
+    line_spacing_rule: auto
+  table:
+    line_spacing: 1.8
+    line_spacing_rule: auto
+  table_caption:
+    line_spacing: 1.8
+    line_spacing_rule: auto

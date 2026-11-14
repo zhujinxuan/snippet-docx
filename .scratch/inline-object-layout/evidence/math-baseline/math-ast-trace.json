@@ -1,0 +1,120 @@
+{
+  "source": [
+    {
+      "ast_path": "$.blocks[0].c[2][4]",
+      "kind": "InlineMath",
+      "tex": "\\frac{a+b}{c+d}"
+    },
+    {
+      "ast_path": "$.blocks[2].c[4]",
+      "kind": "InlineMath",
+      "tex": "\\frac{\\frac{a+b}{c+d}+e}{\\frac{f+g}{h+i}+j}"
+    },
+    {
+      "ast_path": "$.blocks[4].c[4]",
+      "kind": "InlineMath",
+      "tex": "x^{n+1}+y^{2}+z^{k^{2}+1}"
+    },
+    {
+      "ast_path": "$.blocks[6].c[0]",
+      "kind": "DisplayMath",
+      "tex": "\\frac{\\frac{a+b}{c+d}+e}{\\frac{f+g}{h+i}+j}"
+    },
+    {
+      "ast_path": "$.blocks[9].c[0]",
+      "kind": "DisplayMath",
+      "tex": "\\begin{pmatrix}a & b \\\\ c & d \\\\ e & f\\end{pmatrix}"
+    },
+    {
+      "ast_path": "$.blocks[12].c[0]",
+      "kind": "DisplayMath",
+      "tex": "\\sum_{i=1}^{n} x_i + \\int_{0}^{1} f(x)\\,dx + \\prod_{j=1}^{m} y_j"
+    },
+    {
+      "ast_path": "$.blocks[14].c[1][0][0].c[4]",
+      "kind": "InlineMath",
+      "tex": "\\frac{a+b}{c+d}"
+    },
+    {
+      "ast_path": "$.blocks[16].c[1][1][0].c[4]",
+      "kind": "InlineMath",
+      "tex": "\\frac{a+b}{c+d}"
+    },
+    {
+      "ast_path": "$.blocks[16].c[4][0][3][0][1][1][4][0].c[0]",
+      "kind": "InlineMath",
+      "tex": "\\frac{a+b}{c+d}"
+    }
+  ],
+  "emitted": [
+    {
+      "ast_path": "$.blocks[0].c[2][6]",
+      "kind": "InlineMath",
+      "tex": "\\frac{a+b}{c+d}"
+    },
+    {
+      "ast_path": "$.blocks[2].c[4]",
+      "kind": "InlineMath",
+      "tex": "\\frac{\\frac{a+b}{c+d}+e}{\\frac{f+g}{h+i}+j}"
+    },
+    {
+      "ast_path": "$.blocks[4].c[4]",
+      "kind": "InlineMath",
+      "tex": "x^{n+1}+y^{2}+z^{k^{2}+1}"
+    },
+    {
+      "ast_path": "$.blocks[6].c[0]",
+      "kind": "DisplayMath",
+      "tex": "\\frac{\\frac{a+b}{c+d}+e}{\\frac{f+g}{h+i}+j}"
+    },
+    {
+      "ast_path": "$.blocks[9].c[0]",
+      "kind": "DisplayMath",
+      "tex": "\\begin{pmatrix}a & b \\\\ c & d \\\\ e & f\\end{pmatrix}"
+    },
+    {
+      "ast_path": "$.blocks[12].c[0]",
+      "kind": "DisplayMath",
+      "tex": "\\sum_{i=1}^{n} x_i + \\int_{0}^{1} f(x)\\,dx + \\prod_{j=1}^{m} y_j"
+    },
+    {
+      "ast_path": "$.blocks[14].c[1][0][0].c[4]",
+      "kind": "InlineMath",
+      "tex": "\\frac{a+b}{c+d}"
+    },
+    {
+      "ast_path": "$.blocks[16].c[1][1][0].c[4]",
+      "kind": "InlineMath",
+      "tex": "\\frac{a+b}{c+d}"
+    },
+    {
+      "ast_path": "$.blocks[16].c[4][0][3][0][1][1][4][0].c[0]",
+      "kind": "InlineMath",
+      "tex": "\\frac{a+b}{c+d}"
+    }
+  ],
+  "figure-caption-source": [
+    {
+      "ast_path": "$.blocks[3].c[1][1][0].c[4]",
+      "kind": "InlineMath",
+      "tex": "\\frac{a+b}{c+d}"
+    },
+    {
+      "ast_path": "$.blocks[3].c[2][0].c[0].c[1][4]",
+      "kind": "InlineMath",
+      "tex": "\\frac{a+b}{c+d}"
+    }
+  ],
+  "figure-caption-emitted": [
+    {
+      "ast_path": "$.blocks[3].c[1][1][0].c[4]",
+      "kind": "InlineMath",
+      "tex": "\\frac{a+b}{c+d}"
+    },
+    {
+      "ast_path": "$.blocks[3].c[2][0].c[0].c[1][4]",
+      "kind": "InlineMath",
+      "tex": "\\frac{a+b}{c+d}"
+    }
+  ]
+}

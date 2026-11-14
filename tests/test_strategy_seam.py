@@ -439,7 +439,8 @@ def test_yaml_key_produces_testhouse_style_through_same_pipeline(
     assert _pstyle(children[caption_at["Table 2-1:"]]) == "table_caption"
     assert _pstyle(children[caption_at["Table 2-2:"]]) == "table_caption"
     assert _pstyle(children[caption_at["Figure 2-1:"]]) == "figure_caption"
-    assert _pstyle(children[image_at]) == "figure_caption"  # centered image
+    assert _pstyle(children[image_at]) != _pstyle(
+        children[caption_at["Figure 2-1:"]])
     overview = next(i for i, el in enumerate(children)
                     if "Overview" in _p_text(el))
     wind = next(i for i, el in enumerate(children) if "Wind data" in _p_text(el))
@@ -448,6 +449,8 @@ def test_yaml_key_produces_testhouse_style_through_same_pipeline(
 
     # style defaults are strategy-owned: 仿宋 captions, bold table captions
     by_id = _styles_by_id(final_docx)
+    image_style = by_id[_pstyle(children[image_at])]
+    assert _attr(image_style, f"{W}pPr/{W}jc", f"{W}val") == "center"
     table_caption = by_id["table_caption"]
     assert _attr(table_caption, f"{W}rPr/{W}rFonts", f"{W}eastAsia") == "仿宋"
     assert table_caption.find(f"{W}rPr/{W}b") is not None
